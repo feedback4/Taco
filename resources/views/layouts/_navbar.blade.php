@@ -74,9 +74,10 @@
                         <i class="fa fa-fw fa-power-off"></i>
                         Log Out
                     </a>
-                    <form id="logout-form" action="http://www.taco.test/logout" method="POST"
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
                           style="display: none;">
-                        <input type="hidden" name="_token" value="7L6mHsRSyMsVbzBg26D9bf2O4gCgjVtmZqn5Dg1H">
+                        @csrf
+
                     </form>
                 </li>
 
@@ -88,3 +89,4 @@
     </ul>
 
 </nav>
+

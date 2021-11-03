@@ -17,7 +17,7 @@ class CreateElementFormulaTable extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\Formula::class);
             $table->foreignIdFor(\App\Models\Element::class);
-            $this->string('amount');
+            $table->string('amount');
         });
     }
 
