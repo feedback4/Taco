@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Feedback;
 
 use App\Http\Controllers\Controller;
-use App\Models\Feedback\Admin;
+use App\Models\Admin;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -21,35 +22,36 @@ class AuthController extends Controller
 
     public function __construct()
     {
-
-   //     $this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except('logout');
         $this->middleware('guest:admin')->except('logout');
     }
 
-    public function index()
+
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showLoginForm()
     {
         return view('feedback.auth.login');
     }
 
-
-    public function customLogin(Request $request)
+    public function login(Request $request)
     {
-        $request->validate([
-            'email' => 'required',
-            'password' => 'required',
-        ]);
+        dd('go');
+        $this->validateLogin($request);
+
 //     $o =   DB::connection('landlord')->table('admins')->where('email',$request['email'])->exists();
 //     if($o){
 //          DB::connection('landlord')->table('admins')->where('email',$request['email'])->select('password');
 //         Hash::check('','');
 //     }
      //  dd(Hash::make('feedback'));
-
-
-
+        dd('go');
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
 
-            return redirect()->intended('/feedback/a');
+            return redirect()->intended('/feedback/dashboard');
         }
         return back()->withInput($request->only('email', 'remember'));
 
@@ -62,47 +64,22 @@ class AuthController extends Controller
 //        return redirect("feedback/login")->withSuccess('Login details are not valid');
     }
 
-
-
-    public function register()
+    /**
+     * Validate the user login request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function validateLogin(Request $request)
     {
-        return view('feedback.auth.register');
-    }
-
-
-    public function customRegistration(Request $request)
-    {
-       // dd($this->tenantDatabaseConnectionName());
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:Admins',
-            'password' => 'required|min:6',
-        ]);
-
-        $data = $request->all();
-
-
-        $check = $this->create($data);
-
-        return redirect("feedback/dashboard")->withSuccess('You have signed-in');
-    }
-
-
-    public function create(array $data)
-    {
-      //  Landlord::execute(fn () => Artisan::call('migrate:fresh --path=database/migrations/landlord --database=landlord --seed'));
-
-        return Admin::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password'])
+            $this->username() => 'required|string',
+            'password' => 'required|string',
+          //  '2fa' => 'required|string',
         ]);
     }
 
-    public function signOut() {
-        Session::flush();
-        Auth::guard('admin')->logout();
 
-        return Redirect('feedback.login');
-    }
 }

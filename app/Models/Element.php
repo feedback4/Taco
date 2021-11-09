@@ -13,16 +13,14 @@ class Element extends Model
         'name',
         'unit',
         'category_id'
-
     ];
-
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
-    public function formula()
+    public function formulas()
     {
-        return $this->belongsToMany(Formula::class,'element_formula');
+        return $this->belongsToMany(Formula::class,'element_formula')->withTimestamps();
     }
 
     public static function search($search)
@@ -30,7 +28,7 @@ class Element extends Model
         return empty($search) ? static::query()
             : static::query()->where('id', 'like', '%'.$search.'%')
                 ->orWhere('name', 'like', '%'.$search.'%')
-                ->orWhere('unit', 'like', '%'.$search.'%')
+                ->orWhere('code', 'like', '%'.$search.'%')
                 ->orWhereHas('category', fn($q) => $q->where('name','like', '%'.$search.'%')->orWhere('type','like', '%'.$search.'%'));
     }
 }

@@ -4,7 +4,7 @@
     <h1>All Roles</h1>
 @stop
 @section('content')
-    <div class="container">
+
         <div class="row justify-content-center">
             <div class="col-md-12">
                 @can('role-create')
@@ -66,6 +66,6 @@
                 {{ $roles->links() }}
             </div>
         </div>
-    </div>
+
 @endsection
 

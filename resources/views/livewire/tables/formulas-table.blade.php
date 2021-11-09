@@ -32,7 +32,7 @@
                 <thead>
                 <th class="border  py-2">ID</th>
                 <th class="border  py-2">Name</th>
-                <th class="border  py-2">Unit</th>
+                <th class="border  py-2">Code</th>
                 <th class="border  py-2">Category</th>
                 <th class="border  py-2">Edit</th>
                 <th class="border  py-2">Delete</th>
@@ -41,7 +41,7 @@
                 @foreach($formulas as $formula)
                     <tr>
                         <td class="border  py-2">{{$formula->id}} </td>
-                        <td class="border  py-2">{{$formula->name}}</td>
+                        <td class="border  py-2"><a href="{{route('formulas.show',$formula->id)}}">{{$formula->name}}</a></td>
                         <td class="border  py-2">{{$formula->code}} </td>
                         <td class="border  py-2">
                             @if($formula->category)

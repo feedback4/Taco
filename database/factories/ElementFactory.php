@@ -15,8 +15,9 @@ class ElementFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'unit' => $this->faker->randomElement(),
-            'category_id' => rand(1,50),
+            'code' => $this->faker->randomElement(),
+
+            'category_id' => rand(1,10),
         ];
     }
 }

@@ -9,18 +9,21 @@
                     <div class="card">
                         <h3 class="card-header text-center">Login</h3>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('feedback.login.custom') }}">
+                            <form method="POST" action="{{ route('feedback.login') }}">
                                 @csrf
                                 <div class="form-group mb-3">
-                                    <input type="text" placeholder="Email" id="email" class="form-control" name="email" required
+                                    <input type="text" placeholder="Email" id="email" class="form-control @error('email') is-invalid @enderror" name="email" required
                                            autofocus>
+                                    @error('email')
+                                         {{ $message }}
+                                    @enderror
                                     @if ($errors->has('email'))
                                         <span class="text-danger">{{ $errors->first('email') }}</span>
                                     @endif
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <input type="password" placeholder="Password" id="password" class="form-control" name="password" required>
+                                    <input type="password" placeholder="Password" id="password" class="form-control @error('password') is-invalid @enderror" name="password" required>
                                     @if ($errors->has('password'))
                                         <span class="text-danger">{{ $errors->first('password') }}</span>
                                     @endif

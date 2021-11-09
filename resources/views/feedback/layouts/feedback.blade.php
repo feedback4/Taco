@@ -33,7 +33,7 @@
 
 
     <div class="content-wrapper " style="min-height: 404px;">
-
+        @include('feedback.layouts._navbar')
 
         <div class="content-header">
             <div class="container-fluid">

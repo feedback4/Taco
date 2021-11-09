@@ -17,44 +17,49 @@ use Illuminate\Support\Facades\Route;
 
 
 
+//
+
+Route::domain('www.taco.test')->group(function () {
 
 
-Route::middleware('tenant')->group(function() {
+    Route::group([
+      //  'namespace' => 'Feedback',
+        'prefix' => 'feedback',
+        'as' => 'feedback.',
+//'middleware' => ['adminauth']
+    ], function () {
 
-    Auth::routes([
-        'register' => false, // Registration Routes...
-        'reset' => false, // Password Reset Routes...
-        'verify' => false, // Email Verification Routes...
-    ]);
+     //   Auth::routes();
+        Route::get('/', [\App\Http\Controllers\Auth\LoginController::class ,'showAdminLoginForm']);
 
-
-    Route::group(['middleware'=>['auth:web','active']],function (){
-
-
-        Route::get('/', function () {
-//            dd(Request::getHost());
-//            dd(    Spatie\Multitenancy\Models\Tenant::where('domain'));
-            return view('home');
-        })->name('home');
+        Route::post('/login-check', [\App\Http\Controllers\Auth\LoginController::class ,'adminLogin'])->name('login');
+   //     Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
+   //     Route::view('/home', 'home')->middleware('auth');
 
 
-        Route::get('roles/permissions',[\App\Http\Controllers\RolesController::class,'permissions'])->name('roles.permissions');
-        Route::post('roles/permissions',[\App\Http\Controllers\RolesController::class,'permissionsCreate']);
-        Route::delete('permission/delete/{id}',[\App\Http\Controllers\RolesController::class,'permissionsDelete'])->name('permission.delete');
+//        Route::get('login', [\App\Http\Controllers\Feedback\AuthController::class, 'showLoginForm'])->name('login');
+//        Route::post('custom-login', [\App\Http\Controllers\Feedback\AuthController::class, 'login'])->name('login.custom');
+//
+//        Route::get('registration', [\App\Http\Controllers\Feedback\RegisterController::class, 'register'])->name('register-user');
+//        Route::post('custom-registration', [\App\Http\Controllers\Feedback\RegisterController::class, 'customRegistration'])->name('register.custom');
+//
+//        Route::post('complete-registration', [\App\Http\Controllers\Feedback\RegisterController::class, 'completeRegistration'])->name('complete.register');
+//        Route::post('/2fa', function () {
+//            return redirect(URL()->previous());
+//        })->name('2fa')->middleware('2fa');
 
-      //  Route::get('categories',[\App\Http\Controllers\CategoriesController::class,'index'])->name('categories');
-        Route::get('elements',[\App\Http\Controllers\ElementsController::class,'index'])->name('elements.index');
-        Route::get('categories',[\App\Http\Controllers\CategoriesController::class,'index'])->name('categories.index');
-        Route::get('elements/{id}',[\App\Http\Controllers\ElementsController::class,'show'])->name('elements.show');
-        Route::get('categories/{id}',[\App\Http\Controllers\CategoriesController::class,'show'])->name('categories.show');
+        Route::group([
+            'middleware' => ['auth:admin']
+        ], function () {
 
-        Route::resource('users',\App\Http\Controllers\UsersController::class);
-        Route::resource('roles',\App\Http\Controllers\RolesController::class);
+            Route::get('/dashboard',[\App\Http\Controllers\Feedback\AdminsController::class,'dashboard'])->name('dashboard');
+            Route::post('logout', [\App\Http\Controllers\Feedback\AdminsController::class, 'logout'])->name('logout');
 
-        Route::resource('formulas',\App\Http\Controllers\FormulasController::class);
-
-
-
-
+            Route::resource('tenants',\App\Http\Controllers\Feedback\TenantsController::class);
+            Route::resource('admins',\App\Http\Controllers\Feedback\AdminsController::class);
+            Route::resource('roles',\App\Http\Controllers\Feedback\RolesController::class);
+        });
     });
-}); // end of tenant middleware
+});
+
+

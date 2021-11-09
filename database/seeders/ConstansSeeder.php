@@ -23,7 +23,9 @@ class ConstansSeeder extends Seeder
 
         $this->permissions = [
             'dashboard',
-            'messages',
+            'production',
+            'inventory',
+            'accounting',
             'role-show',
             'role-edit',
             'role-create',
@@ -36,6 +38,14 @@ class ConstansSeeder extends Seeder
             'product-edit',
             'product-create',
             'product-delete',
+            'element-show',
+            'element-edit',
+            'element-create',
+            'element-delete',
+            'formula-show',
+            'formula-edit',
+            'formula-create',
+            'formula-delete',
         ];
         foreach ($this->permissions as $permission){
             Permission::findOrCreate($permission);
@@ -83,8 +93,6 @@ class ConstansSeeder extends Seeder
             'password'=>$password,
         ]);
         $user->assignRole($role3);
-
-
 
     }
 }

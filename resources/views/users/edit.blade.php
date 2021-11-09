@@ -6,7 +6,7 @@
     <h1>Edit User</h1>
 @stop
 @section('content')
-    <div class="container">
+
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <a href="{{route('users.index')}}">Manage Users</a>
@@ -77,7 +77,7 @@
                 </form>
             </div>
         </div>
-    </div>
+
 @endsection
 
 

@@ -12,6 +12,7 @@ class Inventory extends Model
     protected $fillable = [
         'name',
         'location',
+        'manager',
 
     ];
 
@@ -24,5 +25,8 @@ class Inventory extends Model
     {
         return $this->hasMany(Item::class);
     }
-
+    public function elements ()
+    {
+        return $this->hasManyThrough(Element::class,Item::class);
+    }
 }

@@ -38,12 +38,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('feedback.login') }}">Login</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('feedback.register-user') }}">Register</a>
-                        </li>
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('feedback.signout') }}">Logout</a>
+                            <a class="nav-link" href="{{ route('feedback.logout') }}">Logout</a>
                         </li>
                     @endguest
                 </ul>

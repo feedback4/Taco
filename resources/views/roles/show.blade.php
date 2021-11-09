@@ -3,7 +3,7 @@
     <h1>Role {{$role->name}}</h1>
 @stop
 @section('content')
-    <div class="container">
+
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <a href="{{route('roles.index')}}">Manage Roles</a>
@@ -23,8 +23,6 @@
                     @endforeach
                 </p> <hr>
 
-
-
                 <div class="d-flex ">
                     @can('role-edit')
                     <a href="{{ route('roles.edit',$role->id) }}" class="btn btn-info o">edit</a>
@@ -37,10 +35,8 @@
                     </form>
                         @endcan
                 </div>
-
-
             </div>
         </div>
-    </div>
+
 @endsection
 

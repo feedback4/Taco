@@ -22,7 +22,7 @@ class Formula extends Model
     }
     public function elements ()
     {
-        return $this->belongsToMany(Element::class,'element_formula')->withPivot('amount');
+        return $this->belongsToMany(Element::class,'element_formula')->withPivot('amount')->withTimestamps();
     }
     public function product()
     {

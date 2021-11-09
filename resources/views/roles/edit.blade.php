@@ -4,7 +4,7 @@
     <h1>Edit Role</h1>
 @stop
 @section('content')
-    <div class="container">
+
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <a href="{{route('roles.index')}}">Manage Roles</a>
@@ -46,6 +46,6 @@
                 </form>
             </div>
         </div>
-    </div>
+
 @endsection
 

@@ -42,6 +42,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
 
 
+
         ],
         'admin' => [
             \App\Http\Middleware\EncryptCookies::class,
@@ -50,6 +51,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+
         ],
 
         'api' => [
@@ -57,11 +59,7 @@ class Kernel extends HttpKernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
-        'tenant' => [
 
-            \Spatie\Multitenancy\Http\Middleware\NeedsTenant::class,
-            \Spatie\Multitenancy\Http\Middleware\EnsureValidTenantSession::class,
-        ]
     ];
 
     /**
@@ -86,7 +84,8 @@ class Kernel extends HttpKernel
         'role' =>  RoleMiddleware::class,
 
         'active' => IsActive::class,
+        '2fa' => \PragmaRX\Google2FALaravel\Middleware::class,
 
-        'adminauth' => \App\Http\Middleware\Feedback\AdminAuthenticated::class,
+      //  'adminauth' => \App\Http\Middleware\Feedback\AdminAuthenticated::class,
     ];
 }

@@ -51,7 +51,7 @@ class ElementForm extends Component
                     ['type' => 'info',  'message' => 'The name has already been taken.']);
                 return back();
             }
-            $category =  Category::create($validated);
+            $category =  Element::create($validated);
             $this->emit('alert',
                 ['type' => 'success',  'message' => 'Element Created Successfully!']);
         }

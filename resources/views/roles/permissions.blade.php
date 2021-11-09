@@ -3,7 +3,7 @@
     <h1>All Permissions</h1>
 @stop
 @section('content')
-    <div class="container">
+
         <div class="row justify-content-center">
             <div class="col-md-12">
 
@@ -22,7 +22,7 @@
                 @endforeach
             </div>
         </div>
-    </div>
+
 
 
 
