@@ -18,6 +18,7 @@ return [
      */
     'central_domains' => [
         'www.taco.test',
+        'feedback.blackbox.host'
     ],
 
     /**
