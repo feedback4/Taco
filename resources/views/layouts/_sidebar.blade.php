@@ -42,7 +42,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-item has-treeview menu-is-opening menu-open">
+                <li class="nav-item has-treeview ">
                     <a class="nav-link  " href="">
                         <i class="bx bx-atom bx-xs"></i>
                         <p>
@@ -50,7 +50,7 @@
                             <i class='bx bxs-left-arrow right' ></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview" style="display: block;">
+                    <ul class="nav nav-treeview" >
                         <li class="nav-item">
                             <a class="nav-link  " href="{{route('formulas.index')}}">
                                 <p>
@@ -73,6 +73,70 @@
                             </a>
                         </li>
                     </ul>
+                </li>
+                <li class="nav-item has-treeview ">
+                    <a class="nav-link  " href="">
+                        <i class='bx bx-network-chart bx-xs'></i>
+                        <p>
+                            Production
+                            <i class='bx bxs-left-arrow right' ></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview" >
+                        <li class="nav-item">
+                            <a class="nav-link  " href="{{route('404')}}">
+                                <p>
+                                    Manage Production
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  " href="{{route('404')}}">
+                                <p>
+                                    Manage Products
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  " href="{{route('404')}}">
+                                <p>
+                                    Manage Projects
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  " href="{{route('inventory')}}">
+                        <i class='bx bx-box bx-xs' ></i>
+                        <p>
+                            Inventory
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  " href="{{route('accounting')}}">
+                        <i class='bx bx-line-chart bx-xs' ></i>
+                        <p>
+                            Accounting
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  " href="{{route('dropbox')}}">
+                        <p>
+                            <i class='bx bxl-dropbox bx-xs' ></i>
+                            Dropbox
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  " href="{{route('setting')}}">
+                        <p>
+                            <i class='bx bx-cog bx-xs' ></i>
+                            Setting
+                        </p>
+                    </a>
                 </li>
 
             </ul>

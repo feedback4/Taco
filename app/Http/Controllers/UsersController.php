@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\UsersDataTable;
 use App\Models\User;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -28,18 +29,15 @@ class UsersController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param UsersDataTable $dataTable
-     * @return \Illuminate\Http\Response
+     * @param
+     * @return View
      */
-    public function index(UsersDataTable $dataTable)
+    public function index( )
     {
         $users = User::with(['roles'=>fn($q)=>$q->select('id','name')])->orderBy('id','DESC')->paginate(5);
-        // $roleId = DB::table('roles')->where('name',$request->input('role'))->value('id');
-
 
       return view('users.index',compact('users'));
-     //   dd($dataTable);
-     //  return $dataTable->render('users.index');
+
     }
 
     /**
@@ -57,8 +55,9 @@ class UsersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {

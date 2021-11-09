@@ -14,7 +14,7 @@ try {
     // require('datatables.net-bs4');
     // require('datatables.net-buttons-bs4');
     require('select2');
-    $('select').select2();
+    $('.select2').select2();
 } catch (e) {}
 
 /**

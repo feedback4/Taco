@@ -14,7 +14,7 @@ class FormulasTable extends Component
     public $perPage = 10;
     public $search = '';
     public $orderBy = 'id';
-    public $orderAsc = true;
+    public $orderAsc = false;
 
     public function render()
     {

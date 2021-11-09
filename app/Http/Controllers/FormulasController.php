@@ -15,8 +15,8 @@ class FormulasController extends Controller
      */
     public function index()
     {
-        $formulas = Formula::orderBy('id','DESC')->paginate(20);
-        return view('formulas.index',compact('formulas'));
+       // $formulas = Formula::orderBy('id','DESC')->paginate(20);
+        return view('formulas.index');
     }
 
     /**
@@ -45,12 +45,15 @@ class FormulasController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Formula  $formula
+     * @param  \App\Models\Formula  $formul
      * @return \Illuminate\Http\Response
      */
     public function show(Formula $formula)
     {
-        //
+        $formula = Formula::where('id',$formula->id)->with('elements')->first();
+
+
+       return view('formulas.show',compact('formula'));
     }
 
     /**

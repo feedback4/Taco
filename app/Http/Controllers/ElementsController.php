@@ -14,8 +14,8 @@ class ElementsController extends Controller
      */
     public function index()
     {
-        $elements = Element::orderBy('id','DESC')->paginate(20);
-        return view('formulas.elements.index',compact('elements'));
+     //   $elements = Element::orderBy('id','DESC')->paginate(20);
+        return view('formulas.elements.index');
     }
 
     /**
