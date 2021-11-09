@@ -17,8 +17,7 @@ return [
      * Only relevant if you're using the domain or subdomain identification middleware.
      */
     'central_domains' => [
-        'www.taco.test',
-        'feedback.blackbox.host'
+        'feedback.blackbox.host',
     ],
 
     /**
