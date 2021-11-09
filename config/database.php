@@ -55,7 +55,7 @@ return [
             'database' => 'feedback',
             'host' => '127.0.0.1',
             'username' => 'root',
-            'password' => '',
+            'password' => env('DB_PASSWORD',''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
