@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 //
 
-Route::domain('www.taco.test')->group(function () {
+Route::domain('feedback.blackbox.host')->group(function () {
 
 
     Route::group([
