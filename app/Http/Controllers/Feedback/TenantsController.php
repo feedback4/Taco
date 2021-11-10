@@ -62,7 +62,7 @@ class TenantsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Feedback\Tenant  $tenant
+     * @param Tenant $tenant
      * @return RedirectResponse
      */
     public function show(Tenant $tenant)
@@ -73,7 +73,7 @@ class TenantsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Feedback\Tenant  $tenant
+     * @param Tenant $tenant
      * @return \Illuminate\Http\Response
      */
     public function edit(Tenant $tenant)
@@ -85,7 +85,7 @@ class TenantsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Feedback\Tenant  $tenant
+     * @param Tenant $tenant
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Tenant $tenant)
@@ -96,12 +96,13 @@ class TenantsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Feedback\Tenant  $tenant
+     * @param Tenant $tenant
      * @return RedirectResponse
+     * @throws \Throwable
      */
-    public function destroy(Tenant $tenant)
+    public function destroy(Tenant $tenant): RedirectResponse
     {
         $tenant->deleteOrFail();
-        return redirect()->back();
+        return redirect()->route('feedback.tenants.index');
     }
 }

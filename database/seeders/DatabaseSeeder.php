@@ -53,11 +53,11 @@ class DatabaseSeeder extends Seeder
     /** @var  $factory */
     public function runLandlordSpecificSeeders()
     {
-
-        Admin::factory()->create([
-                'name' => 'ahmed badr',
-                'email' => 'a@mail.com',
-                'password' => Hash::make('feedback')
-            ]);
+//        Admin::factory()->create([
+//                'name' => 'ahmed badr',
+//                'email' => 'a@mail.com',
+//                'password' => Hash::make('feedback')
+//            ]);
+        $this->call(FeedbackPermissionSeeder::class);
     }
 }

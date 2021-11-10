@@ -16,7 +16,8 @@ class Admin extends Authenticatable
 
     //  protected $table = 'admins';
 
-      protected $guard = 'admin';
+    protected $guard_name = 'admin';
+    protected $guard = 'admin';
     /**
      * The attributes that are mass assignable.
      *
@@ -46,10 +47,10 @@ class Admin extends Authenticatable
     /**
      * Ecrypt the user's google_2fa secret.
      *
-     * @param  string  $value
+     * @param string $value
      * @return string
      */
-    public function setGoogle2faSecretAttribute($value)
+    public function setGoogle2faSecretAttribute(string $value): string
     {
         $this->attributes['google2fa_secret'] = encrypt($value);
     }
@@ -57,10 +58,10 @@ class Admin extends Authenticatable
     /**
      * Decrypt the user's google_2fa secret.
      *
-     * @param  string  $value
+     * @param string $value
      * @return string
      */
-    public function getGoogle2faSecretAttribute($value)
+    public function getGoogle2faSecretAttribute(string $value): string
     {
         return decrypt($value);
     }

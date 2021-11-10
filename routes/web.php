@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 //
 
 Route::domain('feedback.blackbox.host')->group(function () {
-
+    Route::domain(    'www.taco.test')->group(function () {
 
     Route::group([
       //  'namespace' => 'Feedback',
@@ -46,20 +46,26 @@ Route::domain('feedback.blackbox.host')->group(function () {
 //        Route::post('complete-registration', [\App\Http\Controllers\Feedback\RegisterController::class, 'completeRegistration'])->name('complete.register');
 //        Route::post('/2fa', function () {
 //            return redirect(URL()->previous());
-//        })->name('2fa')->middleware('2fa');
+//        })->name('2fa')->middleware('2fa');  Purchasing
 
         Route::group([
             'middleware' => ['auth:admin']
         ], function () {
 
             Route::get('/dashboard',[\App\Http\Controllers\Feedback\AdminsController::class,'dashboard'])->name('dashboard');
+            Route::get('/admins',[\App\Http\Controllers\Feedback\AdminsController::class,'index'])->name('admins.index');
+            Route::get('/admins/{id}',[\App\Http\Controllers\Feedback\AdminsController::class,'show'])->name('admins.show');
+            Route::get('/invite',[\App\Http\Controllers\Feedback\AdminsController::class,'invite'])->name('invite');
+            Route::get('/send/invitation',[\App\Http\Controllers\Feedback\AdminsController::class,'send'])->name('send.invitation');
+
             Route::post('logout', [\App\Http\Controllers\Feedback\AdminsController::class, 'logout'])->name('logout');
 
             Route::resource('tenants',\App\Http\Controllers\Feedback\TenantsController::class);
-            Route::resource('admins',\App\Http\Controllers\Feedback\AdminsController::class);
+          //  Route::resource('admins',\App\Http\Controllers\Feedback\AdminsController::class);
             Route::resource('roles',\App\Http\Controllers\Feedback\RolesController::class);
         });
     });
+});
 });
 
 

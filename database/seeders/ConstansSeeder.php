@@ -48,16 +48,16 @@ class ConstansSeeder extends Seeder
             'formula-delete',
         ];
         foreach ($this->permissions as $permission){
-            Permission::findOrCreate($permission);
+            Permission::create(['guard_name'=>'web','name'=>$permission]);
         }
 
-        $role1 = Role::findOrCreate('editor');
+        $role1 = Role::create(['guard_name'=>'web','name'=>'editor']);
         $role1->givePermissionTo('role-show');
         $role1->givePermissionTo('user-show');
         $role1->givePermissionTo('product-show');
         $role1->givePermissionTo('dashboard');
 
-        $role2 = Role::findOrCreate('admin');
+        $role2 = Role::create(['guard_name'=>'web','name'=>'admin']);
         $role2->givePermissionTo('role-create');
         $role2->givePermissionTo('role-delete');
         $role2->givePermissionTo('user-create');
@@ -66,7 +66,7 @@ class ConstansSeeder extends Seeder
         $role2->givePermissionTo('product-show');
         $role2->givePermissionTo('dashboard');
 
-        $role3 = Role::findOrCreate('Feedback');
+        $role3 = Role::create(['guard_name'=>'web','name'=>'Feedback']);
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 
         // create demo users

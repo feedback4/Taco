@@ -3,14 +3,22 @@
 namespace App\Http\Controllers\Feedback;
 
 use App\Http\Controllers\Controller;
-use App\Models\Element;
+use App\Models\Admin;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
+use Illuminate\Support\Facades\DB;
 
 class RolesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:admin');
+        $this->middleware('permission:role-show|role-create|role-edit|role-delete',['only'=>['index','show']]);
+        $this->middleware('permission:role-create',['only'=>['create','store']]);
+        $this->middleware('permission:role-edit',['only'=>['update','edit']]);
+        $this->middleware('permission:role-delete',['only'=>['destroy']]);
+        $this->middleware('permission:permissions',['only'=>['permissions','permissionsCreate','permissionsDelete']]);
     }
 
     /**
@@ -18,20 +26,25 @@ class RolesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $elements = Element::orderBy('id','DESC')->paginate(20);
-        return view('formulas.elements.index',compact('elements'));
+        //
+        $roles = Role::whereNotIn('name', ['client'])->orderBy('id','DESC')->paginate(5);
+
+        return view('feedback.roles.index',compact('roles'))->with('i',($request->input('page',1)-1)*5);
+
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\CategoriesController
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+
+        $permissions = Permission::getPermissions();
+        return view('feedback.roles.create',compact('permissions'));
     }
 
     /**
@@ -42,51 +55,108 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request);
+        $this->validate($request,[
+            'name'=>'required|unique:roles,name',
+            'price'=>'required',
+            'zone' => '',
+            'state' => 'required'
+        ]);
+        $input = $request->all();
+
+        $role =Role::findOrCreate($request->input('name'));
+        $role->syncPermissions($request->input('permissions'));
+        return redirect()->route('feedback.roles.index')->with('success','Role Created Successfully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Element  $element
-     * @return \Illuminate\Http\Response
+     * @param  int  $id
+     *
      */
-    public function show(Element $element)
+    public function show($id)
     {
-        //
+        $role = Role::findById($id);
+        $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")->where("role_has_permissions.role_id",$id)->get();
+        return view('feedback.roles.show',compact('role','rolePermissions'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Element  $element
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Element $element)
+    public function edit($id)
     {
         //
+        $role = Role::findById($id);
+        $permissions = Permission::get();
+        $rolePermissions =Db::table("role_has_permissions")->where('role_has_permissions.role_id',$id)->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')->all();
+        return view('feedback.roles.edit',compact('role','permissions','rolePermissions'));
+
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Element  $element
-     * @return \Illuminate\Http\Response
+     * @param  int  $id
+     *
      */
-    public function update(Request $request, Element $element)
+    public function update(Request $request, $id)
     {
         //
+        //
+        $this->validate($request,[
+            'name'=>'required',
+
+        ]);
+
+        $role = Role::find($id);
+        // dd($role);
+
+        $role->name =$request->input('name');
+        $role->save();
+        $role->syncPermissions($request->input('permissions'));
+
+        return redirect()->route('feedback.roles.index')->with('success','Role Updated Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Element  $element
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Element $element)
+    public function destroy($id)
     {
         //
+        DB::table('roles')->where('id',$id)->delete();
+        return redirect()->route('feedback.roles.index')->with('success','Role Deleted Successfully');
+    }
+
+    public function permissions(){
+        $permissions = Permission::getPermissions();
+        //$roles = Role::
+        return view('feedback.roles.permissions',compact('permissions'));
+    }
+    public function permissionsCreate(Request $request){
+        $this->validate($request,[
+            'name'=>'required|unique:permissions,name',
+        ]);
+        $input = $request->all();
+
+        // dd($input['name']);
+        Permission::create(['name' => $input['name']]);
+
+        return redirect()->back()->with('success','Permission Created Successfully');
+    }
+    public function permissionsDelete(int $id)
+    {
+        $permission = Permission::findById($id);
+        $permission->delete();
+        return redirect()->back()->with('success','Permission Deleted Successfully');
     }
 }
