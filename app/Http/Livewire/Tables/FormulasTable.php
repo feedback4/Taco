@@ -33,10 +33,12 @@ class FormulasTable extends Component
     }
     public function edit(int $formulaId)
     {
+
         $this->emitTo('forms.formula-form','editFormula',$formulaId);
     }
     public function delete(int $formulaId)
     {
+
         $formula = Formula::findOrFail($formulaId);
         if (isset($category->children[0]) ){
             $this->emit('alert',

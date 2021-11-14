@@ -17,6 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->foreignIdFor(\App\Models\Inventory::class)->nullable();
+            $table->foreignIdFor(\App\Models\Formula::class)->nullable();
             $table->timestamps();
         });
     }

@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class ElementsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:element-show|element-create|element-edit|element-delete',['only'=>['index','show']]);
+        $this->middleware('permission:element-create',['only'=>['create','store']]);
+        $this->middleware('permission:element-edit',['only'=>['update','edit']]);
+        $this->middleware('permission:element-delete',['only'=>['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *

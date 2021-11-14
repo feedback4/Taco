@@ -14,11 +14,9 @@ class InventoryController extends Controller
     //
     public function index()
     {
-        $items = Item::whereHas('inventory' ,function($q){
-        $q->where('id',1);
-    })->with('element')->get();
-       // dd($items);
-        return view('inventory.index',compact('items'));
+ //   $name = Inventory::whereId($id)->pluck('name')->first();
+    //   dd($name);
+        return view('inventory.index');
     }
     public function insert()
     {

@@ -12,7 +12,10 @@ class Product extends Model
 
     protected $fillable = [
         'name',
-        'unit',
+        'formula_id',
+        'inventory_id',
+        'value',
+    //    'client_id'
 
     ];
 
@@ -27,5 +30,9 @@ class Product extends Model
     public function users()
     {
         return $this->hasMany(User::class);
+    }
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }

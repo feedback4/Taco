@@ -2,14 +2,12 @@
 
 @section('title', 'Dashboard')
 
-@section('content_header')
-    <h1>Create Formula</h1>
-@stop
+
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <a href="{{route('formulas.index')}}">Manage Formulas</a>
+
 
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
@@ -17,7 +15,7 @@
                     </div>
                 @endif
 
-            <livewire:forms.formula-form />
+            <livewire:forms.formula-form  :formula="$formula" />
             </div>
         </div>
     </div>

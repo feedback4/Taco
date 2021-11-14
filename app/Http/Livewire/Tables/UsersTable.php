@@ -13,7 +13,7 @@ class UsersTable extends Component
     public $perPage = 10;
     public $search = '';
     public $orderBy = 'id';
-    public $orderAsc = true;
+    public $orderDesc = true;
 
     public function render()
     {
@@ -21,7 +21,7 @@ class UsersTable extends Component
             'users' => User::search($this->search)
                 ->with('roles')
             //    ->whereHas("roles", function($q){ $q->whereNotIn("name", ["seller"]); })
-                ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
+                ->orderBy($this->orderBy, $this->orderDesc ? 'desc' : 'asc')
                 ->paginate($this->perPage),
         ]);
     }

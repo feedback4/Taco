@@ -15,7 +15,12 @@
             </div>
             <div class="col-md-6">
                 <label for="type" class=" col-form-label text-md-right">Type</label>
-                <input  type="text" class="form-control @error('type') is-invalid @enderror" wire:model.lazy="type" name="type" value="{{ old('type') }}"  >
+                <select  class="form-control " wire:model.lazy="type" >
+                    <option value="">select Parent</option>
+                    @foreach($types as $ty)
+                        <option value="{{$ty}}">{{$ty}}</option>
+                    @endforeach
+                </select>
                 @error('type')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

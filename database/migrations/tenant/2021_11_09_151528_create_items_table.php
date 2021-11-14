@@ -18,6 +18,7 @@ class CreateItemsTable extends Migration
             $table->string('amount');
             $table->string('unit');
             $table->foreignIdFor(\App\Models\Element::class);
+            $table->foreignIdFor(\App\Models\User::class);
             $table->foreignIdFor(\App\Models\Inventory::class)->nullable();
             $table->dateTime('expire_at');
             $table->timestamps();

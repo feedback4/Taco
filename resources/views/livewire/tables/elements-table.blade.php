@@ -8,13 +8,14 @@
                 <select wire:model="orderBy" class="form-control-sm">
                     <option>Id</option>
                     <option>Name</option>
-                    <option>unit</option>
+                    <option>Code</option>
                 </select>
             </div>
             <div class="col-xs-2">
-                <select wire:model="orderAsc" class="custom-select-sm border">
-                    <option value="1">Asc</option>
-                    <option value="0">Desc</option>
+                <select wire:model="orderDesc" class="custom-select-sm border">
+                    <option value="1">Desc</option>
+                    <option value="0">Asc</option>
+
                 </select>
             </div>
             <div class="col-xs-2">
@@ -32,7 +33,7 @@
                 <thead>
                 <th class="border  py-2">ID</th>
                 <th class="border  py-2">Name</th>
-                <th class="border  py-2">Unit</th>
+                <th class="border  py-2">Code</th>
                 <th class="border  py-2">Category</th>
                 <th class="border  py-2">Edit</th>
                 <th class="border  py-2">Delete</th>
@@ -42,7 +43,7 @@
                     <tr>
                         <td class="border  py-2">{{$element->id}} </td>
                         <td class="border  py-2"><a href="{{route('elements.show',$element->id)}}">{{$element->name}}</a></td>
-                        <td class="border  py-2">{{$element->unit}} </td>
+                        <td class="border  py-2">{{$element->code}} </td>
                         <td class="border  py-2">
                             @if($element->category)
                                 {{$element->category->name}}

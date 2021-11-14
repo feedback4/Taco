@@ -20,13 +20,17 @@ class Formula extends Model
     {
         return $this->belongsTo(Category::class);
     }
-    public function elements ()
+    public function categories ()
     {
-        return $this->belongsToMany(Element::class,'element_formula')->withPivot('amount')->withTimestamps();
+        return $this->belongsToMany(Category::class,'category_formula')->withPivot('amount');
     }
-    public function product()
+    public function products()
     {
-        return $this->hasOne(Product::class);
+        return $this->hasMany(Product::class);
+    }
+    public function orders()
+    {
+        return $this->hasManyThrough(Order::class,Product::class);
     }
 
     public static function search($search)

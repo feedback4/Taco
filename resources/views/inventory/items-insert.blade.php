@@ -17,7 +17,7 @@
                     </div>
                 @endif
 
-                     <livewire:forms.items-insert />
+
             </div>
         </div>
 

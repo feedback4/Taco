@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Element;
 use App\Models\Formula;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class FormulasController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:formula-show|formula-create|formula-edit|formula-delete',['only'=>['index','show']]);
+        $this->middleware('permission:formula-create',['only'=>['create','store']]);
+        $this->middleware('permission:formula-edit',['only'=>['update','edit']]);
+        $this->middleware('permission:formula-delete',['only'=>['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -27,8 +35,8 @@ class FormulasController extends Controller
     public function create()
     {
      //   $elements =Element::with(['category'=>fn($q)=>$q->select('id','name')])->get();
-
-        return view('formulas.create');
+        $formula  =null;
+        return view('formulas.create',compact('formula'));
     }
 
     /**
@@ -45,15 +53,20 @@ class FormulasController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Formula  $formul
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\Formula  $formula
+     * @return RedirectResponse
      */
     public function show(Formula $formula)
     {
-        $formula = Formula::where('id',$formula->id)->with('elements')->first();
+        $formula = Formula::where('id',$formula->id)->with('categories')->first();
+     //   dd($formula);
+        $total = 0 ;
+        foreach ($formula->categories as $cat){
+            $total +=   $cat->pivot->amount;
+        }
+        $g = $total == 1000;
 
-
-       return view('formulas.show',compact('formula'));
+       return view('formulas.show',compact('formula','g'));
     }
 
     /**
@@ -65,6 +78,8 @@ class FormulasController extends Controller
     public function edit(Formula $formula)
     {
         //
+      //  return redirect()->route('formulas.create');
+        return view('formulas.create',compact('formula'));
     }
 
     /**
@@ -83,10 +98,18 @@ class FormulasController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Formula  $formula
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
     public function destroy(Formula $formula)
     {
-        //
+        if($formula->product){
+            toastError('formula still has products');
+            return back();
+        }
+        $formula->deleteOrFail();
+
+        toastSuccess('formula deleted successfully');
+        return redirect()->route('formulas.index');
+     //   dd($formula);
     }
 }

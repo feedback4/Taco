@@ -17,6 +17,11 @@ class CreateInventoriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('location');
+            $table->foreignId('manager_id')
+                ->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade')
+                ->nullable();
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateElementFormulaTable extends Migration
+class CreateCategoryFormulaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateElementFormulaTable extends Migration
      */
     public function up()
     {
-        Schema::create('element_formula', function (Blueprint $table) {
+        Schema::create('category_formula', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Formula::class);
-            $table->foreignIdFor(\App\Models\Element::class);
+            $table->foreignIdFor(\App\Models\Category::class);
             $table->string('amount');
-            $table->timestamps();
         });
     }
 
@@ -29,6 +28,6 @@ class CreateElementFormulaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('element_formula');
+        Schema::dropIfExists('category_formula');
     }
 }

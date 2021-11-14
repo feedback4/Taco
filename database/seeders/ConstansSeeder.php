@@ -34,10 +34,10 @@ class ConstansSeeder extends Seeder
             'user-edit',
             'user-create',
             'user-delete',
-            'product-show',
-            'product-edit',
-            'product-create',
-            'product-delete',
+            'category-show',
+            'category-edit',
+            'category-create',
+            'category-delete',
             'element-show',
             'element-edit',
             'element-create',
@@ -46,14 +46,19 @@ class ConstansSeeder extends Seeder
             'formula-edit',
             'formula-create',
             'formula-delete',
+            'product-show',
+            'product-edit',
+            'product-create',
+            'product-delete',
         ];
         foreach ($this->permissions as $permission){
             Permission::create(['guard_name'=>'web','name'=>$permission]);
         }
 
         $role1 = Role::create(['guard_name'=>'web','name'=>'editor']);
-        $role1->givePermissionTo('role-show');
+        $role1->givePermissionTo('element-show');
         $role1->givePermissionTo('user-show');
+        $role1->givePermissionTo('formula-show');
         $role1->givePermissionTo('product-show');
         $role1->givePermissionTo('dashboard');
 

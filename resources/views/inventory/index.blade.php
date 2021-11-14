@@ -22,7 +22,7 @@
             <div class="col-md-12">
 
 
-                                <livewire:tables.inventory-table />
+                                <livewire:tables.inventory-table  />
             </div>
         </div>
 

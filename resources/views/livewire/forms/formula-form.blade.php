@@ -1,4 +1,6 @@
 <div>
+    <h1>{{$title}} Formula</h1>
+    <a href="{{route('formulas.index')}}">Manage Formulas</a>
     <form method="POST" action="#" wire:submit.prevent="save">
         @csrf
         <div class="row">
@@ -28,11 +30,12 @@
                                     </span>
                         @enderror
                     </div>
+
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-md-12">
-                        <select wire:model.select="category_id" class="form-select select2 w-100">
+                    <div class="col-md-10">
+                        <select  wire:model.select="category_id" class="custom-select-md  w-100">
                             <option value="">select category</option>
                             @foreach($categories as $category)
                                 <option value="{{$category->id}}">{{$category->name}}</option>
@@ -41,6 +44,10 @@
                         @error('category_id')
                         <strong>{{ $message }}</strong>
                         @enderror
+                    </div>
+                    <div class="col-2">
+                        <label for="code" class=" col-form-label text-md-right">Kg</label>
+                        <input type="checkbox" wire:model="g">
                     </div>
                 </div>
 
@@ -56,18 +63,18 @@
                             </div>
                             @if(!empty($query))
                                     <div class="list-group">
-                                        @forelse($searchElements as $k=> $elem)
-                                            <a href="#" wire:click.prevent="add({{$elem->id}})" class="list-group-item">
-                                                <div class="">{{$elem->name}}</div>
-                                                <small class="">{{$elem->category->name}}</small>
+                                        @forelse($searchCategory as $cate)
+                                            <a href="#" wire:click.prevent="add({{$cate->id}})" class="list-group-item text-decoration-none" >
+                                                <div class="">{{$cate->name}}</div>
+                                                @forelse($cate->elements as $elem)
+                                                <small class="">{{$elem->name}}</small>
+                                                @empty
+                                                        Has no elements
+                                                @endforelse
                                             </a>
-
-                                            @if ($k == 5)
-                                                @break
-                                            @endif
                                         @empty
                                             <div class="list-group-item">
-                                                no element found
+                                                no Category found
                                             </div>
                                         @endforelse
                                     </div>
@@ -77,60 +84,59 @@
                 </div>
             </div>
                 <div class="col-md-6">
-                    @foreach($activeElements as $activeElement)
+                    @foreach($activeQategories as $index => $activeQategory)
+
                         <div class="row form-group">
                             <div class="col-lg-12 col-xl-6">
-                              <strong>{{ \App\Models\Element::find($activeElement)->name }}</strong>
+                              <strong>{{ \App\Models\Category::find($activeQategory['category'])?->name }}</strong>
                             </div>
                             <div class="col-lg-12 col-xl-6 row">
                                 <div class="col-4  ">
-                                percent
-                                </div>
-                                <div class="col-4 ">
-                                    <input type="number" step=".25" class="form-control" wire:model.lazy="selectedElements.{{$activeElement}}">
+                                    grams
+                                    <input type="number" step=".01" class="form-control" @if(!$g) disabled @endif  wire:model.lazy="activeQategories.{{$index}}.g"  >
                                 </div>
 
-                                <div class="col-4  ">
-                                    <button class="btn btn-danger" wire:click.prevent="delete({{$activeElement}})">delete</button>
+                                <div class="col-4 ">
+                                    percent
+                                    <input type="number" step=".01" class="form-control"  @if($g) disabled @endif   wire:model.lazy="activeQategories.{{$index}}.per" >
                                 </div>
+
+                                <div class="col-4">
+                                    <button class="btn btn-danger" wire:click.prevent="removeProduct({{$index}})">delete</button>
+                                </div>
+
                             </div>
-                            @error('selectedElements'.$activeElement)
-                            {{$message}}
+                            @error('activeQategories.'.$index.'.g')
+                            <small class="text-danger">{{$message}}</small>
+                            @enderror
+                            @error('activeQategories.'.$index.'.per')
+                            <small class="text-danger">{{$message}}</small>
                             @enderror
                         </div>
                     @endforeach
-                    @if($errors->has('selectedElements'))
-                        <span class="text-danger">{{ $errors->first('selectedElements') }}</span>
+                    @if($errors->has('activeQategories'))
+                        <span class="text-danger">{{ $errors->first('activeQategories') }}</span>
                     @endif
                 </div>
             </div>
 
-            {{--            <div class="col-md-10">--}}
-            {{--                <select wire:model="element" class="form-select select-2 w-100">--}}
-            {{--                    <option value="">select element</option>--}}
-            {{--                    @foreach($elements as $elem)--}}
-            {{--                        <option value="{{$elem->id}}">{{$elem->name}}--}}
-            {{--                            --{{$elem->category->name}}</option>--}}
-            {{--                    @endforeach--}}
-            {{--                </select>--}}
-            {{--                @error('element')--}}
-            {{--                <span class="invalid-feedback" role="alert">--}}
-            {{--                        <strong>{{ $message }}</strong>--}}
-            {{--                    </span>--}}
-            {{--                @enderror--}}
-            {{--            </div>--}}
-            {{--            <div class="col-md-2">--}}
-            {{--                <a href="#" class="btn btn-primary" wire:click.prevent="add({{$element}})">add</a>--}}
-            {{--            </div>--}}
-        </div>
+
+
 
         {{--        <x-input.select wire:model="Element" prettyname="modelprettyname" :options="$elements->pluck('name', 'id')->toArray()" selected="('Element')"/>--}}
+        <h2>{{ number_format($total,2) }} @if($g) g @else % @endif</h2>
 
         <div class="form-group row mb-0">
-            <div class="col-md-6 offset-md-4">
-                <button type="submit" wire:click="save" class="btn btn-success">
-                    {{ __('Create') }}
+
+            <div class="col-md-6 ml-auto">
+                <button type="submit" wire:click="save" class="btn btn-{{$color}}">
+                    {{ $button}}
                 </button>
+            </div>
+            <div class="col-md-6">
+                <div class="btn btn-info text-white" wire:click.prevent="filler">
+                    fill
+                </div>
             </div>
         </div>
     </form>

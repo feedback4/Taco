@@ -11,7 +11,7 @@ class Item extends Model
     use \Znck\Eloquent\Traits\BelongsToThrough;
 
     protected $fillable= [
-      'element_id','amount','unit','expire_at','inventory_id'
+      'element_id','amount','unit','expire_at','inventory_id','user_id'
     ];
     protected $casts = [
         'expire_at' => 'date'
@@ -27,6 +27,10 @@ class Item extends Model
     public function inventory()
     {
         return $this->belongsTo(Inventory::class);
+    }
+    public function creator()
+    {
+        return $this->belongsTo(User::class,'user_id');
     }
 
     public static function search($search)

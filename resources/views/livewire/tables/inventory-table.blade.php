@@ -1,5 +1,5 @@
-<div>
-    <div class="container-fluid ">
+<div class="container-fluid ">
+
         <div class="row my-3 d-flex">
             <div class="col-md-6">
                 <input type="search" wire:model.debounce.400ms="search" class="form-control" placeholder="search in names">
@@ -12,9 +12,10 @@
                 </select>
             </div>
             <div class="col-xs-2">
-                <select wire:model="orderAsc" class="custom-select-sm border">
-                    <option value="1">Asc</option>
-                    <option value="0">Desc</option>
+                <select wire:model="orderDesc" class="custom-select-sm border">
+                    <option value="1">Desc</option>
+                    <option value="0">Asc</option>
+
                 </select>
             </div>
             <div class="col-xs-2">
@@ -80,6 +81,10 @@
         <div class="d-flex justify-content-center">
             {{ $items->links() }}
         </div>
+        <div class="row">
+            <div class="btn btn-danger" wire:click="export">
+                Export
+            </div>
+        </div>
 
-    </div>
 </div>

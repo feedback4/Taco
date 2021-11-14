@@ -41,17 +41,15 @@ Route::middleware([
     Route::group(['middleware'=>['auth','active']],function (){
 
 
-        Route::get('/', function () {
-
-            return view('home');
-        })->name('home');
+        Route::get('/', [\App\Http\Controllers\HomeController::class,'index'])->name('home');
 
         Route::get('roles/permissions',[\App\Http\Controllers\RolesController::class,'permissions'])->name('roles.permissions');
         Route::post('roles/permissions',[\App\Http\Controllers\RolesController::class,'permissionsCreate']);
         Route::delete('permission/delete/{id}',[\App\Http\Controllers\RolesController::class,'permissionsDelete'])->name('permission.delete');
 
         //  Route::get('categories',[\App\Http\Controllers\CategoriesController::class,'index'])->name('categories');
-
+        Route::get('purchasing',[\App\Http\Controllers\PurchasingController::class,'index'])->name('purchasing');
+        Route::get('items/purchase',[\App\Http\Controllers\PurchasingController::class,'purchase'])->name('items.purchase');
         Route::get('inventory',[\App\Http\Controllers\InventoryController::class,'index'])->name('inventory');
         Route::get('items/insert',[\App\Http\Controllers\InventoryController::class,'insert'])->name('items.insert');
         Route::post('items/store',[\App\Http\Controllers\InventoryController::class,'store'])->name('items.store');

@@ -12,7 +12,7 @@ class Inventory extends Model
     protected $fillable = [
         'name',
         'location',
-        'manager',
+        'manager_id',
 
     ];
 
@@ -24,6 +24,10 @@ class Inventory extends Model
     public function items ()
     {
         return $this->hasMany(Item::class);
+    }
+    public function manager()
+    {
+        return $this->belongsTo(User::class,'manager_id');
     }
     public function elements ()
     {

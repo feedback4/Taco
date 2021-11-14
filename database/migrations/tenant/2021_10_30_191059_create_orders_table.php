@@ -15,8 +15,12 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Product::class);
+            $table->text('notes');
+            $table->date('deliver_before');
+            $table->string('seller');
             $table->foreignIdFor(\App\Models\Client::class);
-
+            $table->string('total');
             $table->timestamps();
         });
     }

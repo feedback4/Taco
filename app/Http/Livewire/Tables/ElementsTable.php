@@ -14,7 +14,7 @@ class ElementsTable extends Component
     public $perPage = 10;
     public $search = '';
     public $orderBy = 'id';
-    public $orderAsc = true;
+    public $orderDesc = true;
 
     public function render()
     {
@@ -22,7 +22,7 @@ class ElementsTable extends Component
             'elements' => Element::search($this->search)
                 ->with('category')
                 //    ->whereHas("roles", function($q){ $q->whereNotIn("name", ["seller"]); })
-                ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
+                ->orderBy($this->orderBy, $this->orderDesc ? 'desc' : 'asc')
                 ->paginate($this->perPage),
         ]);
     }

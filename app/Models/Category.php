@@ -9,6 +9,8 @@ class Category extends Model
 {
     use HasFactory;
 
+    public static $types = ['formula','element'];
+
     protected $fillable = ['name','type','parent_id'];
 
     public function parent()
@@ -23,6 +25,10 @@ class Category extends Model
     {
         return $this->hasMany(Formula::class);
     }
+    public function formula()
+    {
+        return $this->belongsTo(Formula::class,'category_formula');
+    }
     public function elements()
     {
         return $this->hasMany(Element::class);
@@ -32,7 +38,9 @@ class Category extends Model
         return empty($search) ? static::query()
             : static::query()->where('id', 'like', '%'.$search.'%')
                 ->orWhere('name', 'like', '%'.$search.'%')
-                ->orWhere('type', 'like', '%'.$search.'%');
+                ->orWhere('type', 'like', '%'.$search.'%')
+                ->orWhereHas('parent', fn($q) => $q->where('name','like', '%'.$search.'%'))
+                ->orWhereHas('elements', fn($q) => $q->where('name','like', '%'.$search.'%'));
     }
 
 }

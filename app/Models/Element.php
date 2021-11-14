@@ -11,18 +11,13 @@ class Element extends Model
 
     protected $fillable = [
         'name',
-        'unit',
+        'code',
         'category_id'
     ];
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
-    public function formulas()
-    {
-        return $this->belongsToMany(Formula::class,'element_formula')->withTimestamps();
-    }
-
     public static function search($search)
     {
         return empty($search) ? static::query()

@@ -14,9 +14,9 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="unit" class=" col-form-label text-md-right">Unit</label>
-                <input  type="text" class="form-control @error('unit') is-invalid @enderror" wire:model.lazy="unit" name="type" value="{{ old('unit') }}"  >
-                @error('unit')
+                <label for="code" class=" col-form-label text-md-right">Code</label>
+                <input  type="text" class="form-control @error('code') is-invalid @enderror" wire:model.lazy="code" name="code" value="{{ old('code') }}"  >
+                @error('code')
                 <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

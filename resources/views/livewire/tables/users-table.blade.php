@@ -13,9 +13,9 @@
                 </select>
             </div>
             <div class="col-xs-2">
-                <select wire:model="orderAsc" class="custom-select-sm border">
-                    <option value="1">Asc</option>
-                    <option value="0">Desc</option>
+                <select wire:model="orderDesc" class="custom-select-sm border">
+                    <option value="1">Desc</option>
+                    <option value="0">Asc</option>
                 </select>
             </div>
             <div class="col-xs-2">

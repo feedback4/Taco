@@ -20,8 +20,8 @@ class ItemsInsert extends Component
 
         "element_id.*"  => "required|numeric",
         "amount.*"  => "required|numeric|min:0",
-        "unit.*"  => "required|numeric",
-        "expire_at.*"  => "required|date|after:today",
+        "unit.*"  => "required",
+        "expire_at.*"  => "required|date",// |after:today
     ];
     public array $amount=[]  ;
     public array $unit=[] ;
@@ -42,6 +42,10 @@ class ItemsInsert extends Component
     {
         $this->insertItems[] = '2';
     }
+    public  function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
     public function save()
     {
 
@@ -52,6 +56,7 @@ class ItemsInsert extends Component
                 'unit' => $this->unit[$k],
                 'expire_at' => $this->expire_at[$k],
                 'inventory_id' => 1 ,
+                'user_id' => auth()->id(),
             ]);
         }
         $this->emit('alert',

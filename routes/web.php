@@ -46,7 +46,7 @@ Route::domain('feedback.blackbox.host')->group(function () {
 //        Route::post('complete-registration', [\App\Http\Controllers\Feedback\RegisterController::class, 'completeRegistration'])->name('complete.register');
 //        Route::post('/2fa', function () {
 //            return redirect(URL()->previous());
-//        })->name('2fa')->middleware('2fa');  Purchasing
+//        })->name('2fa')->middleware('2fa');  purchasing
 
         Route::group([
             'middleware' => ['auth:admin']

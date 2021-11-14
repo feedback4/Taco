@@ -14,7 +14,7 @@ class CategoryForm extends Component
        'parent_id' => 'nullable|numeric',
    ];
 
-   public $name ;
+    public $name ;
     public $type ;
     public $parent_id ;
     public $category ;
@@ -23,9 +23,16 @@ class CategoryForm extends Component
     public $button = 'create' ;
     public $color = 'success';
 
+    public $types ;
+
+    public function mount()
+    {
+        $this->types = Category::$types;
+    }
+
     public function render()
     {
-        $categories = Category::select('id','name')->get();
+        $categories = Category::where('type',$this->type)->whereDoesntHave('parent')->select('id','name')->get();
         return view('livewire.forms.category-form',compact('categories'));
     }
 

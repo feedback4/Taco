@@ -7,8 +7,8 @@
 @section('content')
 
 
-    <div class="row justify-content-center">
-        <div class="col-md-12">
+    <div class="row ">
+        <div class="col-md-6">
             <a href="{{route('formulas.index')}}">Manage Formulas</a>
             @if (session('status'))
                 <div class="alert alert-success" role="alert">
@@ -19,17 +19,28 @@
             <p><b>{{$formula->name}}</b></p> <hr>
             <label>Formula Code</label>
             <p><b>{{$formula->code}}</b></p> <hr>
-            <label>Formula Elements</label>
+            <label>Formula Categories</label>
 
-            <p><b>@foreach($formula->elements as $element)
-                        <a href="{{route('elements.show',$element->id)}}">
+            <p>
+                <table class="table ">
+                    <thead>
+                        <tr>
+                          <th>Category</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                <tbody>
+                @foreach($formula->categories as $category)
+                    <tr>
+                        <td>  <a href="{{route('categories.show',$category->id)}}"> {{$category->name}}</a> </td>
+                        <td>{{$category->pivot->amount }} @if($g) g @else % @endif</td>
+                    </tr>
 
-                       <span class="badge badge-info">
-                          {{$element->name}}
-                      </span>
-                        </a>
                 @endforeach
-                </b></p> <hr>
+                </tbody>
+            </table>
+
+             </p> <hr>
 
 
             <div class="d-flex ">

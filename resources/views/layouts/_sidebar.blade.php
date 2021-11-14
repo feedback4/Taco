@@ -23,6 +23,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        @can('user-show')
                         <li class="nav-item">
                             <a class="nav-link  " href="{{route('users.index')}}">
                                 <i class=" "></i>
@@ -31,6 +32,8 @@
                                 </p>
                             </a>
                         </li>
+                        @endcan
+                            @can('role-show')
                         <li class="nav-item">
                             <a class="nav-link  " href="{{route('roles.index')}}">
                                 <i class=" "></i>
@@ -39,6 +42,7 @@
                                 </p>
                             </a>
                         </li>
+                            @endcan
                     </ul>
                 </li>
 
@@ -51,6 +55,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview" >
+                        @can('formula-show')
                         <li class="nav-item">
                             <a class="nav-link  " href="{{route('formulas.index')}}">
                                 <p>
@@ -58,6 +63,9 @@
                                 </p>
                             </a>
                         </li>
+                        @endcan
+                            @can('element-show')
+
                         <li class="nav-item">
                             <a class="nav-link  " href="{{route('elements.index')}}">
                                 <p>
@@ -65,6 +73,8 @@
                                 </p>
                             </a>
                         </li>
+                            @endcan
+                                @can('category-show')
                         <li class="nav-item">
                             <a class="nav-link  " href="{{route('categories.index')}}">
                                 <p>
@@ -72,6 +82,7 @@
                                 </p>
                             </a>
                         </li>
+                            @endcan
                     </ul>
                 </li>
                 <li class="nav-item has-treeview ">
@@ -107,13 +118,24 @@
                     </ul>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link  " href="{{route('purchasing')}}">
+                        <i class='bx bx-purchase-tag bx-xs ' ></i>
+                        <p>
+                            Purchasing
+                        </p>
+                    </a>
+                </li>
+                @can('inventory')
+                <li class="nav-item">
                     <a class="nav-link  " href="{{route('inventory')}}">
-                        <i class='bx bx-box bx-xs' ></i>
+                        <i class='bx bx-box bx-xs ' ></i>
                         <p>
                             Inventory
                         </p>
                     </a>
                 </li>
+                @endcan
+                @can('accounting')
                 <li class="nav-item">
                     <a class="nav-link  " href="{{route('accounting')}}">
                         <i class='bx bx-line-chart bx-xs' ></i>
@@ -122,14 +144,17 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link  " href="{{route('dropbox')}}">
-                        <p>
-                            <i class='bx bxl-dropbox bx-xs' ></i>
-                            Dropbox
-                        </p>
-                    </a>
-                </li>
+                @endcan
+
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link  " href="{{route('dropbox')}}">--}}
+{{--                        <p>--}}
+{{--                            <i class='bx bxl-dropbox bx-xs' ></i>--}}
+{{--                            Dropbox--}}
+{{--                        </p>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+                @can('setting')
                 <li class="nav-item">
                     <a class="nav-link  " href="{{route('setting')}}">
                         <p>
@@ -138,6 +163,7 @@
                         </p>
                     </a>
                 </li>
+                @endcan
 
             </ul>
         </nav>

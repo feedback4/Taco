@@ -11,12 +11,12 @@ class ElementForm extends Component
     protected $listeners = ['editElement' => 'edit' ];
     protected $rules = [
         'name' => 'required',
-        'unit' => 'required',
+        'code' => 'required',
         'category_id' => 'required|numeric',
     ];
 
     public $name ;
-    public $unit ;
+    public $code ;
     public $category_id ;
     public $element;
 
@@ -27,7 +27,7 @@ class ElementForm extends Component
 
     public function render()
     {
-        $categories = Category::select('id','name')->get();
+        $categories = Category::where('type','element')->select('id','name')->get();
         return view('livewire.forms.element-form',compact('categories'));
     }
 
@@ -58,7 +58,7 @@ class ElementForm extends Component
         $this->emitTo('tables.elements-table','refreshElements');
         $this->reset(
             'name',
-            'unit' ,
+            'code' ,
             'category_id'
         );
 
@@ -72,7 +72,7 @@ class ElementForm extends Component
         $this->element = Element::where('id', $elementId)->first();
 
         $this->name = $this->element->name;
-        $this->unit = $this->element->unit;
+        $this->code = $this->element->code;
         $this->category_id = $this->element->category_id;
 
 

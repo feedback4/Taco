@@ -26,4 +26,22 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-6 ">
+            <h2>{{ $chart1->options['chart_title'] }}</h2>
+            {!! $chart1->renderHtml() !!}
+        </div>
+        <div class="col-md-6 ">
+
+        </div>
+    </div>
+
+@endsection
+
+@section('js')
+    {!! $chart1->renderChartJsLibrary() !!}
+
+    {!! $chart1->renderJs() !!}
+
+
 @endsection
