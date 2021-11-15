@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Element;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Compound;
 
 class ElementsController extends Controller
 {
@@ -54,7 +55,8 @@ class ElementsController extends Controller
      */
     public function show(Element $element)
     {
-        //
+        $element = Element::whereId($element->id)->with(['formulas'=>fn($q)=> $q->with('category'),'category'])->first();
+       return view('formulas.elements.show',compact('element'));
     }
 
     /**
@@ -90,4 +92,5 @@ class ElementsController extends Controller
     {
         //
     }
+
 }

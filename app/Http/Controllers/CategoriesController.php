@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
@@ -53,7 +54,9 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        //
+       $category  = Category::whereId($id)->with('formulas','elements','parent','children')->first();
+
+       return view('formulas.categories.show',compact('category'));
     }
 
     /**

@@ -99,5 +99,54 @@ class ConstansSeeder extends Seeder
         ]);
         $user->assignRole($role3);
 
+
+        $elements =
+['Polyster GH-1770',
+'Polyster 3305',
+'Epoxy E12-(903)',
+'Polyster GH-5021',
+'TGIC',
+'THR218',
+'HyrdoCarb 90',
+'BB1 (BaSo4)',
+'BB-88',
+'PV 88',
+'BENZOIN ',
+'XG605',
+'YELLOW  920',
+'black 306',
+'RED 180 m',
+'RED 130 m',
+'Yellow 3910',
+'blue 15/3 ',
+'Printex V',
+'Powder add 9083',
+'Plustalc 1250',
+'violet',
+'green 7',
+'OKAY (1gm/ kg) (15 kg/bag)',
+'Alu-c',
+'Aerosil 200',
+'Red 170 (Dcc red 7470)',
+'Yellow 1012 (Medium chrome yellow)',
+' Blue 15/1 ',
+'Ora. Molbedate 1610 R104',
+'EJ1',
+'cap. 381-20',
+'blue.G-58',
+'RED 57/1',
+'RED 48/2',
+'Black N220',
+'yellow 1080 (lemon)',
+'DE3329 Matting Agent',
+'HC68 Matting Hardner',
+'silver 9407',
+'gold 9604',
+'cu.',
+'Al. fine badaw',
+'Al. grains badawy'];
+
+
+
     }
 }

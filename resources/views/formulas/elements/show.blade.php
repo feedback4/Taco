@@ -9,32 +9,43 @@
 
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <a href="{{route('elements.index')}}">Manage Elements</a>
+                <div class="mb-2">
+                    <a href="{{route('elements.index')}}" class="btn btn-outline-primary">Manage Elements</a>
+                </div>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
                     </div>
                 @endif
-                <label>User Name</label>
+                <label>Element Name</label>
                 <p><b>{{$element->name}}</b></p> <hr>
-                <label>User Email</label>
-                <p><b>{{$element->email}}</b></p> <hr>
+                <label>Element Code</label>
+                <p><b>{{$element->code}}</b></p> <hr>
+                <label>Element Category</label>
+                <p><b><a href="{{route('categories.show',$element->category->id)}}">{{$element->category->name}}</a></b></p> <hr>
+                <label>Element formulas</label>
+                <p>
+                <table class="table ">
+                    <thead>
+                    <tr>
+                        <th>Formula</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($element->formulas as $formula)
+                        <tr>
+                            <td>  <a href="{{route('formulas.show',$formula->id)}}"> {{$formula->name}}</a>  </td>
+                            <td><a href="{{route('categories.show',$formula->category->id)}}">{{$formula->category->name}}</a></td>
+                            <td>{{$formula->pivot->amount }} %</td>
+                        </tr>
 
+                    @endforeach
+                    </tbody>
+                </table>
 
-                <div class="d-flex ">
-                    @can('element-edit')
-                    <a href="{{ route('elements.edit',$element->id) }}" class="btn btn-info o">edit</a>
-                    @endcan
-                    @can('element-delete')
-                    <form class="ml-5" action="{{route('elements.destroy',$element->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <input type="submit" class="btn btn-danger" value="delete">
-                    </form>
-                        @endcan
-                </div>
-
-
+                </p> <hr>
             </div>
         </div>
 

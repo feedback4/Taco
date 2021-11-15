@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="row">
-            <table class="table table-hover">
+            <table class="table table-hover table-responsive-sm ">
                 <thead>
                 <th class="border  py-2">ID</th>
                 <th class="border  py-2">Name</th>
@@ -45,7 +45,7 @@
                         <td class="border  py-2">{{$category->type}} </td>
                         <td class="border  py-2">
                             @if($category->parent)
-                            {{$category->parent->name}}
+                                <a href="{{route('categories.show',$category->parent->id)}}">{{$category->parent->name}}</a>
                             @else
                                 no parent
                             @endif

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoryFormulaTable extends Migration
+class CreateCompoundElementTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateCategoryFormulaTable extends Migration
      */
     public function up()
     {
-        Schema::create('category_formula', function (Blueprint $table) {
+        Schema::create('compound_element', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Formula::class);
-            $table->foreignIdFor(\App\Models\Category::class);
-            $table->string('amount');
+            $table->foreignIdFor(\App\Models\Compound::class);
+            $table->foreignIdFor(\App\Models\Element::class);
+            $table->string('percent');
         });
     }
 
@@ -28,6 +28,6 @@ class CreateCategoryFormulaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_formula');
+        Schema::dropIfExists('compound_element');
     }
 }

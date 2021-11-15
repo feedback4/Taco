@@ -9,7 +9,10 @@
 
     <div class="row ">
         <div class="col-md-6">
-            <a href="{{route('formulas.index')}}">Manage Formulas</a>
+            <div class="mb-2">
+                <a href="{{route('formulas.index')}}" class="btn btn-outline-primary">Manage Formulas</a>
+            </div>
+
             @if (session('status'))
                 <div class="alert alert-success" role="alert">
                     {{ session('status') }}
@@ -19,21 +22,24 @@
             <p><b>{{$formula->name}}</b></p> <hr>
             <label>Formula Code</label>
             <p><b>{{$formula->code}}</b></p> <hr>
-            <label>Formula Categories</label>
-
+            <label>Formula Category</label>
+            <p><b><a href="{{route('categories.show',$formula->category->id)}}">{{$formula->category->name}}</a></b></p> <hr>
+            <label>Formula elements</label>
             <p>
                 <table class="table ">
                     <thead>
                         <tr>
-                          <th>Category</th>
+                          <th>Element</th>
+                            <th>Category</th>
                             <th>Amount</th>
                         </tr>
                     </thead>
                 <tbody>
-                @foreach($formula->categories as $category)
+                @foreach($formula->elements as $element)
                     <tr>
-                        <td>  <a href="{{route('categories.show',$category->id)}}"> {{$category->name}}</a> </td>
-                        <td>{{$category->pivot->amount }} @if($g) g @else % @endif</td>
+                        <td>  <a href="{{route('elements.show',$element->id)}}"> {{$element->name}}</a>  </td>
+                        <td><a href="{{route('categories.show',$element->category->id)}}">{{$element->category->name}}</a></td>
+                        <td>{{$element->pivot->amount }} % </td>
                     </tr>
 
                 @endforeach
@@ -41,7 +47,6 @@
             </table>
 
              </p> <hr>
-
 
             <div class="d-flex ">
                 @can('element-edit')

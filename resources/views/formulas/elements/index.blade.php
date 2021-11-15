@@ -16,8 +16,11 @@
             <livewire:tables.elements-table />
 
         </div>
-        @can('user-create')
+        @can('element-create')
             <div class="col-md-5">
+                <div class="my-2">
+                    <a href="{{route('compounds')}}" class="btn btn-outline-dark">Compounds</a>
+                </div>
                 <livewire:forms.element-form />
             </div>
 

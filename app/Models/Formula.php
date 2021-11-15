@@ -4,25 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Znck\Eloquent\Traits\BelongsToThrough;
 
 class Formula extends Model
 {
-    use HasFactory;
+    use HasFactory ,BelongsToThrough;
 
     protected $fillable = [
         'name',
         'code',
         'category_id',
-
     ];
 
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
-    public function categories ()
+    public function elements ()
     {
-        return $this->belongsToMany(Category::class,'category_formula')->withPivot('amount');
+        return $this->belongsToMany(Element::class,'element_formula')->withPivot('amount');
     }
     public function products()
     {

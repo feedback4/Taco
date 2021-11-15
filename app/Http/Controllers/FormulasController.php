@@ -34,6 +34,7 @@ class FormulasController extends Controller
      */
     public function create()
     {
+
      //   $elements =Element::with(['category'=>fn($q)=>$q->select('id','name')])->get();
         $formula  =null;
         return view('formulas.create',compact('formula'));
@@ -58,15 +59,8 @@ class FormulasController extends Controller
      */
     public function show(Formula $formula)
     {
-        $formula = Formula::where('id',$formula->id)->with('categories')->first();
-     //   dd($formula);
-        $total = 0 ;
-        foreach ($formula->categories as $cat){
-            $total +=   $cat->pivot->amount;
-        }
-        $g = $total == 1000;
-
-       return view('formulas.show',compact('formula','g'));
+        $formula = Formula::where('id',$formula->id)->with(['elements'=>fn($q)=> $q->with('category'),'category'])->first();
+       return view('formulas.show',compact('formula'));
     }
 
     /**

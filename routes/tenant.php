@@ -53,15 +53,19 @@ Route::middleware([
         Route::get('inventory',[\App\Http\Controllers\InventoryController::class,'index'])->name('inventory');
         Route::get('items/insert',[\App\Http\Controllers\InventoryController::class,'insert'])->name('items.insert');
         Route::post('items/store',[\App\Http\Controllers\InventoryController::class,'store'])->name('items.store');
-         Route::get('accounting',[\App\Http\Controllers\InventoryController::class,'accounting'])->name('accounting');
-        Route::get('elements',[\App\Http\Controllers\ElementsController::class,'index'])->name('elements.index');
-        Route::get('categories',[\App\Http\Controllers\CategoriesController::class,'index'])->name('categories.index');
-        Route::get('elements/{id}',[\App\Http\Controllers\ElementsController::class,'show'])->name('elements.show');
-        Route::get('categories/{id}',[\App\Http\Controllers\CategoriesController::class,'show'])->name('categories.show');
+        Route::get('accounting',[\App\Http\Controllers\InventoryController::class,'accounting'])->name('accounting');
+
+        Route::get('compounds',\App\Http\Controllers\CompoundsController::class)->name('compounds');
+//        Route::get('categories/{id}',[\App\Http\Controllers\CategoriesController::class,'show'])->name('categories.show');
+//        Route::get('elements',[\App\Http\Controllers\ElementsController::class,'index'])->name('elements.index');
+//        Route::get('elements/{id}',[\App\Http\Controllers\ElementsController::class,'show'])->name('elements.show');
+//        Route::get('compounds/create',[\App\Http\Controllers\ElementsController::class,'createCompound'])->name('compounds.create');
+//        Route::get('compounds/{id}',[\App\Http\Controllers\ElementsController::class,'showCompound'])->name('compounds.show');
 
         Route::resource('users',\App\Http\Controllers\UsersController::class);
         Route::resource('roles',\App\Http\Controllers\RolesController::class);
-
+        Route::resource('elements',\App\Http\Controllers\ElementsController::class);
+        Route::resource('categories',\App\Http\Controllers\CategoriesController::class);
         Route::resource('formulas',\App\Http\Controllers\FormulasController::class);
 
         Route::get('dropbox',function (){

@@ -18,11 +18,19 @@ class Element extends Model
     {
         return $this->belongsTo(Category::class);
     }
+    public function formulas()
+    {
+        return $this->belongsToMany(Formula::class,'element_formula')->withPivot('amount');;
+    }
+    public function compounds()
+    {
+        return $this->belongsToMany(Compound::class,'compound_element')->withPivot('percent');
+    }
+
     public static function search($search)
     {
         return empty($search) ? static::query()
-            : static::query()->where('id', 'like', '%'.$search.'%')
-                ->orWhere('name', 'like', '%'.$search.'%')
+            : static::query()->where('name', 'like', '%'.$search.'%')
                 ->orWhere('code', 'like', '%'.$search.'%')
                 ->orWhereHas('category', fn($q) => $q->where('name','like', '%'.$search.'%')->orWhere('type','like', '%'.$search.'%'));
     }

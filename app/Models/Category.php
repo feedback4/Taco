@@ -25,11 +25,7 @@ class Category extends Model
     {
         return $this->hasMany(Formula::class);
     }
-    public function formula()
-    {
-        return $this->belongsTo(Formula::class,'category_formula');
-    }
-    public function elements()
+    public function elements(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Element::class);
     }
