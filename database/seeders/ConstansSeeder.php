@@ -148,5 +148,8 @@ class ConstansSeeder extends Seeder
 
 
 
+
+      $formulas =  [ 8003 ,8007,8014,8017 ,1013,1015 ,9005,7030];
+
     }
 }

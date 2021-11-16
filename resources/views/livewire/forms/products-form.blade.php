@@ -55,10 +55,19 @@
                             @foreach($formula->elements as $index => $element)
                                 <tr>
                                     <th>{{$element->category->name}}</th>
-                                    <th> {{ ($element->pivot->amount * $amount ) / 100 }} kg</th>
+                                    @php
+                                        $total =  ($element->pivot->amount * $amount ) / 100 ;
+                                        if(isset($proElement[$index])){
+                                             $sum = array_sum($proElement[$index]) ;
+                                        }else{
+                                            $sum = 0;
+                                        }
+
+                                    @endphp
+                                    <th> {{ $total}} kg</th>
                                     <th> Inventory </th>
                                     <th> Expire Date </th>
-                                    <th> @if(isset($proElement[$index]))  {{ array_sum($proElement[$index]) }} @else 0 @endif kg</th>
+                                    <th>  {{$sum}} kg  @if($total < $sum) <i class='bx bx-error bx-xs text-danger'></i> @endif</th>
                                 </tr>
                                 @forelse( App\Models\Item::whereHas('category',fn($q)=> $q->where('categories.id',$element->category->id))->with('element','inventory')->get() as $item)
                                     <tr>

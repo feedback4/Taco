@@ -127,7 +127,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link  " href="{{route('production')}}">
-                        <i class='bx bx-purchase-tag bx-xs ' ></i>
+                        <i class='bx bxs-network-chart bx-xs'></i>
                         <p>
                             Production
                         </p>

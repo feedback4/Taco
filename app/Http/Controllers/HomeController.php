@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function index()
     {
         $chart_options = [
-            'chart_title' => 'Element in Category',
+            'chart_title' => 'Elements in Category',
             'chart_type' => 'bar',
             'report_type' => 'group_by_relationship',
             'model' => 'App\Models\Element',
