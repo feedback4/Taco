@@ -14,7 +14,7 @@ class InventoryTable extends Component
     use WithPagination;
     protected $listeners = ['refreshElements' => '$refresh'];
     protected $paginationTheme = 'bootstrap';
-    public $perPage = 10;
+    public $perPage = 50;
     public $search = '';
     public $orderBy = 'id';
     public $orderDesc = true;

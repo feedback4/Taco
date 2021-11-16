@@ -16,6 +16,7 @@ class Item extends Model
     protected $casts = [
         'expire_at' => 'date'
     ];
+    public static $units = ['kg','g','t'];
     public function element()
     {
         return $this->belongsTo(Element::class);

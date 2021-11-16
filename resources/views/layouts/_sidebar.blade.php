@@ -85,43 +85,51 @@
                             @endcan
                     </ul>
                 </li>
-                <li class="nav-item has-treeview ">
-                    <a class="nav-link  " href="">
-                        <i class='bx bx-network-chart bx-xs'></i>
-                        <p>
-                            Production
-                            <i class='bx bxs-left-arrow right' ></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview" >
-                        <li class="nav-item">
-                            <a class="nav-link  " href="{{route('404')}}">
-                                <p>
-                                    Manage Production
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link  " href="{{route('404')}}">
-                                <p>
-                                    Manage Products
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link  " href="{{route('404')}}">
-                                <p>
-                                    Manage Projects
-                                </p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+{{--                <li class="nav-item has-treeview ">--}}
+{{--                    <a class="nav-link  " href="">--}}
+{{--                        <i class='bx bx-network-chart bx-xs'></i>--}}
+{{--                        <p>--}}
+{{--                            Production--}}
+{{--                            <i class='bx bxs-left-arrow right' ></i>--}}
+{{--                        </p>--}}
+{{--                    </a>--}}
+{{--                    <ul class="nav nav-treeview" >--}}
+{{--                        <li class="nav-item">--}}
+{{--                            <a class="nav-link  " href="{{route('production')}}">--}}
+{{--                                <p>--}}
+{{--                                    Manage Production--}}
+{{--                                </p>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                        <li class="nav-item">--}}
+{{--                            <a class="nav-link  " href="{{route('404')}}">--}}
+{{--                                <p>--}}
+{{--                                    Manage Products--}}
+{{--                                </p>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                        <li class="nav-item">--}}
+{{--                            <a class="nav-link  " href="{{route('404')}}">--}}
+{{--                                <p>--}}
+{{--                                    Manage Projects--}}
+{{--                                </p>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                    </ul>--}}
+{{--                </li>--}}
                 <li class="nav-item">
                     <a class="nav-link  " href="{{route('purchasing')}}">
                         <i class='bx bx-purchase-tag bx-xs ' ></i>
                         <p>
                             Purchasing
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  " href="{{route('production')}}">
+                        <i class='bx bx-purchase-tag bx-xs ' ></i>
+                        <p>
+                            Production
                         </p>
                     </a>
                 </li>
@@ -135,16 +143,16 @@
                     </a>
                 </li>
                 @endcan
-                @can('accounting')
-                <li class="nav-item">
-                    <a class="nav-link  " href="{{route('accounting')}}">
-                        <i class='bx bx-line-chart bx-xs' ></i>
-                        <p>
-                            Accounting
-                        </p>
-                    </a>
-                </li>
-                @endcan
+{{--                @can('accounting')--}}
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link  " href="{{route('accounting')}}">--}}
+{{--                        <i class='bx bx-line-chart bx-xs' ></i>--}}
+{{--                        <p>--}}
+{{--                            Accounting--}}
+{{--                        </p>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--                @endcan--}}
 
 {{--                <li class="nav-item">--}}
 {{--                    <a class="nav-link  " href="{{route('dropbox')}}">--}}

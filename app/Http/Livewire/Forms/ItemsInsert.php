@@ -36,7 +36,9 @@ class ItemsInsert extends Component
 
     public function render()
     {
-        return view('livewire.forms.items-insert');
+        return view('livewire.forms.items-insert',[
+        'units' => Item::$units
+        ]);
     }
     public function addItem()
     {
@@ -48,7 +50,7 @@ class ItemsInsert extends Component
     }
     public function save()
     {
-
+        $validated =  $this->validate();
         foreach ($this->amount as $k=> $i){
             Item::create([
                 'element_id' => $this->element_id[$k],

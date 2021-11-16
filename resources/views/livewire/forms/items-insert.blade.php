@@ -29,7 +29,12 @@
                 </div>
                 <div class="col-md-3">
                     <label for="unit" class=" col-form-label text-md-right">unit</label>
-                    <input  type="text" class="form-control @error('unit.'.$loop->iteration) is-invalid @enderror" wire:model.lazy="unit.{{$loop->iteration}}"  name="unit[]" value="{{ old('unit.'.$loop->iteration) }}"  >
+                    <select  wire:model="unit.{{$loop->iteration}}" class="form-control @error('unit.'.$loop->iteration) is-invalid @enderror" >
+                        <option value="">select Unit</option>
+                        @foreach($units as $unit)
+                            <option value="{{$unit}}">{{$unit}}</option>
+                        @endforeach
+                    </select>
                     @error('unit.'.$loop->iteration)
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

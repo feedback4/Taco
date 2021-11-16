@@ -31,11 +31,11 @@ class CompoundsTable extends Component
     public function delete(int $compoundId)
     {
         $compound =Compound::findOrFail($compoundId);
-        if (isset($compound->elements[0]) ){
-            $this->emit('alert',
-                ['type' => 'warning',  'message' => 'Compound Still Have Elements']);
-            return back();
-        }
+//        if (isset($compound->elements[0]) ){
+//            $this->emit('alert',
+//                ['type' => 'warning',  'message' => 'Compound Still Have Elements']);
+//            return back();
+//        }
         $compound->delete();
         $this->emitSelf('refreshCompounds');
         $this->emit('alert',
