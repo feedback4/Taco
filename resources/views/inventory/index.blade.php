@@ -17,7 +17,7 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
-
+                <a href="{{route('inventory.insert')}}" class="btn btn-dark">Insert Items</a>
                 <livewire:tables.inventory-table  />
             </div>
         </div>

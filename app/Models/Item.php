@@ -33,6 +33,10 @@ class Item extends Model
     {
         return $this->belongsTo(User::class,'user_id');
     }
+    public function productionOrders (): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(ProductionOrder::class,'item_production_order')->withPivot('amount');
+    }
 
     public static function search($search)
     {

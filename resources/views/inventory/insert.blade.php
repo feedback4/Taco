@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content_header')
-    <h1>Purchasing</h1>
+    <h1>Insert Items</h1>
 @stop
 
 @section('content')
@@ -17,14 +17,13 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-md-12">
-
-        Purchase here
-
+            <livewire:forms.items-insert />
         </div>
     </div>
 
 
 
 @endsection
+
 
 

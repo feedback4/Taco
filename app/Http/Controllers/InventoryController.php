@@ -12,13 +12,18 @@ use Illuminate\Http\Request;
 class InventoryController extends Controller
 {
     //
-    public function __invoke()
+    public function index()
     {
  //   $name = Inventory::whereId($id)->pluck('name')->first();
     //   dd($name);
         return view('inventory.index');
     }
-
+    public function insert()
+    {
+        //   $name = Inventory::whereId($id)->pluck('name')->first();
+        //   dd($name);
+        return view('inventory.insert');
+    }
 
 
 }

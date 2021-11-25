@@ -49,12 +49,14 @@ Route::middleware([
 
         //  Route::get('categories',[\App\Http\Controllers\CategoriesController::class,'index'])->name('categories');
         Route::get('purchasing',[\App\Http\Controllers\PurchasingController::class,'index'])->name('purchasing');
-        Route::get('inventory',\App\Http\Controllers\InventoryController::class)->name('inventory');
-        Route::post('items/store',[\App\Http\Controllers\InventoryController::class,'store'])->name('items.store');
+        Route::get('inventory',[\App\Http\Controllers\InventoryController::class,'index'])->name('inventory');
+        Route::get('inventory/insert',[\App\Http\Controllers\InventoryController::class,'insert'])->name('inventory.insert');
 
 
         Route::get('compounds',\App\Http\Controllers\CompoundsController::class)->name('compounds');
-        Route::get('production',\App\Http\Controllers\ProductsController::class)->name('production');
+        Route::get('production',[\App\Http\Controllers\ProductionOrderController::class,'index'])->name('production');
+        Route::get('production/create',[\App\Http\Controllers\ProductionOrderController::class,'create'])->name('production.create');
+        Route::get('production/{id}/print',[\App\Http\Controllers\ProductionOrderController::class,'print'])->name('production.print');
 //        Route::get('categories/{id}',[\App\Http\Controllers\CategoriesController::class,'show'])->name('categories.show');
 //        Route::get('elements',[\App\Http\Controllers\ElementsController::class,'index'])->name('elements.index');
 //        Route::get('elements/{id}',[\App\Http\Controllers\ElementsController::class,'show'])->name('elements.show');

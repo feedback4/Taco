@@ -1,6 +1,7 @@
 <div>
-    <form method="POST"  action="{{route('items.store')}}" wire:submit.prevent="save"  >
+    <form method="POST"   wire:submit.prevent="save"  >
         @csrf
+        <input type="submit" wire:click.prevent="" class="d-none">
     @foreach($insertItems as $iItem)
 
             <div class="form-group row">

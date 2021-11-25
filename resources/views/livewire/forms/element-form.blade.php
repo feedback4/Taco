@@ -2,7 +2,7 @@
     <h2>{{$title}} Element</h2>
     <form method="POST"  action="#" wire:submit.prevent="save" >
         @csrf
-
+        <input type="submit" wire:click.prevent="" class="d-none">
         <div class="form-group row">
             <div class="col-md-6">
                 <label for="name" class=" col-form-label text-md-right">Name</label>

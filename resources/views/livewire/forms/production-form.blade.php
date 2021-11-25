@@ -3,6 +3,7 @@
     <div class="col-md-8 ">
         <form method="POST" action="{{route('items.store')}}" wire:submit.prevent="save">
             @csrf
+            <input type="submit" wire:click.prevent="" class="d-none">
             <div class=" row">
                 <div class="col-md-4">
                     <label for="formula_id" class=" col-form-label text-md-right">Formula</label>
@@ -56,7 +57,7 @@
                                 <tr>
                                     <th>{{$element->category->name}}</th>
                                     @php
-                                        $total =  ($element->pivot->amount * $amount ) / 100 ;
+                                        $totalAmount =  ($element->pivot->amount * $amount ) / 100 ;
                                         if(isset($proElement[$index])){
                                              $sum = array_sum($proElement[$index]) ;
                                         }else{
@@ -64,10 +65,10 @@
                                         }
 
                                     @endphp
-                                    <th> {{ $total}} kg</th>
+                                    <th> {{ $totalAmount}} kg</th>
                                     <th> Inventory </th>
                                     <th> Expire Date </th>
-                                    <th>  {{$sum}} kg  @if($total < $sum) <i class='bx bx-error bx-xs text-danger'></i> @endif</th>
+                                    <th>  {{$sum}} kg  @if($totalAmount > $sum) <i class='bx bx-error bx-xs text-danger mt-auto'></i> @endif</th>
                                 </tr>
                                 @forelse( App\Models\Item::whereHas('category',fn($q)=> $q->where('categories.id',$element->category->id))->with('element','inventory')->get() as $item)
                                     <tr>
@@ -75,7 +76,7 @@
                                         <td>{{$item->amount}} kg</td>
                                         <td>{{$item->inventory->name}}</td>
                                         <td>{{$item->expire_at->format('Y-m-d')}}</td>
-                                        <td><input type="number" class="form-control" wire:model="invElement.{{$index}}.{{$item->id}}" min="0" max="{{$item->amount}}"></td>
+                                        <td><input type="number" step=".01" class="form-control" wire:model.lazy="invElement.{{$index}}.{{$item->id}}" min="0" max="{{$item->amount}}"></td>
                                     </tr>
                                 @empty
                                     <tr>
@@ -114,7 +115,7 @@
                 </tr>
             </table>
         @endif
-        <button type="submit" class="btn btn-dark w-100">
+        <button type="submit" wire:click.prevent="save" class="btn btn-dark w-100 h4">
             Go
         </button>
 
