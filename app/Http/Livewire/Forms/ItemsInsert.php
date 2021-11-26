@@ -31,7 +31,7 @@ class ItemsInsert extends Component
     public $elements ;
     public function mount()
     {
-        $this->elements = Element::select('id','name')->get();
+        $this->elements = Element::select('id','name','code')->get();
     }
 
     public function render()

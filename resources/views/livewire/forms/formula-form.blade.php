@@ -94,7 +94,7 @@
                         <select  wire:model.select="filler" class="form-control w-100">
                             <option value="">select Filler</option>
                             @foreach($fillers as $filler)
-                                <option value="{{$filler->id}}">{{$filler->name}}</option>
+                                <option value="{{$filler->id}}">{{$filler->name}} -- {{$filler->code}}</option>
                             @endforeach
                         </select>
                         @error('filler')
@@ -128,7 +128,7 @@
                                     <div class="list-group" wire:loading.remove>
                                         @forelse($searchElements as $elem)
                                             <a href="#" wire:click.prevent="addElement({{$elem->id}})" class="list-group-item text-decoration-none" >
-                                                <div class="">{{$elem->name}}</div>
+                                                <div class="">{{$elem->name}} -- {{$elem->code}}</div>
                                                 <small class="">{{$elem->category->name}}</small>
                                             </a>
                                         @empty

@@ -64,6 +64,7 @@ class FormulaForm extends Component
 
     public function updatedQuery()
     {
+       // dd($this->activeElements);
         $this->searchElements = Element::search($this->query)->with('category')->take(6)->get();
     }
 
@@ -121,6 +122,7 @@ class FormulaForm extends Component
     public function updatedActiveElements()
     {
         $this->cal();
+
     }
 
     public function updatedG()
@@ -273,7 +275,7 @@ class FormulaForm extends Component
         return [
             'name' => ['required', Rule::unique('formulas')->ignore($this->formula?->id)],
             'code' => ['required', Rule::unique('formulas')->ignore($this->formula?->id)],
-            'category_id' => 'required|numeric',
+            'category_id' => 'nullable|numeric',
             'filler' => 'nullable|numeric',
             'compound' => 'nullable|numeric',
             'percent' => 'nullable|numeric|min:0|max:100',

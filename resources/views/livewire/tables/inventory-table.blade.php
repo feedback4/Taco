@@ -31,7 +31,7 @@
         <div class="row">
             <table class="table table-hover table-responsive-sm ">
                 <thead>
-                <th class="border  py-2">ID</th>
+                <th class="border  py-2">Created</th>
                 <th class="border  py-2">Element</th>
                 <th class="border  py-2">Amount</th>
                 <th class="border  py-2">Expire</th>
@@ -42,10 +42,10 @@
                 <tbody>
                 @forelse($items as $item)
                     <tr>
-                        <td class="border  py-2">{{$item->id}} </td>
+                        <td class="border  py-2">{{$item->created_at->format('d-m-Y')}}</td>
                         <td class="border  py-2"><a href="{{route('elements.show',$item->element->id)}}">{{$item->element->name}}</a></td>
                         <td class="border  py-2">{{$item->amount}} {{$item->unit}}</td>
-                        <td class="border  py-2">{{$item->expire_at->diffForHumans()}}</td>
+                        <td class="border  py-2">{{$item->expire_at->format('d-m-Y')}}</td>
                         <td class="border  py-2">
                             @if($item->element)
                                 {{$item->element->category->name}}

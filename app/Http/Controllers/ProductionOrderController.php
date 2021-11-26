@@ -49,6 +49,23 @@ class ProductionOrderController extends Controller
 
         // download PDF file with download method
     }
+
+    public function pdf($id)
+    {
+        $order =   ProductionOrder::whereId($id)->with(['items'=>fn($q)=>$q->with(['element','inventory']),'formula','user'])->first();
+        //   dd($order->item->element);
+        //  $pdf = App::make('dompdf.wrapper');
+//        $pdf->loadHTML('<h1>Test</h1>');
+//        return $pdf->stream();
+
+        //   view()->share('order',$order);
+        $pdf = PDF::loadView('vendor.invoices.pdf',['order'=>$order ] );
+        return $pdf->stream();
+        return $pdf->download('test.pdf');
+        // share data to view
+
+        // download PDF file with download method
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -63,12 +80,15 @@ class ProductionOrderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ProductionOrder  $productionOrder
+     * @param
      * @return \Illuminate\Http\Response
      */
-    public function show(ProductionOrder $productionOrder)
+    public function show( $id)
     {
-        //
+
+        $order = ProductionOrder::whereId($id)->with('formula','user','items')->first();
+
+        return view('production.show',compact('order'));
     }
 
     /**

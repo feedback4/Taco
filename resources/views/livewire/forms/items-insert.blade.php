@@ -10,7 +10,7 @@
                     <select  class="form-control " wire:model.lazy="element_id.{{$loop->iteration}}" name="element_id[]" >
                         <option value="">select Element</option>
                         @foreach($elements as $element)
-                            <option value="{{$element->id}}">{{$element->name}}</option>
+                            <option value="{{$element->id}}">{{$element->name}} -- {{$element->code}}</option>
                         @endforeach
                     </select>
                     @error('element_id.'.$loop->iteration )

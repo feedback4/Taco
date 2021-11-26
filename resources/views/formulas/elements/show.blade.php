@@ -37,7 +37,7 @@
                     @foreach($element->formulas as $formula)
                         <tr>
                             <td>  <a href="{{route('formulas.show',$formula->id)}}"> {{$formula->name}}</a>  </td>
-                            <td><a href="{{route('categories.show',$formula->category->id)}}">{{$formula->category->name}}</a></td>
+{{--                            <td><a href="{{route('categories.show',$formula->category->id)}}">{{$formula->category->name}}</a></td>--}}
                             <td>{{$formula->pivot->amount }} %</td>
                         </tr>
 

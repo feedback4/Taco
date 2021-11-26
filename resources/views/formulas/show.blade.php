@@ -22,8 +22,11 @@
             <p><b>{{$formula->name}}</b></p> <hr>
             <label>Formula Code</label>
             <p><b>{{$formula->code}}</b></p> <hr>
+
             <label>Formula Category</label>
-            <p><b><a href="{{route('categories.show',$formula->category->id)}}">{{$formula->category->name}}</a></b></p> <hr>
+            <p><b>
+                  @if($formula->category)  <a href="{{route('categories.show',$formula->category->id)}}">{{$formula->category->name}}</a> @else No Category @endif
+                </b></p> <hr>
             <label>Formula elements</label>
             <p>
                 <table class="table ">
@@ -37,11 +40,10 @@
                 <tbody>
                 @foreach($formula->elements as $element)
                     <tr>
-                        <td>  <a href="{{route('elements.show',$element->id)}}"> {{$element->name}}</a>  </td>
+                        <td>  <a href="{{route('elements.show',$element->id)}}"> {{$element->name}} -- {{$element->code}}</a>  </td>
                         <td><a href="{{route('categories.show',$element->category->id)}}">{{$element->category->name}}</a></td>
-                        <td>{{$element->pivot->amount }} % </td>
+                        <td> <b>{{$element->pivot->amount *10 }}</b> g </td>
                     </tr>
-
                 @endforeach
                 </tbody>
             </table>

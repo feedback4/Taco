@@ -46,11 +46,11 @@ class ElementForm extends Component
             $this->emit('alert',
                 ['type' => 'info',  'message' => 'Element Updated Successfully!']);
         }else{
-            if (Element::where('name',$this->name)->exists()){
-                $this->emit('alert',
-                    ['type' => 'info',  'message' => 'The name has already been taken.']);
-                return back();
-            }
+//            if (Element::where('name',$this->name)->exists()){
+//                $this->emit('alert',
+//                    ['type' => 'info',  'message' => 'The name has already been taken.']);
+//                return back();
+//            }
             $category =  Element::create($validated);
             $this->emit('alert',
                 ['type' => 'success',  'message' => 'Element Created Successfully!']);
@@ -59,7 +59,11 @@ class ElementForm extends Component
         $this->reset(
             'name',
             'code' ,
-            'category_id'
+            'category_id',
+            'element',
+            'title',
+            'button',
+            'color'
         );
 
         return back();

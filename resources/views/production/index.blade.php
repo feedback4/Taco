@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content_header')
-    <h1>Production Orders</h1>
+    <h1>Production Plans</h1>
 @stop
 
 @section('content')

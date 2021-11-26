@@ -56,7 +56,9 @@ Route::middleware([
         Route::get('compounds',\App\Http\Controllers\CompoundsController::class)->name('compounds');
         Route::get('production',[\App\Http\Controllers\ProductionOrderController::class,'index'])->name('production');
         Route::get('production/create',[\App\Http\Controllers\ProductionOrderController::class,'create'])->name('production.create');
+        Route::get('production/{id}',[\App\Http\Controllers\ProductionOrderController::class,'show'])->name('production.show');
         Route::get('production/{id}/print',[\App\Http\Controllers\ProductionOrderController::class,'print'])->name('production.print');
+        Route::get('production/{id}/pdf',[\App\Http\Controllers\ProductionOrderController::class,'pdf'])->name('production.pdf');
 //        Route::get('categories/{id}',[\App\Http\Controllers\CategoriesController::class,'show'])->name('categories.show');
 //        Route::get('elements',[\App\Http\Controllers\ElementsController::class,'index'])->name('elements.index');
 //        Route::get('elements/{id}',[\App\Http\Controllers\ElementsController::class,'show'])->name('elements.show');

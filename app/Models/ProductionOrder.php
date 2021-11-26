@@ -10,7 +10,7 @@ class ProductionOrder extends Model
 {
     use HasFactory ,BelongsToThrough;
 
-    protected $fillable = ['amount','formula_id','user_id'];
+    protected $fillable = ['amount','formula_id','user_id','times'];
 
     public function items ()
     {

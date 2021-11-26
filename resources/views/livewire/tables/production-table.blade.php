@@ -29,59 +29,46 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12" id="accordion">
-            @forelse($productionOrders as $k=> $order)
-                <div class="card card-danger card-outline">
+        <div class="col-12" >
+            <table class="table table-hover table-responsive-md">
+                <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Amount</th>
+                    <th>Inventory</th>
+                    <th>production</th>
+                    <th>Created</th>
+                </tr>
+                </thead>
+                <tbody>
+                @forelse($productionOrders as $k=> $order)
+                    <tr>
+                        <td>
+                            <a href="{{route('production.show',$order->id)}}">{{$order->formula->code}}</a>
+                        </td>
+                        <td>{{$order->amount }} kg</td>
+                        <td> <a href="{{route('production.print',$order->id)}}" class="btn btn-secondary ">
+                                print
+                            </a></td>
+                        <td> <a href="{{route('production.pdf',$order->id)}}" class="btn btn-dark ">
+                                print
+                            </a></td>
+                        <td> {{$order->created_at->format('d-m-Y')}} <small>by {{ $order->user->name }}</small> </td>
+                    </tr>
 
-                        <div class="card-header bg-cyan" data-toggle="collapse" href="#collapse-{{$k}}">
-                            <h4 class="card-title w-100">
-                                {{$order->formula->name}} <b>{{$order->amount}} kg</b>
-                            </h4>
-                        </div>
+                @empty
 
-                    <div id="collapse-{{$k}}" class="collapse" data-parent="#accordion">
-                        <div class="card-body">
-
-                            @if($order->items)
-                                <table class="table table-bordered table-responsive-md">
-                                    <thead>
-                                    <tr>
-                                        <th>Element</th>
-                                        <th>Amount</th>
-                                    </tr>
-
-                                    </thead>
-                                    <tbody>
-
-                                    @foreach($order->items as $item)
-                                        <tr>
-                                            <td>{{$item->element->name}}</td>
-                                            <td><b>{{ $item->pivot->amount }} </b>kg</td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            @else
-                                <p>no Items</p>
-                            @endif
-                            <div class="mt-auto d-flex justify-content-between">
-                                <a href="{{route('production.print',$order->id)}}" class="btn btn-secondary ">
-                                 Print
-                                </a>
-                                <small>{{$order->created_at->diffForHumans()}}</small>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-            @empty
-
-                <div class="">no result found</div>
+                    <tr>
+                        <td>
+                            no result found
+                        </td>
+                    </tr>
 
 
+                @endforelse
+                </tbody>
+            </table>
 
-            @endforelse
 
         </div>
 

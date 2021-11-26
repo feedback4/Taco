@@ -3,9 +3,6 @@
 namespace App\Http\Livewire\Tables;
 
 use App\Models\ProductionOrder;
-use LaravelDaily\Invoices\Classes\InvoiceItem;
-use LaravelDaily\Invoices\Classes\Party;
-use LaravelDaily\Invoices\Facades\Invoice;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -27,7 +24,7 @@ class ProductionTable extends Component
 //                ->whereHas('inventory' ,function($q){
 //                    $q->where('id', $this->inventoryId);
 //                })
-                ->with('items')
+                ->with('items','formula','user')
                 ->orderBy($this->orderBy, $this->orderDesc ? 'desc' : 'asc')
                 ->paginate($this->perPage)
         ]);

@@ -40,7 +40,7 @@
                     <select class="form-control " wire:model.lazy="activeElements.{{$index}}.element">
                         <option value="">select Element</option>
                         @foreach($elements as $element)
-                            <option value="{{$element->id}}">{{$element->name}}</option>
+                            <option value="{{$element->id}}">{{$element->name}} -- {{$element->code}}</option>
                         @endforeach
                     </select>
 
