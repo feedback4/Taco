@@ -3,7 +3,7 @@
 
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#">
-                <i class="fas fa-bars"></i>
+                <i class='bx bx-menu bx-sm'></i>
                 <span class="sr-only">Toggle navigation</span>
             </a>
         </li>
