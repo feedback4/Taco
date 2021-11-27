@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a45f7207feba946af60267a97ef478d1",
+    "content-hash": "f15169481fcd8165f3eccfcca36c8a51",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -240,67 +240,6 @@
                 }
             ],
             "time": "2021-08-15T20:50:18+00:00"
-        },
-        {
-            "name": "consoletvs/invoices",
-            "version": "1.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ConsoleTVs/Invoices.git",
-                "reference": "764c1ea99bd0b7d1a9165cc8c216037ef3987d76"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ConsoleTVs/Invoices/zipball/764c1ea99bd0b7d1a9165cc8c216037ef3987d76",
-                "reference": "764c1ea99bd0b7d1a9165cc8c216037ef3987d76",
-                "shasum": ""
-            },
-            "require": {
-                "dompdf/dompdf": "^1.0",
-                "ext-bcmath": "*",
-                "illuminate/support": "^5.0|^6.0|^7.0|^8.0",
-                "illuminate/view": "^5.0|^6.0|^7.0|^8.0",
-                "nesbot/carbon": ">1.22"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "ConsoleTVs\\Invoices\\InvoicesServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "ConsoleTVs\\Invoices\\": "."
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Erik Campobadal",
-                    "email": "ConsoleTVs@gmail.com"
-                }
-            ],
-            "description": "Generate PDF invoices for your customers in laravel",
-            "keywords": [
-                "Erik Campobadal",
-                "create",
-                "customers",
-                "generate",
-                "invoices",
-                "laravel",
-                "open source",
-                "pdf"
-            ],
-            "support": {
-                "issues": "https://github.com/ConsoleTVs/Invoices/issues",
-                "source": "https://github.com/ConsoleTVs/Invoices/tree/1.8.0"
-            },
-            "time": "2021-04-25T15:40:15+00:00"
         },
         {
             "name": "dasprid/enum",

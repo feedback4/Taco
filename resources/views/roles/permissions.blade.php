@@ -3,28 +3,16 @@
     <h1>All Permissions</h1>
 @stop
 @section('content')
-
         <div class="row justify-content-center">
             <div class="col-md-12">
-
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#permissionModal">Create Field</button>
                 @foreach($permissions as $permission)
                     <div class="d-flex w-25">
                         <p class="">{{$permission->name}}</p>
-                        <p class="ml-auto"> <form action="{{route('permission.delete',$permission->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <input type="submit" class="btn btn-danger" value="delete">
-                        </form></p>
-
                     </div>
-
                 @endforeach
             </div>
         </div>
-
-
-
 
     <!-- Modal -->
     <div class="modal fade" id="permissionModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -62,4 +50,3 @@
         </div>
     </div>
 @endsection
-

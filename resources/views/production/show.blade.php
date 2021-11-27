@@ -21,7 +21,6 @@
             <p><b>{{$order->amount}}</b></p> <hr>
             <label>Order Times</label>
             <p><b>{{$order->times}}</b></p> <hr>
-
             <label>Formula elements</label>
             <p>
             <table class="table ">
@@ -43,7 +42,7 @@
                 </tbody>
             </table>
 
-            </p> <hr>
+            </p>  <hr>
 
 {{--            <div class="d-flex ">--}}
 {{--                @can('element-edit')--}}
