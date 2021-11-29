@@ -18,11 +18,12 @@ class CreateInventoriesTable extends Migration
             $table->string('name');
             $table->string('location');
             $table->foreignId('manager_id')
-                ->on('users')
-                ->onDelete('cascade')
+                ->on('employee')
                 ->onUpdate('cascade')
                 ->nullable();
+            $table->boolean('active')->default(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

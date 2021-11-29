@@ -65,7 +65,12 @@ class CategoryForm extends Component
         $this->reset(
             'name',
             'type' ,
-            'parent_id'
+            'parent_id',
+            'category',
+            'title',
+            'color',
+            'button'
+
         );
 
         return back();

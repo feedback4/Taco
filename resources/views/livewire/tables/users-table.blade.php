@@ -43,28 +43,26 @@
                 @foreach($users as $user)
                     <tr>
                         <td class="border  py-2">{{$user->id}} </td>
-                        <td class="border  py-2"> <a href="{{ route('users.show',$user->id) }}"> {{$user->name}} </a></td>
+                        <td class="border  py-2"> <a href="{{ route('hr.users.show',$user->id) }}"> {{$user->name}} </a></td>
                         <td class="border  py-2">{{$user->email}} </td>
-                        <td class="border  py-2"><a href="{{ route('roles.show',  $user->roles[0]->id) }}">{{$user->getRoleNames()[0]}}</a></td>
-                        @can('user-active')
+                        <td class="border  py-2"><a href="{{ route('hr.roles.show',  $user->roles[0]->id) }}">{{$user->getRoleNames()[0]}}</a></td>
+
                             <td class="border  py-2">
                                 {{--                                {{$user->active}}--}}
                                 {{--                                @livewire('main.toggle-button',['model' => $user,'field'=>'active'])--}}
                                 <livewire:main.toggle-button :model="$user" :field="'active'" :key="$user->id">
                             </td>
-                        @endcan
-                        @can('user-edit')
-                            <td class="border  py-2"><a href="{{ route('users.edit',$user->id) }}" class="btn btn-info">edit</a></td>
-                        @endcan
-                        @can('user-delete')
+
+                            <td class="border  py-2"><a href="{{ route('hr.users.edit',$user->id) }}" class="btn btn-info">edit</a></td>
+
                             <td class="border  py-2">
-                                <form action="{{route('users.destroy',$user->id) }}" method="POST">
+                                <form action="{{route('hr.users.destroy',$user->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <input type="submit" class="btn btn-danger" name="delete" value="delete">
                                 </form>
                             </td>
-                        @endcan
+
                     </tr>
                 @endforeach
 

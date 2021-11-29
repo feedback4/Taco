@@ -12,7 +12,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, hasRoles ;
+    use HasApiTokens, HasFactory, Notifiable, hasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -44,13 +44,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public static $states = ['القاهرة', 'الجيزة', 'الإسكندرية', 'الإسماعيليّة', 'أسوان', 'أسيوط', 'الأقصر', 'البحر الأحمر', 'بني سويف', 'البحيرة', 'بورسعيد', 'جنوب سيناء', 'الدقهلية', 'دمياط', 'سوهاج', 'السويس', 'الشرقيّة', 'شمال سيناء', 'الغربيّة', 'قنا', 'كفر الشيخ', 'مرسى مطروح', 'المنوفيّة', 'المنيا', 'الوادي الجديد'];
+
 
     public static function search($search)
     {
         return empty($search) ? static::query()
-            : static::query()->where('id', 'like', '%'.$search.'%')
-                ->orWhere('name', 'like', '%'.$search.'%')
-                ->orWhere('email', 'like', '%'.$search.'%');
+            : static::query()->where('id', 'like', '%' . $search . '%')
+                ->orWhere('name', 'like', '%' . $search . '%')
+                ->orWhere('email', 'like', '%' . $search . '%');
 //
 //                ->orWhereHas('roles', fn($q) => $q->where('name','like', '%'.$search.'%'))
 //                ->orWhereHas('branch', fn($q) => $q->where('name','like', '%'.$search.'%'));

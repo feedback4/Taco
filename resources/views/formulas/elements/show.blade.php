@@ -24,7 +24,7 @@
                 <label>Element Category</label>
                 <p><b><a href="{{route('categories.show',$element->category->id)}}">{{$element->category->name}}</a></b></p> <hr>
                 <label>Element formulas</label>
-                <p>
+                @if(!$element->formulas->isEmpty())
                 <table class="table ">
                     <thead>
                     <tr>
@@ -40,12 +40,18 @@
 {{--                            <td><a href="{{route('categories.show',$formula->category->id)}}">{{$formula->category->name}}</a></td>--}}
                             <td>{{$formula->pivot->amount }} %</td>
                         </tr>
-
                     @endforeach
                     </tbody>
                 </table>
 
-                </p> <hr>
+
+                @else
+                    <br><b>
+                    this element hasn't been used
+                    </b>
+                @endif
+                    <hr>
+
             </div>
         </div>
 

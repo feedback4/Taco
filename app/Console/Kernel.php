@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
 //            $schedule->command('tenants:run backup:run  --tenants=' . $tenant->id )->everyMinute();
 //        }
         $schedule->exec('php artisan backup:run && php artisan tenants:run backup:run' . $this->getTenants())->everyMinute()->runInBackground()->withoutOverlapping();
-
+        $schedule->exec('users:notify')->everyFiveMinutes()->runInBackground()->withoutOverlapping();
     }
 
     /**

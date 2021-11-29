@@ -27,10 +27,12 @@ class ItemsInsert extends Component
     public array $unit=[] ;
     public array $expire_at=[] ;
     public array $element_id=[] ;
+    public int $inventoryId ;
 
     public $elements ;
-    public function mount()
+    public function mount($inventoryId)
     {
+        $this->inventoryId = $inventoryId;
         $this->elements = Element::select('id','name','code')->get();
     }
 
@@ -57,12 +59,12 @@ class ItemsInsert extends Component
                 'amount' => $this->amount[$k],
                 'unit' => $this->unit[$k],
                 'expire_at' => $this->expire_at[$k],
-                'inventory_id' => 1 ,
+                'inventory_id' =>   $this->inventoryId  ,
                 'user_id' => auth()->id(),
             ]);
         }
         $this->emit('alert',
             ['type' => 'info',  'message' => 'Items Created Successfully!']);
-        return redirect()->route('inventory');
+        return redirect()->route('inventories.show',  $this->inventoryId );
     }
 }

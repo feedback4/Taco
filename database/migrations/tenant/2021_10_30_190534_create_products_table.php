@@ -16,8 +16,14 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('code');
+            $table->string('type');
+            $table->string('texture');
+            $table->string('gloss');
+            $table->string('colorFamily');
+            $table->string('curing_time');
             $table->foreignIdFor(\App\Models\Inventory::class)->nullable();
-            $table->foreignIdFor(\App\Models\Formula::class)->nullable();
+            $table->foreignIdFor(\App\Models\ProductionOrder::class)->nullable();
             $table->timestamps();
         });
     }

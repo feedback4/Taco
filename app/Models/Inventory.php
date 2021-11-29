@@ -4,16 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Inventory extends Model
 {
-    use HasFactory;
+    use HasFactory ,softDeletes;
 
     protected $fillable = [
         'name',
         'location',
         'manager_id',
-
     ];
 
     public function products()
@@ -27,7 +27,7 @@ class Inventory extends Model
     }
     public function manager()
     {
-        return $this->belongsTo(User::class,'manager_id');
+        return $this->belongsTo(Employee::class,'manager_id');
     }
     public function elements ()
     {

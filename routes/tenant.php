@@ -43,43 +43,62 @@ Route::middleware([
 
         Route::get('/', [\App\Http\Controllers\HomeController::class,'index'])->name('home');
 
-        Route::get('roles/permissions',[\App\Http\Controllers\RolesController::class,'permissions'])->name('roles.permissions');
-        Route::post('roles/permissions',[\App\Http\Controllers\RolesController::class,'permissionsCreate']);
-        Route::delete('permission/delete/{id}',[\App\Http\Controllers\RolesController::class,'permissionsDelete'])->name('permission.delete');
+        Route::group(['prefix'=>'hr', 'as' => 'hr.',],function (){
+            Route::get('roles/permissions',[\App\Http\Controllers\Hr\RolesController::class,'permissions'])->name('roles.permissions');
+            Route::post('roles/permissions',[\App\Http\Controllers\Hr\RolesController::class,'permissionsCreate']);
+            Route::delete('permission/delete/{id}',[\App\Http\Controllers\Hr\RolesController::class,'permissionsDelete'])->name('permission.delete');
 
-        //  Route::get('categories',[\App\Http\Controllers\CategoriesController::class,'index'])->name('categories');
-        Route::get('purchasing',[\App\Http\Controllers\PurchasingController::class,'index'])->name('purchasing');
-        Route::get('inventory',[\App\Http\Controllers\InventoryController::class,'index'])->name('inventory');
-        Route::get('inventory/insert',[\App\Http\Controllers\InventoryController::class,'insert'])->name('inventory.insert');
+            Route::resource('users',\App\Http\Controllers\Hr\UsersController::class);
+            Route::resource('roles',\App\Http\Controllers\Hr\RolesController::class);
+            Route::resource('employees',\App\Http\Controllers\Hr\EmployeesController::class);
+        });
 
 
-        Route::get('compounds',\App\Http\Controllers\CompoundsController::class)->name('compounds');
-        Route::get('production',[\App\Http\Controllers\ProductionOrderController::class,'index'])->name('production');
-        Route::get('production/create',[\App\Http\Controllers\ProductionOrderController::class,'create'])->name('production.create');
-        Route::get('production/{id}',[\App\Http\Controllers\ProductionOrderController::class,'show'])->name('production.show');
-        Route::get('production/{id}/print',[\App\Http\Controllers\ProductionOrderController::class,'print'])->name('production.print');
-        Route::get('production/{id}/pdf',[\App\Http\Controllers\ProductionOrderController::class,'pdf'])->name('production.pdf');
-//        Route::get('categories/{id}',[\App\Http\Controllers\CategoriesController::class,'show'])->name('categories.show');
-//        Route::get('elements',[\App\Http\Controllers\ElementsController::class,'index'])->name('elements.index');
-//        Route::get('elements/{id}',[\App\Http\Controllers\ElementsController::class,'show'])->name('elements.show');
-//        Route::get('compounds/create',[\App\Http\Controllers\ElementsController::class,'createCompound'])->name('compounds.create');
-//        Route::get('compounds/{id}',[\App\Http\Controllers\ElementsController::class,'showCompound'])->name('compounds.show');
 
-        Route::resource('users',\App\Http\Controllers\UsersController::class);
-        Route::resource('roles',\App\Http\Controllers\RolesController::class);
-        Route::resource('elements',\App\Http\Controllers\ElementsController::class);
-        Route::resource('categories',\App\Http\Controllers\CategoriesController::class);
-        Route::resource('formulas',\App\Http\Controllers\FormulasController::class);
 
-        Route::get('dropbox',function (){
-            abort(404);
-        })->name('dropbox');
-        Route::get('setting',function (){
-            abort(404);
-        })->name('setting');
-        Route::get('accounting',function (){
-            abort(404);
-        })->name('accounting');
+        Route::group(['prefix'=>'crm', 'as' => 'crm.',],function (){
+            Route::resource('clients',\App\Http\Controllers\Crm\ClientsController::class);
+            Route::resource('companies',\App\Http\Controllers\Crm\CompaniesController::class);
+            Route::resource('actions',\App\Http\Controllers\Crm\ActionsController::class);
+        });
+
+        Route::group(['prefix'=>'formulas', 'as' => 'formulas.',],function (){
+            Route::get('categories/',[\App\Http\Controllers\Formulas\CategoriesController::class,'index'])->name('categories.index');
+            Route::get('categories/{id}',[\App\Http\Controllers\Formulas\CategoriesController::class,'show'])->name('categories.show');
+            Route::get('elements',[\App\Http\Controllers\Formulas\ElementsController::class,'index'])->name('elements.index');
+            Route::get('elements/{id}',[\App\Http\Controllers\Formulas\ElementsController::class,'show'])->name('elements.show');
+            Route::get('compounds',\App\Http\Controllers\Formulas\CompoundsController::class)->name('compounds');
+            Route::resource('formulas',\App\Http\Controllers\Formulas\FormulasController::class);
+        });
+
+        Route::group(['prefix'=>'purchases', 'as' => 'purchases.',],function (){
+            Route::resource('bills',\App\Http\Controllers\Purchases\BillsController::class);
+            Route::resource('vendors',\App\Http\Controllers\Purchases\VendorController::class);
+        });
+
+        Route::group(['prefix'=>'inventory', 'as' => 'inventory.',],function (){
+            Route::get('inventory/{id}',[\App\Http\Controllers\Inventory\InventoryController::class,'show'])->name('show');
+            Route::get('inventory/{id}/insert',[\App\Http\Controllers\Inventory\InventoryController::class,'insert'])->name('insert');
+        });
+
+        Route::group(['prefix'=>'production', 'as' => 'production.',],function (){
+            Route::get('/',[\App\Http\Controllers\Production\ProductionOrderController::class,'index'])->name('index');
+            Route::get('/create',[\App\Http\Controllers\Production\ProductionOrderController::class,'create'])->name('create');
+            Route::get('/{id}',[\App\Http\Controllers\Production\ProductionOrderController::class,'show'])->name('show');
+            Route::get('/{id}/print',[\App\Http\Controllers\Production\ProductionOrderController::class,'print'])->name('print');
+            Route::get('/{id}/pdf',[\App\Http\Controllers\Production\ProductionOrderController::class,'pdf'])->name('pdf');
+        });
+        Route::group(['prefix'=>'sales', 'as' => 'sales.',],function (){
+
+        });
+        Route::group(['prefix'=>'setting', 'as' => 'setting.',],function (){
+            Route::get('/',[\App\Http\Controllers\HomeController::class,'setting'])->name('index');
+        });
+
+
+        Route::get('notifications',[\App\Http\Controllers\HomeController::class ,'notifications'])->name('notifications');
+
+
 
         Route::get('404',function (){
             abort(404);

@@ -16,7 +16,7 @@ class CreateProductionOrdersTable extends Migration
         Schema::create('production_orders', function (Blueprint $table) {
             $table->id();
             $table->string('amount');
-
+            $table->string('times');
             $table->foreignIdFor(\App\Models\Formula::class);
             $table->foreignIdFor(\App\Models\User::class);
             $table->timestamps();

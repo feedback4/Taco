@@ -2,6 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
+use App\Models\Element;
+use App\Models\Inventory;
+use App\Models\Status;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
@@ -10,6 +14,11 @@ use Spatie\Permission\PermissionRegistrar;
 
 class ConstansSeeder extends Seeder
 {
+    /**
+     * @var string[]
+     */
+    private $permissions;
+
     /**
      * Run the database seeds.
      *
@@ -22,134 +31,144 @@ class ConstansSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         $this->permissions = [
-            'dashboard',
-            'production',
+            'hr',
+            'formulas',
+            'crm',
+            'purchases',
             'inventory',
-            'accounting',
-            'role-show',
-            'role-edit',
-            'role-create',
-            'role-delete',
-            'user-show',
-            'user-edit',
-            'user-create',
-            'user-delete',
-            'category-show',
-            'category-edit',
-            'category-create',
-            'category-delete',
-            'element-show',
-            'element-edit',
-            'element-create',
-            'element-delete',
-            'formula-show',
-            'formula-edit',
-            'formula-create',
-            'formula-delete',
-            'product-show',
-            'product-edit',
-            'product-create',
-            'product-delete',
+            'production',
+            'sales',
+           'setting'
         ];
-        foreach ($this->permissions as $permission){
-            Permission::create(['guard_name'=>'web','name'=>$permission]);
+        foreach ($this->permissions as $permission) {
+            Permission::create(['guard_name' => 'web', 'name' => $permission]);
         }
 
-        $role1 = Role::create(['guard_name'=>'web','name'=>'editor']);
-        $role1->givePermissionTo('element-show');
-        $role1->givePermissionTo('user-show');
-        $role1->givePermissionTo('formula-show');
-        $role1->givePermissionTo('product-show');
-        $role1->givePermissionTo('dashboard');
+        $role1 = Role::create(['guard_name' => 'web', 'name' => 'accountant']);
+        $role1->givePermissionTo('purchases');
+        $role1->givePermissionTo('sales');
 
-        $role2 = Role::create(['guard_name'=>'web','name'=>'admin']);
-        $role2->givePermissionTo('role-create');
-        $role2->givePermissionTo('role-delete');
-        $role2->givePermissionTo('user-create');
-        $role2->givePermissionTo('user-show');
-        $role2->givePermissionTo('product-create');
-        $role2->givePermissionTo('product-show');
-        $role2->givePermissionTo('dashboard');
+        $role2 = Role::create(['guard_name' => 'web', 'name' => 'admin']);
+        $role2->givePermissionTo('hr');
+        $role2->givePermissionTo('crm');
+        $role2->givePermissionTo('purchases');
+        $role2->givePermissionTo('inventory');
+        $role2->givePermissionTo('sales');
+        $role2->givePermissionTo('setting');
 
-        $role3 = Role::create(['guard_name'=>'web','name'=>'Feedback']);
+        $role3 = Role::create(['guard_name' => 'web', 'name' => 'Feedback']);
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 
         // create demo users
-        $password = Hash::make('editor@taco.com');
+        $password = Hash::make('accountant@taco.com');
         $user = \App\Models\User::factory()->create([
-            'name' => 'editor',
-            'email' => 'editor@taco.com',
-            'password'=>$password,
+            'name' => 'accountant',
+            'email' => 'accountant@taco.com',
+            'password' => $password,
         ]);
         $user->assignRole($role1);
 
-        $password = Hash::make('me4o@taco.com');
+        $password = Hash::make('admin@taco.com');
         $user = \App\Models\User::factory()->create([
-            'name' => 'me4o',
-            'email' => 'me4o@taco.com',
-            'password'=>$password,
+            'name' => 'admin',
+            'email' => 'admin@taco.com',
+            'password' => $password,
         ]);
         $user->assignRole($role2);
         $password = Hash::make('feedback');
 
         $user = \App\Models\User::factory()->create([
-            'name' => 'admin',
-            'email' => 'admin@taco.com',
-            'password'=>$password,
+            'name' => 'feedback',
+            'email' => 'feedback@taco.com',
+            'password' => $password,
         ]);
         $user->assignRole($role3);
 
 
         $elements =
-['Polyster GH-1770',
-'Polyster 3305',
-'Epoxy E12-(903)',
-'Polyster GH-5021',
-'TGIC',
-'THR218',
-'HyrdoCarb 90',
-'BB1 (BaSo4)',
-'BB-88',
-'PV 88',
-'BENZOIN ',
-'XG605',
-'YELLOW  920',
-'black 306',
-'RED 180 m',
-'RED 130 m',
-'Yellow 3910',
-'blue 15/3 ',
-'Printex V',
-'Powder add 9083',
-'Plustalc 1250',
-'violet',
-'green 7',
-'OKAY (1gm/ kg) (15 kg/bag)',
-'Alu-c',
-'Aerosil 200',
-'Red 170 (Dcc red 7470)',
-'Yellow 1012 (Medium chrome yellow)',
-' Blue 15/1 ',
-'Ora. Molbedate 1610 R104',
-'EJ1',
-'cap. 381-20',
-'blue.G-58',
-'RED 57/1',
-'RED 48/2',
-'Black N220',
-'yellow 1080 (lemon)',
-'DE3329 Matting Agent',
-'HC68 Matting Hardner',
-'silver 9407',
-'gold 9604',
-'cu.',
-'Al. fine badaw',
-'Al. grains badawy'];
+            ['Polyster GH-1770',
+                'Polyster 3305',
+                'Epoxy E12-(903)',
+                'Polyster GH-5021',
+                'TGIC',
+                'THR218',
+                'HyrdoCarb 90',
+                'BB1 (BaSo4)',
+                'BB-88',
+                'PV 88',
+                'BENZOIN ',
+                'XG605',
+                'YELLOW  920',
+                'black 306',
+                'RED 180 m',
+                'RED 130 m',
+                'Yellow 3910',
+                'blue 15/3 ',
+                'Printex V',
+                'Powder add 9083',
+                'Plustalc 1250',
+                'violet',
+                'green 7',
+                'OKAY (1gm/ kg) (15 kg/bag)',
+                'Alu-c',
+                'Aerosil 200',
+                'Red 170 (Dcc red 7470)',
+                'Yellow 1012 (Medium chrome yellow)',
+                ' Blue 15/1 ',
+                'Ora. Molbedate 1610 R104',
+                'EJ1',
+                'cap. 381-20',
+                'blue.G-58',
+                'RED 57/1',
+                'RED 48/2',
+                'Black N220',
+                'yellow 1080 (lemon)',
+                'DE3329 Matting Agent',
+                'HC68 Matting Hardner',
+                'silver 9407',
+                'gold 9604',
+                'cu.',
+                'Al. fine badaw',
+                'Al. grains badawy'];
+
+        foreach ($elements as $elem){
+            Element::factory()->create([
+                'code' => $elem,
+            ]);
+        }
 
 
+        $clientStatuses = ['Lead', 'Contacted', 'Sample Requested', 'Sample Submitted', 'Order', 'Manufacturing', 'Rejected', 'Done', 'InActive'];
+        $orderStatuses = ['pending','Manufacturing','done'];
+        $elementCategories = ['RawMaterialCategory', 'Epoxy Resin', 'Polyester Resin', 'Organic Pigments', 'Oxides', 'Additives', 'Fillers'];
 
+        foreach ($clientStatuses as $stat){
+            Status::factory()->create([
+                'name' => $stat,
+                'type' => 'client'
+            ]);
+        }
+        foreach ($orderStatuses as $sta){
+            Status::factory()->create([
+                'name' => $sta,
+                'type' => 'order'
+            ]);
+        }
 
-      $formulas =  [ 8003 ,8007,8014,8017 ,1013,1015 ,9005,7030];
+        foreach ($elementCategories as $cat){
+            Category::factory()->create([
+                'name' => $cat,
+                'type' => 'element'
+            ]);
+        }
 
+        Inventory::factory()->create([
+            'name' => 'materials',
+            'location' => 'factory',
+        ]);
+        Inventory::factory()->create([
+            'name' => 'products',
+            'location' => 'factory',
+        ]);
     }
 }

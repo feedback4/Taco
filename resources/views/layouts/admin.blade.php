@@ -19,6 +19,8 @@
 
     <!-- Styles -->
     <link href="{{ global_asset('css/app.css') }}" rel="stylesheet">
+
+
     @livewireStyles
     @toastr_css
     @yield('meta')
@@ -62,12 +64,18 @@
 
 
 @yield('js')
+
+
 <!-- Livewire Scripts -->
 
 @livewireScripts
 @jquery
 @toastr_js
 @toastr_render
+
+
+<!-- Alpine v3 -->
+
 <script>
     window.livewire.on('alert', param => {
         toastr[param['type']](param['message']);

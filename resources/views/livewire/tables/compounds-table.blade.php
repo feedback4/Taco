@@ -50,17 +50,16 @@
                                 <a href="{{route('elements.show',$element->id)}}"><span class="badge badge-primary">{{$element->name}}</span></a>
                             @endforeach
                         </td>
-                        @can('element-edit')
+
                             <td>
                                 <button wire:click="edit({{ $compound->id }})" class="btn btn-primary">Edit</button>
                             </td>
 
-                        @endcan
-                        @can('element-delete')
+
                             <td>
                                 <button wire:click="delete({{ $compound->id }})" class="btn btn-danger">Delete</button>
                             </td>
-                        @endcan
+
                     </tr>
                 @endforeach
                 </tbody>

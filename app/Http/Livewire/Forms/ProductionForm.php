@@ -98,7 +98,7 @@ class ProductionForm extends Component
 
         $order = ProductionOrder::create([
             'formula_id' => $this->formula->id,
-            'amount' => $this->amount,
+            'amount' => floatval($this->amount),
             'times' => $this->times,
             'user_id' => auth()->id(),
         ]);

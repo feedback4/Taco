@@ -20,9 +20,9 @@ class InventoryTable extends Component
     public $orderDesc = true;
     public $inventoryId  ;
 
-    public function mount()
+    public function mount($inventoryId)
     {
-        $this->inventoryId = 1;
+        $this->inventoryId = $inventoryId;
     }
 
     public function render()

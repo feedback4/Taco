@@ -10,7 +10,7 @@ class ProductionOrder extends Model
 {
     use HasFactory ,BelongsToThrough;
 
-    protected $fillable = ['amount','formula_id','user_id','times'];
+    protected $fillable = ['amount','formula_id','status_id','user_id','times'];
 
     public function items ()
     {
@@ -23,6 +23,10 @@ class ProductionOrder extends Model
     public function formula ()
     {
         return $this->belongsTo(Formula::class);
+    }
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
     }
     public function user ()
     {
