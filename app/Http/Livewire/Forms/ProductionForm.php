@@ -109,7 +109,7 @@ class ProductionForm extends Component
               if(isset($this->invElement[$element->id])) {
                   foreach ($this->invElement[$element->id] as $key => $index){
                       if ($index > 0) {
-                          $order->items()->attach($key, ['amount' => floatval(trim($index,0)) ]);
+                          $order->items()->attach($key, ['amount' => floatval($index) ]);
                       }
                   }
               }
@@ -118,7 +118,7 @@ class ProductionForm extends Component
                   foreach ($this->invElement[$element->id] as $key => $index){
                       $index = (float) $index;
                       if ($index > 0){
-                          $order->items()->attach($key, ['amount' => floatval($index,3)]);
+                          $order->items()->attach($key, ['amount' => floatval($index)]);
                       }
                   }
               }
