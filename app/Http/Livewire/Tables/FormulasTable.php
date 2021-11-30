@@ -40,11 +40,13 @@ class FormulasTable extends Component
     {
 
         $formula = Formula::findOrFail($formulaId);
-        if (isset($category->children[0]) ){
-            $this->emit('alert',
-                ['type' => 'warning',  'message' => 'Formula Still Have Children']);
-            return back();
-        }
+//        if (isset($category->children[0]) ){
+//            $this->emit('alert',
+//                ['type' => 'warning',  'message' => 'Formula Still Have Children']);
+//            return back();
+//        }
+
+        
         $formula->delete();
         $this->emitSelf('refreshFormulas');
         $this->emit('alert',

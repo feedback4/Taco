@@ -2,7 +2,7 @@
 
 @section('content_header')\
 <div class="">    <h1>Element {{$element->name}}</h1></div>
-<div class="">              <a href="{{route('elements.index')}}" class="btn btn-outline-primary">Manage Elements</a></div>
+<div class="">              <a href="{{route('formulas.elements.index')}}" class="btn btn-outline-primary">Manage Elements</a></div>
 
 @stop
 
