@@ -217,7 +217,6 @@ class FormulaForm extends Component
 
     public function save()
     {
-        dd($this->activeElements);
         if (!$this->cal()) {
             $this->emit('alert',
                 ['type' => 'info', 'message' => 'يا جدع مينفعش']);
