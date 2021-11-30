@@ -57,6 +57,10 @@
                                 <th>Expected</th>
                                 <td>{{$productionOrder->amount - ($productionOrder->amount  * .05)}} kg <small>with 5% losses</small></td>
                             </tr>
+                            <tr>
+                                <th>Cost</th>
+                                <td>{{ $cost }} EGP </td>
+                            </tr>
 
                         </table>
 

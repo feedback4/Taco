@@ -4,12 +4,13 @@
 
 @section('content_header')
     <h1>Edit Client</h1>
+    <a href="{{route('crm.clients.index')}}">Manage Clients</a>
 @stop
 @section('content')
 
         <div class="row">
             <div class="col-md-12">
-                <a href="{{route('crm.clients.index')}}">Manage Clients</a>
+
 
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
