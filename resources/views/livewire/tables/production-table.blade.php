@@ -45,7 +45,7 @@
                 @forelse($productionOrders as $k=> $order)
                     <tr>
                         <td>
-                            <a href="{{route('production.show',$order->id)}}">{{$order->formula->code}}</a>
+                            <a href="{{route('production.show',$order->id)}}">{{$order->formula?->code}}</a>
                         </td>
                         <td>{{$order->amount }} kg</td>
                         <td> <a href="{{route('production.print',$order->id)}}" class="btn btn-secondary ">
