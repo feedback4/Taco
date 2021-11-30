@@ -16,6 +16,7 @@ class CreateInventoriesTable extends Migration
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('type')->default('material');
             $table->string('location');
             $table->foreignId('manager_id')
                 ->on('employee')

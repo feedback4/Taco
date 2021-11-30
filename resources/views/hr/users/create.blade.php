@@ -3,14 +3,15 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Create User</h1>
+    <div class="">    <h1>Create User</h1></div>
+    <div class="">    <a href="{{ route('hr.users.index') }}" class="btn btn-outline-primary">All Users</a></div>
+
 @stop
 @section('content')
 
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <a href="{{route('hr.roles.index')}}">Manage Roles</a>
-                <a href="{{ route('hr.users.index') }}" class="btn btn-outline-primary">All Users</a>
+
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}

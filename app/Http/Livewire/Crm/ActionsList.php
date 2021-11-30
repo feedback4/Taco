@@ -33,7 +33,16 @@ class ActionsList extends Component
 
     public function edit(int $actionId)
     {
-        $this->emitTo('crm.action-create','editAction',$actionId);
+        $action = Action::find($actionId);
+
+        if ($action->done_at){
+            $this->emit('alert',
+                ['type' => 'warning',  'message' => 'Action is already done !']);
+            return ;
+        }else{
+            $this->emitTo('crm.action-create','editAction',$actionId);
+        }
+
     }
 
     public function delete(int $actionId)

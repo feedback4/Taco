@@ -47,7 +47,7 @@
                         <td class="border  py-2">{{$compound->code}} </td>
                         <td class="border  py-2">
                             @foreach($compound->elements as $element)
-                                <a href="{{route('elements.show',$element->id)}}"><span class="badge badge-primary">{{$element->name}}</span></a>
+                                <a href="{{route('formulas.elements.show',$element->id)}}"><span class="badge badge-primary">{{$element->name}}</span></a>
                             @endforeach
                         </td>
 

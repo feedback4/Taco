@@ -3,7 +3,9 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>User {{$user->name}}</h1>
+
+    <div class="">    <h1>User {{$user->name}}</h1></div>
+    <div class=""> <a href="{{route('hr.users.index')}}">Manage Users</a></div>
 @stop
 
 @section('content')
@@ -11,7 +13,7 @@
 
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <a href="{{route('hr.users.index')}}">Manage Users</a>
+
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}

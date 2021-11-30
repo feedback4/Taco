@@ -16,7 +16,7 @@
             <div class="col-md-6">
                 <label for="type" class=" col-form-label text-md-right">Type</label>
                 <select  class="form-control " wire:model.lazy="type" >
-                    <option value="">select Parent</option>
+                    <option value="">select Type</option>
                     @foreach($types as $ty)
                         <option value="{{$ty}}">{{$ty}}</option>
                     @endforeach

@@ -1,11 +1,13 @@
 @extends('layouts.admin')
 @section('content_header')
-    <h1>All Permissions</h1>
+
+    <div class="">    <h1>All Permissions</h1></div>
+    <div class="">             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#permissionModal">Create Field</button></div>
 @stop
 @section('content')
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#permissionModal">Create Field</button>
+
                 @foreach($permissions as $permission)
                     <div class="d-flex w-25">
                         <p class="">{{$permission->name}}</p>

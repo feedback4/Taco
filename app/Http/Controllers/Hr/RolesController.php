@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Hr;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
-use DB;
 use App\Http\Controllers\Controller;
 class RolesController extends Controller
 {
@@ -73,8 +73,8 @@ class RolesController extends Controller
     public function show($id)
     {
         $role = Role::findById($id);
-        $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")->where("role_has_permissions.role_id",$id)->get();
-        return view('roles.show',compact('role','rolePermissions'));
+        $rolePermissions = Permission::whereHas('roles', fn($q) => $q->where('id',$id))->get();
+        return view('hr.roles.show',compact('role','rolePermissions'));
     }
 
     /**
@@ -88,7 +88,8 @@ class RolesController extends Controller
         //
         $role = Role::findById($id);
         $permissions = Permission::get();
-        $rolePermissions =Db::table("role_has_permissions")->where('role_has_permissions.role_id',$id)->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')->all();
+      //  $rolePermissions =DB::table("role_has_permissions")->where('role_has_permissions.role_id',$id)->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')->all();
+        $rolePermissions = Permission::whereHas('roles', fn($q) => $q->where('id',$id))->get()->toArray();
         return view('hr.roles.edit',compact('role','permissions','rolePermissions'));
 
     }

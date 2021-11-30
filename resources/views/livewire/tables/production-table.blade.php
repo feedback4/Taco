@@ -38,6 +38,7 @@
                     <th>Inventory</th>
                     <th>production</th>
                     <th>Created</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -54,6 +55,7 @@
                                 print
                             </a></td>
                         <td> {{$order->created_at->format('d-m-Y')}} <small>by {{ $order->user->name }}</small> </td>
+                        <td><a href="{{route('production.done',$order->id)}}" class="btn btn-dark">done</a></td>
                     </tr>
 
                 @empty

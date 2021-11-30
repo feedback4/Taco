@@ -41,7 +41,7 @@
                 @foreach($formulas as $formula)
                     <tr>
                         <td class="border  py-2">{{$formula->id}} </td>
-                        <td class="border  py-2"><a href="{{route('formulas.show',$formula->id)}}">{{$formula->name}}</a></td>
+                        <td class="border  py-2"><a href="{{route('formulas.formulas.show',$formula->id)}}">{{$formula->name}}</a></td>
                         <td class="border  py-2">{{$formula->code}} </td>
                         <td class="border  py-2">
                             @if($formula->category)
@@ -50,21 +50,16 @@
                                 no category
                             @endif
                         </td>
-                        @can('formula-edit')
                             <td>
-                                <a href="{{route('formulas.edit',$formula->id)}}" class="btn btn-primary">Edit</a>
+                                <a href="{{route('formulas.formulas.edit',$formula->id)}}" class="btn btn-primary">Edit</a>
                             </td>
-
-                        @endcan
-                        @can('formula-delete')
                             <td>
-                                <form action="{{route('formulas.destroy',$formula->id) }}" method="POST">
+                                <form action="{{route('formulas.formulas.destroy',$formula->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <input type="submit" class="btn btn-danger" value="Delete">
                                 </form>
                             </td>
-                        @endcan
                     </tr>
                 @endforeach
                 </tbody>

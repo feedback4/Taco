@@ -1,16 +1,20 @@
 @extends('layouts.admin')
 
 @section('content_header')
-    <h1>All Roles</h1>
+    <div class="">    <h1>All Roles</h1></div>
+    <div class="">   <a href="{{route('hr.roles.permissions')}}" class="btn btn-outline-primary">permissions</a></div>
+    <div class="">
+        <a href="{{route('hr.roles.create')}}" class="btn btn-success">Create Role</a>
+
+     </div>
+
 @stop
 @section('content')
 
         <div class="row justify-content-center">
             <div class="col-md-12">
 
-                    <a href="{{route('hr.roles.create')}}" class="btn btn-success">Create Role</a>
 
-                    <a href="{{route('hr.roles.permissions')}}" class="btn btn-outline-primary">permissions</a>
 
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
@@ -36,7 +40,7 @@
 
                         <tr>
 
-                            <td><a href="{{ route('roles.show',$role->id) }}"> {{$role->name}} </a></td>
+                            <td><a href="{{ route('hr.roles.show',$role->id) }}"> {{$role->name}} </a></td>
 
                             <td>{{$role->id}} </td>
 

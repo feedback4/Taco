@@ -1,13 +1,15 @@
 @extends('layouts.admin')
 
 @section('content_header')
-    <h1>Edit Role</h1>
+    <div class="">    <h1>Edit Role</h1></div>
+    <div class="">   <a href="{{route('hr.roles.index')}}">Manage Roles</a></div>
+
 @stop
 @section('content')
 
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <a href="{{route('hr.roles.index')}}">Manage Roles</a>
+
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}

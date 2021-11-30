@@ -1,7 +1,9 @@
 @extends('layouts.admin')
 
 @section('content_header')
-    <h1>Production {{$order->formula->code}} </h1>
+
+    <div class="">    <h1>Production {{$order->formula->code}} </h1></div>
+    <div class=""><a href="{{route('production.index')}}">Production</a></div>
 @stop
 
 @section('content')
@@ -34,8 +36,8 @@
                 <tbody>
                 @foreach($order->formula->elements as $element)
                     <tr>
-                        <td>  <a href="{{route('elements.show',$element->id)}}"> {{$element->name}} -- {{$element->code}}</a>  </td>
-                        <td><a href="{{route('categories.show',$element->category->id)}}">{{$element->category->name}}</a></td>
+                        <td>  <a href="{{route('formulas.elements.show',$element->id)}}"> {{$element->name}} -- {{$element->code}}</a>  </td>
+                        <td><a href="{{route('formulas.categories.show',$element->category->id)}}">{{$element->category->name}}</a></td>
                         <td> <b>{{$element->pivot->amount *10 }}</b> g </td>
                     </tr>
                 @endforeach

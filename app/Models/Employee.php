@@ -19,7 +19,7 @@ class Employee extends Model
 
 
 
-    public  function getMyJoinedAtAttribute()
+    public function getJoinedAttribute()
     {
         return $this->joined_at?->format('d M Y');
     }

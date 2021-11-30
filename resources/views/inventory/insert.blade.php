@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content_header')
-    <h1>Insert Items</h1>
+    <h1>Pending Items</h1>
 @stop
 
 @section('content')
@@ -17,7 +17,14 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <livewire:forms.items-insert :inventoryId="$id" />
+            <form action="">
+                <table>
+                    <tr>
+                        <th>Item</th>
+                    </tr>
+                </table>
+            </form>
+{{--            <livewire:forms.items-insert :inventoryId="$id" />--}}
         </div>
     </div>
 

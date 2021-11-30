@@ -147,13 +147,13 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link  " href="{{route('404')}}">
-                                    <p>
-                                        Payment
-                                    </p>
-                                </a>
-                            </li>
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="nav-link  " href="{{route('404')}}">--}}
+{{--                                    <p>--}}
+{{--                                        Payment--}}
+{{--                                    </p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
 
 
                             <li class="nav-item">
@@ -177,36 +177,50 @@
                             <i class='bx bxs-left-arrow right'></i>
                         </a>
                         <ul class="nav nav-treeview">
-                            @forelse(\App\Models\Inventory::where('active',true)->get() as $inventory)
+
                             <li class="nav-item">
-                                <a class="nav-link  " href="{{route('inventory.show',$inventory->id)}}">
+                                <a class="nav-link  " href="{{route('inventory.index')}}">
                                     <p>
-                                        {{$inventory->name}}
+                                     Main
                                     </p>
                                 </a>
                             </li>
-                            @empty
-                                <li class="nav-item">
-                                    <a class="nav-link  " href="">
-                                        <p>
-                                            no inventories yet
-                                        </p>
-                                    </a>
-                                </li>
-                            @endforelse
-
+                            <li class="nav-item">
+                                <a class="nav-link  " href="{{route('inventory.products')}}">
+                                    <p>
+                                        Products
+                                    </p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 @endcan
                 @can('production')
                 <li class="nav-item">
-                    <a class="nav-link  " href="{{route('production.index')}}">
-                        <i class='bx bxs-network-chart bx-xs'></i>
+                    <a class="nav-link  " href="">
+                        <i class='bx bxs-network-chart bx-xs '></i>
                         <p>
                             Production
                         </p>
-
+                        <i class='bx bxs-left-arrow right'></i>
                     </a>
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item">
+                            <a class="nav-link  " href="{{route('production.index')}}">
+                                <p>
+                                    Orders
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  " href="{{route('production.products.index')}}">
+                                <p>
+                                    Products
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 @endcan
                 @can('sales')

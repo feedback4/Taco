@@ -1,5 +1,4 @@
-<div>
-    <div class="container-fluid ">
+<div class="container-fluid ">
         <div class="row my-3 d-flex">
             <div class="col-md-6">
                 <input type="search" wire:model.debounce.400ms="search" class="form-control" placeholder="search in names">
@@ -76,7 +75,7 @@
     </div>
 
 
-</div>
+
 
 
 

@@ -9,7 +9,7 @@ class Bill extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['vendor_id', 'status_id', 'billed_at', 'due_at', 'amount', 'notes','parent_id','tax_id'];
+    protected $fillable = ['vendor_id', 'status_id', 'billed_at', 'due_at','bill_number','tax_id','discount','sub_total','total', 'notes','parent_id'];
 
     protected $casts = [
         'billed_at' => 'date',
@@ -23,5 +23,28 @@ class Bill extends Model
     public function status()
     {
         return $this->belongsTo(Status::class);
+    }
+
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
+    public function getBilledAttribute()
+    {
+        return $this->billed_at?->format('d M Y');
+    }
+    public function getDueAttribute()
+    {
+        return $this->due_at?->format('d M Y');
+    }
+
+    public static function search($search)
+    {
+        return empty($search) ? static::query()
+            : static::query()->where('total', 'like', '%' . $search . '%')
+                ->orWhere('bill_number', 'like', '%' . $search . '%')
+                ->orWhere('notes', 'like', '%' . $search . '%')
+                ->orWhereHas('vendor', fn($q) => $q->where('name','like', '%'.$search.'%'))
+                ->orWhereHas('status', fn($q) => $q->where('name','like', '%'.$search.'%'));
     }
 }

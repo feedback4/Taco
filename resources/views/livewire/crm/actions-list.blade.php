@@ -7,6 +7,7 @@
 
         <div class="card-tools">
             {{$actions->links()}}
+            <span class="text-bold" style="cursor: pointer" wire:click.pervent="$refresh"><i class='bx bx-refresh bx-sm'></i></span>
         </div>
     </div>
     <!-- /.card-header -->

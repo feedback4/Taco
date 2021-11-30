@@ -18,4 +18,10 @@ class Company extends Model
     {
         return $this->hasMany(Client::class);
     }
+
+
+    public function getLastActionAttribute()
+    {
+        return $this->last_action_at?->format('d M Y');
+    }
 }

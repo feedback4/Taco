@@ -42,26 +42,25 @@
                 @foreach($elements as $element)
                     <tr>
                         <td class="border  py-2">{{$element->id}} </td>
-                        <td class="border  py-2"><a href="{{route('elements.show',$element->id)}}">{{$element->name}}</a></td>
+                        <td class="border  py-2"><a href="{{route('formulas.elements.show',$element->id)}}">{{$element->name}}</a></td>
                         <td class="border  py-2">{{$element->code}} </td>
                         <td class="border  py-2">
                             @if($element->category)
-                                <a href="{{route('categories.show',$element->category->id)}}">{{$element->category->name}}</a>
+                                <a href="{{route('formulas.categories.show',$element->category->id)}}">{{$element->category->name}}</a>
                             @else
                                 no category
                             @endif
                         </td>
-                        @can('element-edit')
+
                             <td>
                                 <button wire:click="edit({{ $element->id }})" class="btn btn-primary">Edit</button>
                             </td>
 
-                        @endcan
-                        @can('element-delete')
+
                             <td>
                                 <button wire:click="delete({{ $element->id }})" class="btn btn-danger">Delete</button>
                             </td>
-                        @endcan
+
                     </tr>
                 @endforeach
                 </tbody>

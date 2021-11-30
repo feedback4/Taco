@@ -1,7 +1,9 @@
 @extends('layouts.admin')
 
 @section('content_header')
-    <h1>Production Plans</h1>
+
+    <div class="">    <h1>Production Plans</h1></div>
+    <div class="">   <a href="{{route('production.create')}}" class="btn btn-primary">Place Order</a></div>
 @stop
 
 @section('content')
@@ -13,13 +15,12 @@
                     {{ session('status') }}
                 </div>
             @endif
-                <a href="{{route('production.create')}}" class="btn btn-primary">Place Order</a>
+
         </div>
 
     </div>
     <div class="row justify-content-center">
         <div class="col-md-12">
-
             <livewire:tables.production-table />
 
         </div>

@@ -1,7 +1,10 @@
 @extends('layouts.admin')
 
 @section('content_header')
-    <h1>Formula {{$formula->name}}</h1>
+    <div class="">    <h1>Formula {{$formula->name}}</h1></div>
+
+    <div class="">       <a href="{{route('formulas.index')}}" class="btn btn-outline-primary">Manage Formulas</a></div>
+
 @stop
 
 @section('content')
@@ -9,9 +12,7 @@
 
     <div class="row ">
         <div class="col-md-6">
-            <div class="mb-2">
-                <a href="{{route('formulas.index')}}" class="btn btn-outline-primary">Manage Formulas</a>
-            </div>
+
 
             @if (session('status'))
                 <div class="alert alert-success" role="alert">

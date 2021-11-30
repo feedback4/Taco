@@ -1,11 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
-/*!
- *   AdminLTE v3.1.0
- *     Only Components
- *   Author: Colorlib
- *   Website: AdminLTE.io <https://adminlte.io>
- *   License: Open source - MIT <https://opensource.org/licenses/MIT>
- */
+
 @-webkit-keyframes flipInX {
     0% {
         transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
@@ -12026,7 +12020,7 @@ button.close {
 a.close.disabled {
     pointer-events: none;
 }
-/*# sourceMappingURL=adminlte.components.css.map */
+
 
 /*!
  *   AdminLTE v3.1.0

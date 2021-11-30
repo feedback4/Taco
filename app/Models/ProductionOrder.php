@@ -24,6 +24,7 @@ class ProductionOrder extends Model
     {
         return $this->belongsTo(Formula::class);
     }
+
     public function status()
     {
         return $this->belongsTo(Status::class);

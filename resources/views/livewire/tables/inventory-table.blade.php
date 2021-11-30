@@ -1,5 +1,4 @@
 <div class="container-fluid ">
-
         <div class="row my-3 d-flex">
             <div class="col-md-6">
                 <input type="search" wire:model.debounce.400ms="search" class="form-control" placeholder="search in names">
@@ -7,8 +6,9 @@
             <div class="col-xs-2">
                 <select wire:model="orderBy" class="form-control-sm">
                     <option>Id</option>
-                    <option>Amount</option>
-                    <option>Expire</option>
+                    <option>Quantity</option>
+                    @can('purchases')  <option>Price</option> @endcan
+                    <option value="created_at">Created</option>
                 </select>
             </div>
             <div class="col-xs-2">
@@ -31,39 +31,29 @@
         <div class="row">
             <table class="table table-hover table-responsive-sm ">
                 <thead>
-                <th class="border  py-2">Created</th>
-                <th class="border  py-2">Element</th>
-                <th class="border  py-2">Amount</th>
-                <th class="border  py-2">Expire</th>
-                <th class="border  py-2">Category</th>
+                <th class="border  py-2">Name</th>
+                <th class="border  py-2">Description</th>
+                <th class="border  py-2">Quantity</th>
+
+                @can('purchases')
+                <th class="border  py-2">Price</th>
+                 @endcan
+                <th class="border  py-2">Created At</th>
 {{--                <th class="border  py-2">Edit</th>--}}
 {{--                <th class="border  py-2">Delete</th>--}}
                 </thead>
                 <tbody>
                 @forelse($items as $item)
                     <tr>
-                        <td class="border  py-2">{{$item->created_at->format('d-m-Y')}}</td>
-                        <td class="border  py-2"><a href="{{route('elements.show',$item->element->id)}}">{{$item->element->name}}</a></td>
-                        <td class="border  py-2">{{$item->amount}} {{$item->unit}}</td>
-                        <td class="border  py-2">{{$item->expire_at->format('d-m-Y')}}</td>
+                        <td class="border  py-2">{{$item->name}}</td>
+                        <td class="border  py-2">{{$item->description ?? 'no description'}}</td>
+                        <td class="border  py-2">{{$item->quantity}} {{$item->unit}}</td>
+                        @can('purchases')
                         <td class="border  py-2">
-                            @if($item->element)
-                                {{$item->element->category->name}}
-                            @else
-                                no category
-                            @endif
+                            {{$item->price}}
                         </td>
-{{--                        @can('element-edit')--}}
-{{--                            <td>--}}
-{{--                                <button wire:click="edit({{ $item->id }})" class="btn btn-primary">Edit</button>--}}
-{{--                            </td>--}}
-
-{{--                        @endcan--}}
-{{--                        @can('element-delete')--}}
-{{--                            <td>--}}
-{{--                                <button wire:click="delete({{ $item->id }})" class="btn btn-danger">Delete</button>--}}
-{{--                            </td>--}}
-{{--                        @endcan--}}
+                        @endcan
+                        <td class="border  py-2">{{$item->created_at->format('d-m-Y')}}</td>
                     </tr>
                 @empty
                     <tr>

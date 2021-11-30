@@ -24,9 +24,9 @@ class Formula extends Model
     {
         return $this->belongsToMany(Element::class,'element_formula')->withPivot('amount');
     }
-    public function products()
+    public function product()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasOne(Product::class);
     }
     public function orders()
     {

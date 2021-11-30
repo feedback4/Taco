@@ -51,7 +51,7 @@
                                     <option value="{{$status->id}}">{{$status->name}}</option>
                                 @endforeach
                             </select>
-                            @error('Company')
+                            @error('status_id')
                             <strong>{{ $message }}</strong>
                             @enderror
                         </div>
@@ -64,7 +64,7 @@
 
                                 @endforeach
                             </select>
-                            @error('Company')
+                            @error('company_id')
                             <strong>{{ $message }}</strong>
                             @enderror
                         </div>

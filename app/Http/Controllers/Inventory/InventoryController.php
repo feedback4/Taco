@@ -19,9 +19,8 @@ class InventoryController extends Controller
 
     public function index()
     {
- //   $name = Inventory::whereId($id)->pluck('name')->first();
-    //   dd($name);
-        return view('inventory.index');
+  $inventory = Inventory::first();
+        return view('inventory.index',compact('inventory'));
     }
     public function show($id)
     {
@@ -32,6 +31,36 @@ class InventoryController extends Controller
     {
 
         return view('inventory.insert',compact('id'));
+    }
+    public function pending()
+    {
+        $pendingItems = Item::doesnthave('inventory')->get();
+
+        return view('inventory.pending',compact('pendingItems'));
+    }
+    public function add(Request $request)
+    {
+
+       $this->validate($request,[
+          'items' => 'array'
+       ]);
+       if (!$request->items){
+           toastError('Pleas Select some items to move');
+           return back();
+       }
+
+       foreach ($request->items as $id){
+          $item = Item::find($id) ;
+          $item->inventory_id = 1;
+          $item->update();
+       }
+       toastSuccess('Items added to Inventory successfully');
+       return redirect()->route('inventory.index');
+    }
+    public function products()
+    {
+        $inventory = Inventory::where('type','products')->first();
+        return view('inventory.index',compact('inventory'));
     }
 
 

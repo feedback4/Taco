@@ -3,7 +3,9 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>User {{$user->name}}</h1>
+    <div class="">    <h1>Employee {{$user->name}}</h1></div>
+    <div class=""> <a href="{{route('hr.employees.index')}}">Manage Users</a></div>
+
 @stop
 
 @section('content')
@@ -11,7 +13,7 @@
 
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <a href="{{route('users.index')}}">Manage Users</a>
+
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
@@ -31,16 +33,16 @@
                         @endif
                     </b></p> <hr>
                 <div class="d-flex ">
-                    @can('user-edit')
-                    <a href="{{ route('users.edit',$user->id) }}" class="btn btn-info o">edit</a>
-                    @endcan
-                        @can('user-delete')
-                    <form class="ml-5" action="{{route('users.destroy',$user->id) }}" method="POST">
+
+                    <a href="{{ route('hr.employees.edit',$user->id) }}" class="btn btn-info o">edit</a>
+
+
+                    <form class="ml-5" action="{{route('hr.employees.destroy',$user->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <input type="submit" class="btn btn-danger" value="delete">
                     </form>
-                        @endcan
+
                 </div>
 
 

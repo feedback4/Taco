@@ -59,7 +59,7 @@
                 <th scope="col">Element</th>
                 <th scope="col">Code</th>
                 <th scope="col">Amount</th>
-                <th scope="col">Expire</th>
+                <th scope="col">Created</th>
                 <th scope="col">Inventory</th>
             </tr>
             </thead>
@@ -69,7 +69,7 @@
                     <td>{{ $item->element->name }}</td>
                     <td>{{ $item->element->code }}</td>
                     <td>{{ $item->pivot->amount }} kg</td>
-                    <td class="border  py-2">{{$item->expire_at->format('d/m/Y')}}</td>
+                    <td class="border  py-2">{{$item->created}}</td>
                     <td>{{ $item->inventory->name }}</td>
 
                 </tr>

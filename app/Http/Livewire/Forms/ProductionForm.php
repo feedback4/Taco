@@ -49,7 +49,7 @@ class ProductionForm extends Component
     {
         foreach($this->invElement as $k => $element){
             foreach($element as $key => $index){
-                $amount = Item::whereId($key)->pluck('amount')->first() ;
+                $amount = Item::whereId($key)->pluck('quantity')->first() ;
                 if($amount < $index){
                     $element[$key] = $amount ;
                     $this->invElement[$k][$key] = $amount;
@@ -109,15 +109,16 @@ class ProductionForm extends Component
               if(isset($this->invElement[$element->id])) {
                   foreach ($this->invElement[$element->id] as $key => $index){
                       if ($index > 0) {
-                          $order->items()->attach($key, ['amount' => floatval($index) ]);
+                          $order->items()->attach($key, ['amount' => floatval(trim($index,0)) ]);
                       }
                   }
               }
           }else{
               if(isset($this->invElement[$element->id])) {
                   foreach ($this->invElement[$element->id] as $key => $index){
+                      $index = (float) $index;
                       if ($index > 0){
-                          $order->items()->attach($key, ['amount' => floatval($index)]);
+                          $order->items()->attach($key, ['amount' => floatval($index,3)]);
                       }
                   }
               }
@@ -127,6 +128,6 @@ class ProductionForm extends Component
 
         $this->emit('alert',
             ['type' => 'info', 'message' => 'Production Order Created Successfully!']);
-        return redirect()->route('production');
+        return redirect()->route('production.index');
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Purchases;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bill;
+use App\Models\Status;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 
 class BillsController extends Controller
@@ -28,7 +30,10 @@ class BillsController extends Controller
      */
     public function create()
     {
-        //
+        $vendors = Vendor::where('active',true)->OrderBy('id','desc')->get();
+        $statuses = Status::where('type','bill')->OrderBy('id','desc')->get();
+
+        return view('purchases.bills.create',compact('vendors','statuses'));
     }
 
     /**
@@ -50,7 +55,7 @@ class BillsController extends Controller
      */
     public function show(Bill $bill)
     {
-        //
+        return view('purchases.bills.show',compact('bill'));
     }
 
     /**
@@ -61,7 +66,7 @@ class BillsController extends Controller
      */
     public function edit(Bill $bill)
     {
-        //
+        return view('purchases.bills.edit',compact('bill'));
     }
 
     /**

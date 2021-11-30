@@ -1,7 +1,9 @@
 @extends('layouts.admin')
 
 @section('content_header')
-    <h1>Inventory</h1>
+
+    <div class="">    <h1>{{$inventory->name}} Inventory </h1></div>
+    <div class=""> <a href="{{route('inventory.pending')}}" class="btn btn-dark">Pending Items</a></div>
 @stop
 
 @section('content')
@@ -17,12 +19,9 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <a href="{{route('inventory.insert')}}" class="btn btn-dark">Insert Items</a>
-                <livewire:tables.inventory-table  />
+                <livewire:tables.inventory-table :inventoryId="$inventory->id"  />
             </div>
         </div>
-
-
 
 @endsection
 

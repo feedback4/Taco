@@ -122,7 +122,6 @@ class FormulaForm extends Component
     public function updatedActiveElements()
     {
         $this->cal();
-
     }
 
     public function updatedG()

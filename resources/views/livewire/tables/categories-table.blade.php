@@ -41,11 +41,11 @@
                 @foreach($categories as $category)
                     <tr>
                         <td class="border  py-2">{{$category->id}} </td>
-                        <td class="border  py-2"> <a href="{{ route('categories.show',$category->id) }}"> {{$category->name}} </a></td>
+                        <td class="border  py-2"> <a href="{{ route('formulas.categories.show',$category->id) }}"> {{$category->name}} </a></td>
                         <td class="border  py-2">{{$category->type}} </td>
                         <td class="border  py-2">
                             @if($category->parent)
-                                <a href="{{route('categories.show',$category->parent->id)}}">{{$category->parent->name}}</a>
+                                <a href="{{route('formulas.categories.show',$category->parent->id)}}">{{$category->parent->name}}</a>
                             @else
                                 no parent
                             @endif

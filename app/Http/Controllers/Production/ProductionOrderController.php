@@ -70,16 +70,6 @@ class ProductionOrderController extends Controller
 
         // download PDF file with download method
     }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -95,6 +85,17 @@ class ProductionOrderController extends Controller
         return view('production.show',compact('order'));
     }
 
+    public function done($id)
+    {
+        $productionOrder =  ProductionOrder::with(['formula' => fn($q)=> $q->with('product','elements')],'items')->findOrFail($id);
+        $cost = 0;
+
+       foreach ($productionOrder->items as $item){
+           $cost +=  $item->pivot->amount;
+       }
+
+        return view('production.done',compact('productionOrder','cost'));
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -135,26 +136,4 @@ class ProductionOrderController extends Controller
         $invoice->download('demo');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProductionOrder  $productionOrder
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ProductionOrder $productionOrder)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ProductionOrder  $productionOrder
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ProductionOrder $productionOrder)
-    {
-        //
-    }
 }

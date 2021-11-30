@@ -1,7 +1,7 @@
 <div>
     <h1>{{$title}} Formula</h1>
     <div class="mb-2">
-        <a href="{{route('formulas.index')}}" class="btn btn-outline-primary">Manage Formulas</a>
+        <a href="{{route('formulas.formulas.index')}}" class="btn btn-outline-primary">Manage Formulas</a>
     </div>
 
     @if (session()->has('message'))
@@ -129,7 +129,7 @@
                                         @forelse($searchElements as $elem)
                                             <a href="#" wire:click.prevent="addElement({{$elem->id}})" class="list-group-item text-decoration-none" >
                                                 <div class="">{{$elem->name}} -- {{$elem->code}}</div>
-                                                <small class="">{{$elem->category->name}}</small>
+                                                <small class="">{{$elem->category?->name}}</small>
                                             </a>
                                         @empty
                                             <div class="list-group-item" >
@@ -146,11 +146,11 @@
                     @foreach($activeElements as $index => $activeElement)
 
                         <div class="row form-group" >
-                            <div class="col-lg-12 col-xl-6">
+                            <div class="col-lg-12 col-xl-4">
                               <strong>{{ \App\Models\Element::find($activeElement['element_id'])?->name }}</strong>
                             </div>
-                            <div class="col-lg-12 col-xl-6 row" >
-                                <div class="col-4  ">
+                            <div class="col-lg-12 col-xl-8 row" >
+                                <div class="col-4 ">
                                     grams
                                     <input type="number" step=".01" wire:keydown.enter="enter" class="form-control" @if(!$g) disabled @endif  wire:model.lazy="activeElements.{{$index}}.g"  >
                                 </div>

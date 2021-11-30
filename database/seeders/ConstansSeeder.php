@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Element;
 use App\Models\Inventory;
 use App\Models\Status;
+use App\Models\Tax;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
@@ -133,6 +134,7 @@ class ConstansSeeder extends Seeder
 
         foreach ($elements as $elem){
             Element::factory()->create([
+                'name' => $elem,
                 'code' => $elem,
             ]);
         }
@@ -140,6 +142,7 @@ class ConstansSeeder extends Seeder
 
         $clientStatuses = ['Lead', 'Contacted', 'Sample Requested', 'Sample Submitted', 'Order', 'Manufacturing', 'Rejected', 'Done', 'InActive'];
         $orderStatuses = ['pending','Manufacturing','done'];
+        $billStatuses = ['unpaid','partial','paid'];
         $elementCategories = ['RawMaterialCategory', 'Epoxy Resin', 'Polyester Resin', 'Organic Pigments', 'Oxides', 'Additives', 'Fillers'];
 
         foreach ($clientStatuses as $stat){
@@ -154,6 +157,12 @@ class ConstansSeeder extends Seeder
                 'type' => 'order'
             ]);
         }
+        foreach ($billStatuses as $st){
+            Status::factory()->create([
+                'name' => $st,
+                'type' => 'bill'
+            ]);
+        }
 
         foreach ($elementCategories as $cat){
             Category::factory()->create([
@@ -163,12 +172,19 @@ class ConstansSeeder extends Seeder
         }
 
         Inventory::factory()->create([
-            'name' => 'materials',
+            'name' => 'main',
+            'type' => 'materials',
             'location' => 'factory',
         ]);
         Inventory::factory()->create([
-            'name' => 'products',
+            'name' => 'final product',
+            'type' => 'products',
             'location' => 'factory',
+        ]);
+
+        Tax::factory()->create([
+            'name' => 'VAT',
+            'percent' => '14',
         ]);
     }
 }

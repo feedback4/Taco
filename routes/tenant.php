@@ -77,16 +77,24 @@ Route::middleware([
         });
 
         Route::group(['prefix'=>'inventory', 'as' => 'inventory.',],function (){
-            Route::get('inventory/{id}',[\App\Http\Controllers\Inventory\InventoryController::class,'show'])->name('show');
-            Route::get('inventory/{id}/insert',[\App\Http\Controllers\Inventory\InventoryController::class,'insert'])->name('insert');
+            Route::get('/',[\App\Http\Controllers\Inventory\InventoryController::class,'index'])->name('index');
+            Route::get('/pending',[\App\Http\Controllers\Inventory\InventoryController::class,'pending'])->name('pending');
+            Route::get('/products',[\App\Http\Controllers\Inventory\InventoryController::class,'products'])->name('products');
+            Route::post('/add',[\App\Http\Controllers\Inventory\InventoryController::class,'add'])->name('add');
+            Route::get('/{id}',[\App\Http\Controllers\Inventory\InventoryController::class,'show'])->name('show');
+            Route::get('/{id}/insert',[\App\Http\Controllers\Inventory\InventoryController::class,'insert'])->name('insert');
         });
 
         Route::group(['prefix'=>'production', 'as' => 'production.',],function (){
             Route::get('/',[\App\Http\Controllers\Production\ProductionOrderController::class,'index'])->name('index');
             Route::get('/create',[\App\Http\Controllers\Production\ProductionOrderController::class,'create'])->name('create');
+         //   Route::get('/products',[\App\Http\Controllers\Production\ProductsController::class,'index'])->name('products.index');
+            Route::resource('products',\App\Http\Controllers\Production\ProductsController::class);
+
             Route::get('/{id}',[\App\Http\Controllers\Production\ProductionOrderController::class,'show'])->name('show');
             Route::get('/{id}/print',[\App\Http\Controllers\Production\ProductionOrderController::class,'print'])->name('print');
             Route::get('/{id}/pdf',[\App\Http\Controllers\Production\ProductionOrderController::class,'pdf'])->name('pdf');
+            Route::get('/{id}/done',[\App\Http\Controllers\Production\ProductionOrderController::class,'done'])->name('done');
         });
         Route::group(['prefix'=>'sales', 'as' => 'sales.',],function (){
 

@@ -12,7 +12,9 @@ class Inventory extends Model
 
     protected $fillable = [
         'name',
+        'type',
         'location',
+
         'manager_id',
     ];
 

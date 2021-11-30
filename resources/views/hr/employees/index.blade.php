@@ -1,14 +1,16 @@
 @extends('layouts.admin')
 
 @section('content_header')
-    <h1>All Employees</h1>
+
+    <div class="">    <h1>All Employees</h1></div>
+    <div class="">            <a href="{{route('hr.employees.create')}}" class="btn btn-success">Create Employee</a></div>
 @stop
 
 @section('content')
 
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <a href="{{route('hr.employees.create')}}" class="btn btn-success">Create Employee</a>
+
             @if (session('status'))
                 <div class="alert alert-success" role="alert">
                     {{ session('status') }}
@@ -37,7 +39,7 @@
                             <livewire:main.toggle-button :model="$employee" :field="'active'" :key="$user->id">
                         </td>
 
-                        <td>{{$employee->my_joined_at ?? 'no date'}}</td>
+                        <td>{{$employee->joined ?? 'no date'}}</td>
                         <td>
                             <div class="d-flex justify-content-between">
                                 <a href="{{ route('hr.employees.edit',$employee->id) }}"

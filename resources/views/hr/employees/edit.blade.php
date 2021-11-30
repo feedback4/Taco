@@ -3,13 +3,15 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Edit Employee</h1>
+    <div class="">    <h1>Edit Employee</h1></div>
+    <div class="">  <a href="{{route('hr.employees.index')}}">Manage Employees</a></div>
+
 @stop
 @section('content')
 
         <div class="row">
             <div class="col-md-12">
-                <a href="{{route('hr.employees.index')}}">Manage Employees</a>
+
 
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">

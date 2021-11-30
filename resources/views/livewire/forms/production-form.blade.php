@@ -81,16 +81,16 @@
                                         <label for="ready">Ready</label>
                                         </th>
                                 </tr>
-                                @forelse( App\Models\Item::whereHas('element',fn($q)=> $q->where('elements.id',$element->id))->with('category','inventory')->get() as $item)
+                                @forelse( App\Models\Item::whereHas('inventory',fn($q)=> $q->where('inventories.type','materials'))->whereHas('element',fn($q)=> $q->where('elements.id',$element->id))->with('category','inventory')->get() as $item)
                                     <tr>
                                         <td> {{$item->element->name}} -- {{$item->element->code}}</td>
-                                        <td>{{$item->amount}} kg</td>
+                                        <td>{{$item->quantity}} kg</td>
                                         <td>{{$item->inventory->name}}</td>
-                                        <td>{{$item->expire_at->format('Y-m-d')}}</td>
+                                        <td>{{$item->created}}</td>
                                         <td><input type="number" step=".01" class="form-control"
                                                    @if(isset($ready[$element->id]) && $ready[$element->id])   disabled
                                                    @endif wire:model.lazy="invElement.{{$element->id}}.{{$item->id}}" min="0"
-                                                   max="{{$item->amount}}"></td>
+                                                   max="{{$item->quantity}}"></td>
                                     </tr>
                                 @empty
                                     <tr>
@@ -129,7 +129,7 @@
                         <th>{{$element->name}}</th>
 
                         @php
-                            $t =  number_format($element->pivot->amount * ($amount / $times) / 100,4)
+                           $t = (float)   number_format( $element->pivot->amount * ($amount / $times) / 100,3)
                         @endphp
 
                         <td><b> @if($t > 1) {{$t}} kg  @else {{$t * 1000}} g  @endif</b></td>
