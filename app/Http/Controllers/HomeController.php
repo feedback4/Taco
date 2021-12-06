@@ -44,17 +44,17 @@ class HomeController extends Controller
         ];
         $chart1 = new LaravelChart($chart_options);
 
-        $chart_options2 = [
-            'chart_title' => 'Revenues by weeks',
-            'report_type' => 'group_by_date',
-            'model' => 'App\Models\Revenue',
-            'group_by_field' => 'paid_at',
-            'group_by_period' => 'day',
-            'chart_type' => 'line',
-            'filter_field' => 'created_at',
-            'filter_days' => 30, // show only last 30 days
-            'aggregate_function' => 'sum',
-            'aggregate_field' => 'amount',
+//        $chart_options2 = [
+//            'chart_title' => 'Revenues by weeks',
+//            'report_type' => 'group_by_date',
+//            'model' => 'App\Models\Revenue',
+//            'group_by_field' => 'paid_at',
+//            'group_by_period' => 'day',
+//            'chart_type' => 'line',
+//            'filter_field' => 'created_at',
+//            'filter_days' => 30, // show only last 30 days
+//            'aggregate_function' => 'sum',
+//            'aggregate_field' => 'amount',
 
 //            'chart_title' => 'Balance of Clients',
 //            'chart_type' => 'line',
@@ -72,9 +72,9 @@ class HomeController extends Controller
 //            'filter_days' => 30, // show only transactions for last 30 days
 //            'filter_period' => 'week', // show only transactions for this week
         ];
-        $chart2 = new LaravelChart($chart_options2);
+//        $chart2 = new LaravelChart($chart_options2);
      //   dd($chart1);
-        return view('home',compact('chart1','chart2'));
+        return view('home',compact('chart1'));
     }
 
     public function notifications()
