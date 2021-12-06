@@ -109,7 +109,8 @@ class PaymentForm extends Component
 
     public function sum()
     {
-   if ($this->bill_id){
+   if ($this->payment){
+       $this->bill_id = $this->payment->bill_id ;
        $bill = Bill::findOrFail($this->bill_id);
        $total =  $bill->payments()->sum('amount');
 
