@@ -278,7 +278,7 @@ class FormulaForm extends Component
             'filler' => 'nullable|numeric',
             'compound' => 'nullable|numeric',
             'percent' => 'nullable|numeric|min:0|max:100',
-            'activeElements.*.element_id' => 'nullable|numeric',
+            'activeElements.*.element_id' => 'nullable|distinct|numeric',
             'activeElements.*.g' => 'required|numeric|min:0|max:1000',
             'activeElements.*.per' => 'required|numeric|min:0|max:100',
         ];

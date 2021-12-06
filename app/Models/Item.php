@@ -11,7 +11,7 @@ class Item extends Model
     use \Znck\Eloquent\Traits\BelongsToThrough;
 
     protected $fillable= [
-      'element_id','name','quantity','price','description','unit','expire_at','inventory_id','user_id','bill_id'
+      'element_id','name','quantity','cost','price','description','unit','expire_at','inventory_id','user_id','bill_id','production_order_id','invoice_id'
     ];
     protected $casts = [
         'expire_at' => 'date'

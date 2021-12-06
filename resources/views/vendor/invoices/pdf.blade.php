@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Production Order {{ $order->id }} By {{ $order->user->name }}</title>
+
     <style>
         * {
             -webkit-box-sizing: border-box;
@@ -67,7 +68,7 @@
                     <td>{{ $element->name }}</td>
                     <td>{{ $element->code }}</td>
                     @php
-                        $t =  number_format($element->pivot->amount * ($order->amount / $order->times) / 100,4)
+                        $t = $element->pivot->amount * ($order->amount / $order->times) / 100 ;
                     @endphp
 
                     <td><b> @if($t > 1) {{$t}} kg  @else {{$t * 1000}} g  @endif</b></td>

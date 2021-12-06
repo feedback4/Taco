@@ -5,7 +5,7 @@
 <div class="login-box justify-content-center row">
     <!-- /.login-logo -->
     <div class="card card-outline card-primary col-lg-3 col-md-5 col-sm-6">
-        <div class="card-header text-center">
+        <div class="card-title text-center">
             <div class="h1"><b>Taco</b> system</div>
         </div>
         <div class="card-body">
@@ -53,10 +53,10 @@
 {{--                <a href="#" class="btn btn-block btn-primary">--}}
 {{--                    <i class="fab fa-facebook mr-2"></i> Sign in using Facebook--}}
 {{--                </a>--}}
-                <a href="{{ url('auth/redirect') }}" class="btn btn-block btn-danger d-flex justify-content-center">
-                    <i class="bx bxl-google-plus bx-sm mr-2"></i>
-                    <span>Sign in using Google+</span>
-                </a>
+{{--                <a href="{{ url('auth/redirect') }}" class="btn btn-block btn-danger d-flex justify-content-center">--}}
+{{--                    <i class="bx bxl-google-plus bx-sm mr-2"></i>--}}
+{{--                    <span>Sign in using Google+</span>--}}
+{{--                </a>--}}
             </div>
             <!-- /.social-auth-links -->
 

@@ -7,8 +7,8 @@
             <select wire:model="orderBy" class="form-control-sm">
                 <option>Id</option>
                 <option>Name</option>
-                <option>Email</option>
-                <option>active</option>
+                <option>Code</option>
+                <option>Texture</option>
             </select>
         </div>
         <div class="col-xs-2">

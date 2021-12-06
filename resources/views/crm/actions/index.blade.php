@@ -66,4 +66,13 @@
 
 @endsection
 
+@section('js')
+
+    <script type="text/javascript">
+        document.addEventListener('livewire:load', function () {
+            Livewire.emit('$refresh');
+        })
+    </script>
+@endsection
+
 

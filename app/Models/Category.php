@@ -9,7 +9,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    public static $types = ['formula','element','product','payment'];
+    public static $types = ['formula','element','product'];
 
     protected $fillable = ['name','type','parent_id'];
 

@@ -10,19 +10,48 @@ class Invoice extends Model
 {
     use HasFactory ,softDeletes;
 
-    protected $fillable = ['action_id','status_id','invoiced_at','due_at','amount','client_id','notes','parent_id','tax_id'];
+    protected $fillable = ['client_id','status_id','invoiced_at','due_at','number','tax_id','discount','sub_total','total','parent_id'];
     protected $casts = ['invoiced_at'=>'date','due_at'=>'date'];
 
-    public function action(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(Action::class);
-    }
+
     public function status():\Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Status::class);
     }
+
     public function client():\Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Client::class);
+    }
+
+
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
+    public function revenues()
+    {
+        return $this->hasMany(Revenue::class);
+    }
+
+
+
+    public function getInvoicedAttribute()
+    {
+        return $this->invoiced_at?->format('d M Y');
+    }
+    public function getDueAttribute()
+    {
+        return $this->due_at?->format('d M Y');
+    }
+
+    public static function search($search)
+    {
+        return empty($search) ? static::query()
+            : static::query()->where('total', 'like', '%' . $search . '%')
+                ->orWhere('invoice_number', 'like', '%' . $search . '%')
+                ->orWhere('notes', 'like', '%' . $search . '%')
+                ->orWhereHas('client', fn($q) => $q->where('name','like', '%'.$search.'%'))
+                ->orWhereHas('status', fn($q) => $q->where('name','like', '%'.$search.'%'));
     }
 }

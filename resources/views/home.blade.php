@@ -32,7 +32,8 @@
             {!! $chart1->renderHtml() !!}
         </div>
         <div class="col-md-6 ">
-
+            <h2>{{ $chart2->options['chart_title'] }}</h2>
+            {!! $chart2->renderHtml() !!}
         </div>
     </div>
 
@@ -42,6 +43,6 @@
     {!! $chart1->renderChartJsLibrary() !!}
 
     {!! $chart1->renderJs() !!}
-
+    {!! $chart2->renderJs() !!}
 
 @endsection

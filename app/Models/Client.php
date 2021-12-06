@@ -18,9 +18,14 @@ class Client extends Model
         'balance',
     ];
 
-    public function orders()
+
+    public function invoices()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Invoice::class);
+    }
+    public function revenues()
+    {
+        return $this->hasMany(Revenue::class);
     }
     public function status()
     {
@@ -31,5 +36,13 @@ class Client extends Model
         return $this->belongsTo(Company::class);
     }
 
+    public static function search($search)
+    {
+        return empty($search) ? static::query()
+            : static::query()->where('name', 'like', '%' . $search . '%')
+                ->orWhere('phone', 'like', '%' . $search . '%')
+                ->orWhereHas('company', fn($q) => $q->where('name','like', '%'.$search.'%'));
+              //  ->orWhere('address', 'like', '%' . $search . '%');
+    }
 
 }

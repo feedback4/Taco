@@ -10,7 +10,7 @@ class ProductionOrder extends Model
 {
     use HasFactory ,BelongsToThrough;
 
-    protected $fillable = ['amount','formula_id','status_id','user_id','times'];
+    protected $fillable = ['amount','formula_id','status_id','user_id','times','done_at'];
 
     public function items ()
     {
@@ -33,7 +33,14 @@ class ProductionOrder extends Model
     {
         return $this->belongsTo(User::class);
     }
-
+    public function getCreatedAttribute()
+    {
+        return $this->created_at?->format('d M Y');
+    }
+    public function getDoneAttribute()
+    {
+        return $this->done_at?->format('d M Y');
+    }
     public static function search($search)
     {
         return empty($search) ? static::query()

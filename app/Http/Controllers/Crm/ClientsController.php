@@ -51,7 +51,7 @@ class ClientsController extends Controller
             'name' => 'required',
             'phone' => 'required',
             'status_id' => 'required|numeric',
-             'company_id' => 'nullable'
+             'company_id' => 'nullable|numeric'
         ]);
         $input = $request->all();
 
@@ -64,12 +64,17 @@ class ClientsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Client $client
+     * @param int $id
      * @return RedirectResponse
      */
-    public function show(Client $client)
+    public function show( $id)
     {
-        return view('crm.clients.show', compact('client'));
+       $client = Client::with('invoices','revenues')->withCount('invoices','revenues')->findOrFail($id);
+
+        $totalInvoices =   $client->invoices()->sum('total')   ;
+        $totalRevenues = $client->revenues()->sum('amount');
+
+        return view('crm.clients.show', compact('client','totalInvoices' ,'totalRevenues'));
     }
 
     /**
@@ -115,7 +120,10 @@ class ClientsController extends Controller
      */
     public function destroy(Client $client)
     {
-        //  dd($client);
+        if ($client->invoices){
+            toastWarning('Client Still have invoices');
+            return back();
+        }
         $client->delete();
         toastSuccess('Client Delete Successfully');
         toastInfo('you can find it in trash later');

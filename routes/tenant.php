@@ -32,7 +32,7 @@ Route::middleware([
 
     Auth::routes([
         'register' => false, // Registration Routes...
-        'reset' => false, // Password Reset Routes...
+        'reset' => true, // Password Reset Routes...
         'verify' => false, // Email Verification Routes...
     ]);
 
@@ -73,14 +73,21 @@ Route::middleware([
 
         Route::group(['prefix'=>'purchases', 'as' => 'purchases.',],function (){
             Route::resource('bills',\App\Http\Controllers\Purchases\BillsController::class);
+            Route::resource('payments',\App\Http\Controllers\Purchases\PaymentController::class);
             Route::resource('vendors',\App\Http\Controllers\Purchases\VendorController::class);
         });
 
         Route::group(['prefix'=>'inventory', 'as' => 'inventory.',],function (){
             Route::get('/',[\App\Http\Controllers\Inventory\InventoryController::class,'index'])->name('index');
             Route::get('/pending',[\App\Http\Controllers\Inventory\InventoryController::class,'pending'])->name('pending');
-            Route::get('/products',[\App\Http\Controllers\Inventory\InventoryController::class,'products'])->name('products');
             Route::post('/add',[\App\Http\Controllers\Inventory\InventoryController::class,'add'])->name('add');
+
+            Route::get('/products',[\App\Http\Controllers\Inventory\InventoryController::class,'products'])->name('products');
+            Route::get('/products/pending',[\App\Http\Controllers\Inventory\InventoryController::class,'productsPending'])->name('products.pending');
+            Route::post('/products/add',[\App\Http\Controllers\Inventory\InventoryController::class,'addProducts'])->name('products.add');
+
+
+
             Route::get('/{id}',[\App\Http\Controllers\Inventory\InventoryController::class,'show'])->name('show');
             Route::get('/{id}/insert',[\App\Http\Controllers\Inventory\InventoryController::class,'insert'])->name('insert');
         });
@@ -97,16 +104,26 @@ Route::middleware([
             Route::get('/{id}/done',[\App\Http\Controllers\Production\ProductionOrderController::class,'done'])->name('done');
         });
         Route::group(['prefix'=>'sales', 'as' => 'sales.',],function (){
-
+            Route::resource('invoices',\App\Http\Controllers\Sales\InvoicesController::class);
+            Route::resource('revenues',\App\Http\Controllers\Sales\RevenuesController::class);
         });
         Route::group(['prefix'=>'setting', 'as' => 'setting.',],function (){
-            Route::get('/',[\App\Http\Controllers\HomeController::class,'setting'])->name('index');
+            Route::get('/',[\App\Http\Controllers\SettingController::class,'index'])->name('index');
+
+            Route::get('/default',[\App\Http\Controllers\SettingController::class,'default'])->name('default');
+            Route::get('/company',[\App\Http\Controllers\SettingController::class,'company'])->name('company');
+            Route::get('/invoices',[\App\Http\Controllers\SettingController::class,'invoices'])->name('invoices');
+            Route::get('/working',[\App\Http\Controllers\SettingController::class,'working'])->name('working');
+            Route::get('/taxes',[\App\Http\Controllers\SettingController::class,'taxes'])->name('taxes');
+
+            Route::post('/store',[\App\Http\Controllers\SettingController::class,'store'])->name('store');
+
         });
 
 
         Route::get('notifications',[\App\Http\Controllers\HomeController::class ,'notifications'])->name('notifications');
 
-
+        Route::get('reports',[\App\Http\Controllers\HomeController::class ,'reports'])->name('reports');
 
         Route::get('404',function (){
             abort(404);

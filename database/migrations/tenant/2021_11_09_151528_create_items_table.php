@@ -17,15 +17,24 @@ class CreateItemsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('quantity');
-            $table->string('price');
-            $table->string('description');
+            $table->string('description')->nullable();
+            $table->mediumInteger('price');
+
             $table->string('unit')->default('kg');
             $table->string('type')->default('material');
-            $table->foreignIdFor(\App\Models\Bill::class);
+            $table->mediumInteger('cost')->nullable();
+
+            $table->foreignIdFor(\App\Models\Bill::class)->nullable();
             $table->foreignIdFor(\App\Models\Element::class)->nullable();
-            $table->foreignIdFor(\App\Models\User::class);
+
+            $table->foreignIdFor(\App\Models\Invoice::class)->nullable();
+            $table->foreignIdFor(\App\Models\Product::class)->nullable();
+
             $table->foreignIdFor(\App\Models\Inventory::class)->nullable();
             $table->foreignIdFor(\App\Models\ProductionOrder::class)->nullable();
+
+            $table->foreignIdFor(\App\Models\User::class);
+
             $table->dateTime('expire_at')->nullable();
             $table->timestamps();
         });

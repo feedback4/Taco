@@ -30,10 +30,10 @@ class BillsController extends Controller
      */
     public function create()
     {
-        $vendors = Vendor::where('active',true)->OrderBy('id','desc')->get();
-        $statuses = Status::where('type','bill')->OrderBy('id','desc')->get();
+//        $vendors = Vendor::where('active',true)->OrderBy('id','desc')->get();
+//        $statuses = Status::where('type','bill')->OrderBy('id','desc')->get();
 
-        return view('purchases.bills.create',compact('vendors','statuses'));
+        return view('purchases.bills.create');
     }
 
     /**
@@ -50,11 +50,12 @@ class BillsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Bill  $bill
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Bill $bill)
+    public function show( $id)
     {
+        $bill = Bill::with('vendor','items')->findOrFail($id);
         return view('purchases.bills.show',compact('bill'));
     }
 
@@ -89,6 +90,9 @@ class BillsController extends Controller
      */
     public function destroy(Bill $bill)
     {
-        //
+        $bill->delete();
+        toastSuccess('Bill Deleted Successfully.');
+        return redirect()->route('purchases.bills.index');
+
     }
 }

@@ -52,11 +52,14 @@
             </div>
             <div class="col-md-6">
                 <label for="texture" class=" col-form-label text-md-right">Texture</label>
-                <input  type="text" class="form-control @error('texture') is-invalid @enderror" wire:model.lazy="texture" name="texture" value="{{ old('texture') }}"  >
+                <select  class="form-control " wire:model.lazy="texture" >
+                    <option value="">select Texture</option>
+                    @foreach($textures as $texture)
+                        <option value="{{$texture}}">{{$texture}}</option>
+                    @endforeach
+                </select>
                 @error('texture')
-                <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                        <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
             <div class="col-md-6">

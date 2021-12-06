@@ -28,7 +28,7 @@
                 <tbody>
                 @forelse($clients as $client)
                     <tr>
-                        <td>{{$client->name}}</td>
+                        <td><a href="{{route('crm.clients.show',$client->id)}}">{{$client->name}}</a></td>
                         <td>{{$client->phone ?? 'no phone'}}</td>
                         <td>{{$client->status->name ?? 'no status'}}</td>
                         <td>{{$client->company->name ?? 'none'}}</td>

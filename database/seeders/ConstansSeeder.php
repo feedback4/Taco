@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Element;
 use App\Models\Inventory;
+use App\Models\Setting;
 use App\Models\Status;
 use App\Models\Tax;
 use Illuminate\Database\Seeder;
@@ -39,6 +40,7 @@ class ConstansSeeder extends Seeder
             'inventory',
             'production',
             'sales',
+            'reports',
            'setting'
         ];
         foreach ($this->permissions as $permission) {
@@ -132,18 +134,18 @@ class ConstansSeeder extends Seeder
                 'Al. fine badaw',
                 'Al. grains badawy'];
 
-//        foreach ($elements as $elem){
-//            Element::factory()->create([
-//                'name' => $elem,
-//                'code' => $elem,
-//            ]);
-//        }
+        foreach ($elements as $elem){
+            Element::factory()->create([
+                'name' => $elem,
+                'code' => $elem,
+            ]);
+        }
 
 
         $clientStatuses = ['Lead', 'Contacted', 'Sample Requested', 'Sample Submitted', 'Order', 'Manufacturing', 'Rejected', 'Done', 'InActive'];
         $orderStatuses = ['pending','Manufacturing','done'];
         $billStatuses = ['unpaid','partial','paid'];
-        $elementCategories = ['RawMaterialCategory', 'Epoxy Resin', 'Polyester Resin', 'Organic Pigments', 'Oxides', 'Additives', 'Fillers'];
+        $elementCategories = ['RawMaterialCategory', 'Epoxy Resin', 'Polyester Resin', 'Organic Pigments', 'Oxides', 'Additives', 'Filler'];
 
         foreach ($clientStatuses as $stat){
             Status::factory()->create([
@@ -186,5 +188,30 @@ class ConstansSeeder extends Seeder
             'name' => 'VAT',
             'percent' => '14',
         ]);
+
+        $settings = [
+            'company' => tenant()->id,
+            'email' => '' ,
+            'phone' => '' ,
+            'address' => '' ,
+            'city' => '' ,
+            'zip' => '' ,
+            'state' => '' ,
+            'country' => '' ,
+            'logo' => '' ,
+            'color' => '' ,
+            'currency' => 'EGP' ,
+            'due_to_days' => '14' ,
+            'auto_send' => false ,
+            'working_days' => 24 ,
+            'working_hours' => 8,
+        ];
+        foreach ($settings as $key => $val){
+            Setting::factory()->create([
+                'name' => $key,
+                'value' => $val,
+            ]) ;
+        }
+
     }
 }

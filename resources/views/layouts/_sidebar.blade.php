@@ -147,13 +147,13 @@
                                 </a>
                             </li>
 
-{{--                            <li class="nav-item">--}}
-{{--                                <a class="nav-link  " href="{{route('404')}}">--}}
-{{--                                    <p>--}}
-{{--                                        Payment--}}
-{{--                                    </p>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
+                            <li class="nav-item">
+                                <a class="nav-link  " href="{{route('purchases.payments.index')}}">
+                                    <p>
+                                        Payments
+                                    </p>
+                                </a>
+                            </li>
 
 
                             <li class="nav-item">
@@ -205,7 +205,6 @@
                         <i class='bx bxs-left-arrow right'></i>
                     </a>
                     <ul class="nav nav-treeview">
-
                         <li class="nav-item">
                             <a class="nav-link  " href="{{route('production.index')}}">
                                 <p>
@@ -234,23 +233,16 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a class="nav-link  " href="{{route('404')}}">
+                                <a class="nav-link  " href="{{route('sales.invoices.index')}}">
                                     <p>
                                         Invoices
                                     </p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link  " href="{{route('404')}}">
+                                <a class="nav-link  " href="{{route('sales.revenues.index')}}">
                                     <p>
                                         Revenues
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link  " href="{{route('404')}}">
-                                    <p>
-                                        Reports
                                     </p>
                                 </a>
                             </li>
@@ -258,7 +250,16 @@
                     </li>
                 @endcan
 
-
+                @can('reports')
+                    <li class="nav-item">
+                        <a class="nav-link  " href="{{route('reports')}}">
+                            <p>
+                                <i class='bx bx-paperclip bx-xs'></i>
+                                Reports
+                            </p>
+                        </a>
+                    </li>
+                @endcan
                 {{--                @can('accounting')--}}
                 {{--                <li class="nav-item">--}}
                 {{--                    <a class="nav-link  " href="{{route('accounting')}}">--}}

@@ -23,7 +23,10 @@
             <p><b>{{$formula->name}}</b></p> <hr>
             <label>Formula Code</label>
             <p><b>{{$formula->code}}</b></p> <hr>
-
+                @if($formula->product)
+                <label>Formula Product</label>
+                <p><b><a href="{{route('production.products.show',$formula->product->id)}}">{{$formula->product->name}}</a></b></p> <hr>
+                @endif
             <label>Formula Category</label>
             <p><b>
                   @if($formula->category)  <a href="{{route('formulas.categories.show',$formula->category->id)}}">{{$formula->category->name}}</a> @else No Category @endif

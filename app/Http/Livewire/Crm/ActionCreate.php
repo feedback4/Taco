@@ -15,9 +15,9 @@ class ActionCreate extends Component
     protected $rules = [
         'type' => 'required',
         'due_at' => 'required|date',
-        'description' => 'required',
-        'employee_id' => 'required|numeric',
-        'client_id' => 'required|numeric',
+        'description' => 'nullable',
+        'employee_id' => 'required|numeric|exists:employees,id',
+        'client_id' => 'required|numeric|exists:clients,id',
     ];
 
     public $type ;
@@ -42,6 +42,7 @@ class ActionCreate extends Component
             'employees' => Employee::where('active',true)->select('id','name')->get(),
             'clients' => Client::select('id','name')->get()
         ]);
+
     }
 
     public function updated($propertyName)

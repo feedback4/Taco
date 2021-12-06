@@ -9,7 +9,7 @@ class Bill extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['vendor_id', 'status_id', 'billed_at', 'due_at','bill_number','tax_id','discount','sub_total','total', 'notes','parent_id'];
+    protected $fillable = ['vendor_id', 'status_id', 'billed_at', 'due_at','number','tax_id','discount','sub_total','total', 'notes','parent_id'];
 
     protected $casts = [
         'billed_at' => 'date',
@@ -28,6 +28,10 @@ class Bill extends Model
     public function items()
     {
         return $this->hasMany(Item::class);
+    }
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
     }
     public function getBilledAttribute()
     {

@@ -23,6 +23,6 @@
         "select2": "^4.1.0-rc.0"
     },
     "dependencies": {
-        "boxicons": "^2.0.9"
+        "boxicons": "^2.1.1"
     }
 }

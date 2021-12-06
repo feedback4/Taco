@@ -63,15 +63,15 @@
                         @enderror
                     </div>
 
-                    <div class="col-md-6">
-                        <label for="bill_number">Bill Number</label>
-                        <input type="text" wire:model.lazy="bill_number" class="form-control">
-                        @error('bill_number')
+                    <div class="col-md-4">
+                        <label for="number">Bill Number</label>
+                        <input type="text" wire:model.lazy="number" class="form-control">
+                        @error('number')
                         <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="status_id">Status</label>
                         <select wire:model.lazy="status_id" class="form-control">
                             <option value="">Select Status</option>
@@ -84,6 +84,16 @@
                         @enderror
                     </div>
 
+                    @if($partial)
+                        <div class="col-md-4">
+                            <label for="partial_amount">Amount</label>
+                            <input type="number" wire:model.lazy="partial_amount" class="form-control">
+
+                            @error('partial_amount')
+                            <small class="text-danger">{{$message}}</small>
+                            @enderror
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -190,7 +200,7 @@
     <div class="card">
         <div class="card-footer  d-flex justify-content-between">
 
-            <a href="{{route('purchases.bills.index')}}" onclick="return confirm('are you sure')"
+            <a href="{{route('purchases.bills.index')}}" onclick="return confirm('Are you sure?')"
                class="btn btn-outline-secondary btn-lg">
                 Cancel
             </a>

@@ -47,10 +47,10 @@ class CompaniesController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'phone' => 'required',
-            'email' => 'nullable',
+//            'phone' => 'required',
+//            'email' => 'nullable',
             'state' => 'required',
-            'address' => 'nullable'
+            'address' => 'required'
         ]);
         $input = $request->all();
 
@@ -94,8 +94,8 @@ class CompaniesController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'phone' => 'required',
-            'email' => 'nullable',
+//            'phone' => 'required',
+//            'email' => 'nullable',
             'state' => 'required',
             'address' => 'nullable'
         ]);

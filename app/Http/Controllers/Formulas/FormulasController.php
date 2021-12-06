@@ -57,7 +57,7 @@ class FormulasController extends Controller
      */
     public function show(Formula $formula)
     {
-        $formula = Formula::where('id',$formula->id)->with(['elements'=>fn($q)=> $q->with('category'),'category'])->first();
+        $formula = Formula::where('id',$formula->id)->with(['elements'=>fn($q)=> $q->with('category'),'category','product'])->first();
        return view('formulas.show',compact('formula'));
     }
 

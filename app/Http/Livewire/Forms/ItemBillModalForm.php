@@ -31,11 +31,14 @@ class ItemBillModalForm extends Component
     public function addItem($id)
     {
         $this->emitTo('forms.bill-form','selectItem',$id);
+
         $this->dispatchBrowserEvent('closeModel');
+        $this->reset('query','searchItems');
     }
     public function createItem()
     {
         $this->emitTo('forms.bill-form','createItem');
         $this->dispatchBrowserEvent('closeModel');
+        $this->reset('query','searchItems');
     }
 }

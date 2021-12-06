@@ -15,15 +15,23 @@ class CreateInvoicesTable extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Action::class)->nullable();
-            $table->foreignIdFor(\App\Models\Status::class);
+
+
             $table->dateTime('invoiced_at');
             $table->dateTime('due_at');
-            $table->double('amount', 15, 4);
-            $table->foreignIdFor(\App\Models\Client::class);
+            $table->string('number')->nullable();
             $table->text('notes')->nullable();
+            $table->foreignIdFor(\App\Models\Tax::class)->nullable();
+            $table->bigInteger('partial_amount')->nullable();
+            $table->bigInteger('discount');
+            $table->bigInteger('sub_total');
+            $table->bigInteger('total');
+
+
+            $table->foreignIdFor(\App\Models\Client::class);
+            $table->foreignIdFor(\App\Models\Status::class);
+
             $table->integer('parent_id')->default(0);
-            $table->foreignIdFor(\App\Models\Tax::class);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -2,8 +2,8 @@
 
 @section('content_header')
 
-    <div class="">    <h1>{{$inventory->name}} Inventory </h1></div>
-    <div class=""> <a href="{{route('inventory.pending')}}" class="btn btn-dark">Pending Items</a></div>
+      <h1>{{$inventory->name}} Inventory </h1>
+     <a href="{{route('inventory.pending')}}" class="btn btn-dark">Pending Items</a>
 @stop
 
 @section('content')

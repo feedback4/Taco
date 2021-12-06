@@ -16,6 +16,11 @@ class Vendor extends Model
     {
         return $this->hasMany(Bill::class);
     }
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
 
 
     public static function search($search)

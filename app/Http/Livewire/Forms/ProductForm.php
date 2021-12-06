@@ -41,8 +41,9 @@ class ProductForm extends Component
     public function render()
     {
         return view('livewire.forms.product-form',[
-            'categories' => Category::where('type','formula')->select('id','name')->get(),
-            'formulas' => Formula::select('id','name','code')->get()
+            'categories' => Category::where('type','product')->select('id','name')->get(),
+            'formulas' => Formula::select('id','name','code')->get(),
+             'textures' => Product::$textures
         ]);
     }
 

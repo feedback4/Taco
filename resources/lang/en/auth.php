@@ -20,4 +20,11 @@ return [
     'login' => 'Login',
     'register' => 'Register',
     'forgetpass' => 'Forget Your Password ?',
+
+
+    'email' => 'E-Mail Address',
+    'pass'=> 'Password',
+    'conpass'=> 'Confirm Password',
+    'passreset'=> 'Reset Your Password',
+    'sendpasslink'=> 'Send Password Reset Link',
 ];

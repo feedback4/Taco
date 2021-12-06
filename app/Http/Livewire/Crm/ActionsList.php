@@ -13,6 +13,14 @@ class ActionsList extends Component
     protected $listeners = ['refreshActions' => '$refresh'];
     protected $paginationTheme = 'bootstrap';
 
+    public $update;
+
+    public function refreshComponent() {
+        sleep(2);
+        $this->update = !$this->update;
+        dd($this->update);
+        //$this->emitSelf('$refresh');
+    }
     public function render()
     {
         return view('livewire.crm.actions-list',[

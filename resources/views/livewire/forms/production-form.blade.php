@@ -90,7 +90,7 @@
                                         <td><input type="number" step=".01" class="form-control"
                                                    @if(isset($ready[$element->id]) && $ready[$element->id])   disabled
                                                    @endif wire:model.lazy="invElement.{{$element->id}}.{{$item->id}}" min="0"
-                                                   max="{{$item->quantity}}"></td>
+                                                   max="{{$item->quantity}}" value="0"></td>
                                     </tr>
                                 @empty
                                     <tr>

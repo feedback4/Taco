@@ -12,7 +12,7 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-        <ul class="todo-list ui-sortable" data-widget="todo-list">
+        <ul class="todo-list ui-sortable" data-widget="todo-list" wire:init="$refresh">
             @forelse($actions as $k => $action)
                 <li class=" @if($action->done_at) done @endif ">
                     <!-- drag handle -->

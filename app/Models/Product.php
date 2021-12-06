@@ -10,6 +10,7 @@ class Product extends Model
 {
     use HasFactory ,BelongsToThrough;
 
+    public static $textures = ['smooth','rough'];
 
     protected $fillable = [
         'name',

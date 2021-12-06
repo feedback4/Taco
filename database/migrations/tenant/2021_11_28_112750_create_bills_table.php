@@ -17,11 +17,12 @@ class CreateBillsTable extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\Vendor::class);
             $table->foreignIdFor(\App\Models\Status::class);
-            $table->string('bill_number')->nullable();
+            $table->string('number')->nullable();
             $table->dateTime('billed_at');
             $table->dateTime('due_at');
 
             $table->foreignIdFor(\App\Models\Tax::class)->nullable();
+            $table->bigInteger('partial_amount')->nullable();
             $table->bigInteger('discount');
             $table->bigInteger('sub_total');
             $table->bigInteger('total');

@@ -2,13 +2,14 @@
 
 @section('content_header')
     <h1>All Companies</h1>
+    <a href="{{route('crm.companies.create')}}" class="btn btn-success">Create Company</a>
 @stop
 
 @section('content')
 
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <a href="{{route('crm.companies.create')}}" class="btn btn-success">Create Company</a>
+
             @if (session('status'))
                 <div class="alert alert-success" role="alert">
                     {{ session('status') }}

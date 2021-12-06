@@ -17,6 +17,7 @@ class CreateProductionOrdersTable extends Migration
             $table->id();
             $table->string('amount');
             $table->string('times');
+            $table->dateTime('done_at')->nullable();
             $table->foreignIdFor(\App\Models\Formula::class);
             $table->foreignIdFor(\App\Models\User::class);
             $table->timestamps();

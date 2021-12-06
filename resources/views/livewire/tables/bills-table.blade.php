@@ -5,7 +5,7 @@
         </div>
         <div class="col-xs-2">
             <select wire:model="orderBy" class="form-control-sm">
-                <option value="bill_number">Bill Number</option>
+                <option value="number">Bill Number</option>
                 <option>Total</option>
                 <option>Status</option>
                 <option>billed_at</option>

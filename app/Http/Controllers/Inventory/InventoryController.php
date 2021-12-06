@@ -34,7 +34,7 @@ class InventoryController extends Controller
     }
     public function pending()
     {
-        $pendingItems = Item::doesnthave('inventory')->get();
+        $pendingItems = Item::where('type','material')->doesnthave('inventory')->get();
 
         return view('inventory.pending',compact('pendingItems'));
     }
@@ -60,7 +60,34 @@ class InventoryController extends Controller
     public function products()
     {
         $inventory = Inventory::where('type','products')->first();
-        return view('inventory.index',compact('inventory'));
+        return view('inventory.products',compact('inventory'));
+    }
+
+    public function productsPending()
+    {
+        $pendingItems = Item::where('type','product')->doesnthave('inventory')->get();
+
+        return view('inventory.products-pending',compact('pendingItems'));
+    }
+
+    public function addProducts(Request $request)
+    {
+
+        $this->validate($request,[
+            'items' => 'array'
+        ]);
+        if (!$request->items){
+            toastError('Pleas Select some items to move');
+            return back();
+        }
+
+        foreach ($request->items as $id){
+            $item = Item::find($id) ;
+            $item->inventory_id = 2;
+            $item->update();
+        }
+        toastSuccess('Items added to Inventory successfully');
+        return redirect()->route('inventory.products');
     }
 
 

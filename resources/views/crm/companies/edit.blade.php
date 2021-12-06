@@ -4,13 +4,14 @@
 
 @section('content_header')
     <h1>Edit Company</h1>
+    <a href="{{ route('crm.companies.index') }}" class="btn btn-outline-primary">All Companies</a>
 @stop
 @section('content')
 
         <div class="row">
             <div class="col-md-12">
 
-                <a href="{{ route('crm.companies.index') }}" class="btn btn-outline-primary">All Companies</a>
+
 
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">

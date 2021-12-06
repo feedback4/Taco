@@ -30,4 +30,6 @@ class BillsTable extends Component
     {
         $this->resetPage();
     }
+
+
 }

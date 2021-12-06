@@ -10,7 +10,7 @@ class Company extends Model
 {
     use HasFactory,softDeletes;
 
-    protected $fillable = ['name','phone','email','state','address','active','last_action_at'];
+    protected $fillable = ['name','state','address','active','last_action_at'];
 
     protected $casts = ['last_action_at'=>'date','active'=>'boolean'];
 
