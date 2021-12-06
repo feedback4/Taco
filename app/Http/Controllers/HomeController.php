@@ -71,7 +71,7 @@ class HomeController extends Controller
 //            'filter_field' => 'created_at',
 //            'filter_days' => 30, // show only transactions for last 30 days
 //            'filter_period' => 'week', // show only transactions for this week
-        ];
+     //   ];
 //        $chart2 = new LaravelChart($chart_options2);
      //   dd($chart1);
         return view('home',compact('chart1'));
