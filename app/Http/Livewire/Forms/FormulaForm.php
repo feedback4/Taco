@@ -86,7 +86,7 @@ class FormulaForm extends Component
     {
         $this->resetErrorBag('activeElements');
         $total = 0;
-        if ($this->g) {
+        if (!$this->g) {
             foreach ($this->activeElements as $k => $ele) {
                 $this->activeElements[$k]['g'] = $this->activeElements[$k]['per'] * 10;
             }
