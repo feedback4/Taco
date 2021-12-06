@@ -212,7 +212,7 @@ class FormulaForm extends Component
 
         $amount = $this->g ? ((1000 - $this->total) / 10) : (100 - $this->total);
 
-        $this->activeElements[] = ['element_id' => $this->filler, 'g' => $amount * 10, 'per' => $amount];
+        $this->activeElements[] = ['element_id' => $this->filler, 'g' => $amount * 10, 'per' => number_format($amount,2)];
         $this->cal();
     }
 
