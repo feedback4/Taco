@@ -9,7 +9,7 @@
                         <p>{{$client->name}} -- {{$client->phone}}</p>
                         <p>{{$client->company?->address}} , {{$client->company?->state}}</p>
 
-                        <div wire:click.pervent="clearClient" class="btn btn-secondary btn-sm">choose another Vendor
+                        <div wire:click.pervent="clearClient" class="btn btn-secondary btn-sm">choose another Client
                         </div>
                     @else
                         <div class="form-group sidebar-search-open w-100">

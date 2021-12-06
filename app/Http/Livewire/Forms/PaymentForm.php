@@ -109,24 +109,23 @@ class PaymentForm extends Component
 
     public function sum()
     {
-   if ($this->payment){
-       $this->bill_id = $this->payment->bill_id ;
-       $bill = Bill::findOrFail($this->bill_id);
-       $total =  $bill->payments()->sum('amount');
+       if ($this->payment){
+           $this->bill_id = $this->payment->bill_id ;
+           $bill = Bill::findOrFail($this->bill_id);
+           $total =  $bill->payments()->sum('amount');
 
-       $this->sub =  $bill->total - $total;
-       if ($this->sub == 0){
-           $status_id = Status::where('type','bill')->where('name','paid')->first()->id;
-           $bill->status_id =$status_id ;
-           $bill->save();
-       }elseif($total == 0){
-           $status_id = Status::where('type','bill')->where('name','unpaid')->first()->id;
-           $bill->status_id =$status_id ;
-           $bill->payments()->delete();
-           $bill->save();
+           $this->sub =  $bill->total - $total;
+           if ($this->sub == 0){
+               $status_id = Status::where('type','bill')->where('name','paid')->first()->id;
+               $bill->status_id =$status_id ;
+               $bill->save();
+           }elseif($total == 0){
+               $status_id = Status::where('type','bill')->where('name','unpaid')->first()->id;
+               $bill->status_id =$status_id ;
+               $bill->payments()->delete();
+               $bill->save();
+           }
        }
-   }
-
     }
 
     public function clear()
