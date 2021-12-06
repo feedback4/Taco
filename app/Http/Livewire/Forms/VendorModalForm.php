@@ -11,7 +11,7 @@ class VendorModalForm extends Component
         'name' => 'required',
         'phone' => 'required',
         'email' => 'nullable',
-        'address' => 'required',
+        'address' => 'nullable',
     ];
 
     public $name ;
