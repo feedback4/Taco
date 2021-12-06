@@ -101,7 +101,7 @@ class FormulasController extends Controller
         $formula->deleteOrFail();
 
         toastSuccess('formula deleted successfully');
-        return redirect()->route('formulas.index');
+        return redirect()->route('formulas.formulas.index');
      //   dd($formula);
     }
 }
