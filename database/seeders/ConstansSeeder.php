@@ -134,12 +134,12 @@ class ConstansSeeder extends Seeder
                 'Al. fine badaw',
                 'Al. grains badawy'];
 
-        foreach ($elements as $elem){
-            Element::factory()->create([
-                'name' => $elem,
-                'code' => $elem,
-            ]);
-        }
+//        foreach ($elements as $elem){
+//            Element::factory()->create([
+//                'name' => $elem,
+//                'code' => $elem,
+//            ]);
+//        }
 
 
         $clientStatuses = ['Lead', 'Contacted', 'Sample Requested', 'Sample Submitted', 'Order', 'Manufacturing', 'Rejected', 'Done', 'InActive'];
