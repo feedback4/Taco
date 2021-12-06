@@ -10,7 +10,7 @@ class VendorModalForm extends Component
     protected $rules = [
         'name' => 'required',
         'phone' => 'required',
-        'email' => 'required',
+        'email' => 'nullable',
         'address' => 'required',
     ];
 
