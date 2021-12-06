@@ -17,13 +17,12 @@
             <livewire:tables.elements-table />
 
         </div>
-        @can('element-create')
+
             <div class="col-md-5">
 
                 <livewire:forms.element-form />
             </div>
 
-        @endcan
     </div>
 
 

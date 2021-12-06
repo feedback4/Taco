@@ -31,16 +31,15 @@
                         @endif
                     </b></p> <hr>
                 <div class="d-flex ">
-                    @can('user-edit')
+
                     <a href="{{ route('users.edit',$user->id) }}" class="btn btn-info o">edit</a>
-                    @endcan
-                        @can('user-delete')
+
                     <form class="ml-5" action="{{route('users.destroy',$user->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <input type="submit" class="btn btn-danger" value="delete">
                     </form>
-                        @endcan
+
                 </div>
 
 

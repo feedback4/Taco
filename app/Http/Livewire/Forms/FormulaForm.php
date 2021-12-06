@@ -48,11 +48,11 @@ class FormulaForm extends Component
             if ($total > 100) {
                 $this->g = true;
                 foreach ($this->formula->elements as $elem) {
-                    $this->activeElements[] = ['element_id' => $elem->id, 'g' => $elem->pivot->amount, 'per' => 0];
+                    $this->activeElements[] = ['element_id' => $elem->id, 'g' => $elem->pivot->amount, 'per' => $elem->pivot->amount /10];
                 }
             } else {
                 foreach ($this->formula->elements as $elem) {
-                    $this->activeElements[] = ['element_id' => $elem->id, 'g' => 0, 'per' => $elem->pivot->amount];
+                    $this->activeElements[] = ['element_id' => $elem->id, 'g' => $elem->pivot->amount *10, 'per' => $elem->pivot->amount];
                 }
             }
             $this->title = 'edit';

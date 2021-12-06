@@ -77,12 +77,13 @@ class CompoundsForm extends Component
             }
             $total += $value['percent'];
         }
-        $result = 0;
-            if ($total > 100) {
+     //   dd(floatval($total));
+        $result = false;
+            if (floatval($total) > 100 ) {
                 $this->addError('activeElements', 'total must be equal 100%');
             }
         $this->total = $total;
-      if ($total == 100){
+      if (number_format($total,2) == 100.00){
           $result = true;
       }
 
