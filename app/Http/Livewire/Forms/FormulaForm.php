@@ -86,7 +86,15 @@ class FormulaForm extends Component
     {
         $this->resetErrorBag('activeElements');
         $total = 0;
-        $this->g = !$this->g;
+        if ($this->g) {
+            foreach ($this->activeElements as $k => $ele) {
+                $this->activeElements[$k]['g'] = $this->activeElements[$k]['per'] * 10;
+            }
+        } else {
+            foreach ($this->activeElements as $k => $ele) {
+                $this->activeElements[$k]['per'] = $this->activeElements[$k]['g'] / 10;
+            }
+        }
         foreach ($this->activeElements as $k => $value) {
             if ($value['g'] < 0 || $value['per'] < 0) {
                 $this->total = 0;
@@ -110,7 +118,7 @@ class FormulaForm extends Component
                 $this->addError('activeElements', 'total must be equal 100%');
             }
         }
-        $this->g = !$this->g;
+
         $this->total = $total;
         return $result;
     }
@@ -127,15 +135,7 @@ class FormulaForm extends Component
 
     public function updatedG()
     {
-        if ($this->g) {
-            foreach ($this->activeElements as $k => $ele) {
-                $this->activeElements[$k]['g'] = $this->activeElements[$k]['per'] * 10;
-            }
-        } else {
-            foreach ($this->activeElements as $k => $ele) {
-                $this->activeElements[$k]['per'] = $this->activeElements[$k]['g'] / 10;
-            }
-        }
+
         $this->cal();
     }
 
