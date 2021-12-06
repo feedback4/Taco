@@ -105,13 +105,13 @@ class ProductionForm extends Component
     {
         $validated = $this->validate();
 
-//        if (!$this->invElement){
-//            $this->emit('alert',
-//                ['type' => 'error', 'message' => 'Please insert amount first']);
-//            $this->emit('alert',
-//                ['type' => 'warning', 'message' => 'Product will be generated with 0 cost ']);
-//            return ;
-//        }
+        if (!$this->invElement){
+            $this->emit('alert',
+                ['type' => 'error', 'message' => 'Please insert amount first']);
+            $this->emit('alert',
+                ['type' => 'warning', 'message' => 'Product will be generated with 0 cost ']);
+            return ;
+        }
 
 //        if( count($this->invElement) < count($this->formula->elements) ){
 //            $this->emit('alert',

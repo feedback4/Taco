@@ -48,10 +48,9 @@ class BillForm extends Component
     public function mount($bill = null)
     {
         $this->billed_at =  now()->format('Y-m-d');
-        $this->due_at =  now()->format('Y-m-d');
+        $this->due_at =  now()->addMonth(1)->format('Y-m-d');
         if ($bill) {
             $this->bill = $bill;
-
 
             $this->billed_at = $this->bill->billed_at->format('Y-m-d');
             $this->due_at = $this->bill->due_at->format('Y-m-d');
@@ -62,10 +61,10 @@ class BillForm extends Component
             $this->tax_id = $this->bill->tax_id;
 
             foreach ($this->bill->items as $k => $item) {
-                if ($this->tax_id){
-                    $percent = Tax::find($this->tax_id)->percent ?? 0;
-                    $item->price = floatval($item->price /(100+$percent)* 100 ) ;
-                }
+//                if ($this->tax_id){
+//                    $percent = Tax::find($this->tax_id)->percent ?? 0;
+//                    $item->price = floatval($item->price /(100+$percent)* 100 ) ;
+//                }
                 $this->billItems[$k] = ['name' => $item->name, 'description' => $item->description, 'quantity' => $item->quantity, 'price' => $item->price];
             }
             $this->discount = $this->bill->discount;
@@ -255,7 +254,7 @@ class BillForm extends Component
                     'name' => $itm['name'],
                     'description' => $itm['description'] ?? null,
                     'quantity' => intval($itm['quantity']),
-                    'price' => floatval($itm['price']   / 100 * (100+$percent)) ,
+                    'price' => floatval($itm['price'] ) ,
                     'bill_id' => $this->bill->id,
                     'user_id' => auth()->id(),
                     'element_id' => $elementId

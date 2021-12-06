@@ -64,10 +64,10 @@ class InvoiceForm extends Component
 
 
             foreach ($this->invoice->items as $k => $item) {
-                if ($this->tax_id){
-                    $percent = Tax::find($this->tax_id)->percent ?? 0;
-                    $item->price = floatval($item->price /(100+$percent)* 100 ) ;
-                 }
+//                if ($this->tax_id){
+//                    $percent = Tax::find($this->tax_id)->percent ?? 0;
+//                    $item->price = floatval($item->price /(100+$percent)* 100 ) ;
+//                 }
                     $this->invoiceItems[$k] = ['name' => $item->name, 'description' => $item->description, 'quantity' => $item->quantity, 'price' => $item->price];
                 }
             $this->discount = $this->invoice->discount;
@@ -269,7 +269,7 @@ class InvoiceForm extends Component
             $invoice= Invoice::create($data);
 
             foreach ($validated['invoiceItems'] as $k => $itm) {
-                $productId = Product::where('code', $itm['name'])->first()?->id;
+            //    $productId = Product::where('code', $itm['name'])->first()?->id;
                 Item::create([
                     'name' => $itm['name'],
                     'description' => $itm['description'] ?? null,
