@@ -107,6 +107,27 @@ class PaymentForm extends Component
         return true ;
     }
 
+    public function sum()
+    {
+   if ($this->bill_id){
+       $bill = Bill::findOrFail($this->bill_id);
+       $total =  $bill->payments()->sum('amount');
+
+       $this->sub =  $bill->total - $total;
+       if ($this->sub == 0){
+           $status_id = Status::where('type','bill')->where('name','paid')->first()->id;
+           $bill->status_id =$status_id ;
+           $bill->save();
+       }elseif($total == 0){
+           $status_id = Status::where('type','bill')->where('name','unpaid')->first()->id;
+           $bill->status_id =$status_id ;
+           $bill->payments()->delete();
+           $bill->save();
+       }
+   }
+
+    }
+
     public function clear()
     {
         if ($this->payment){
@@ -114,6 +135,7 @@ class PaymentForm extends Component
             //  $this->revenue->paid_at = null ;
             $this->payment->save();
             $this->emitSelf('$refresh');
+            $this->sum();
             $this->cal();
         }
     }
@@ -150,20 +172,7 @@ class PaymentForm extends Component
             $this->emit('alert',
                 ['type' => 'success', 'message' => 'Payment Added Successfully!']);
         }
-        $bill = Bill::findOrFail($this->bill_id);
-        $total =  $bill->payments()->sum('amount');
 
-        $this->sub =  $bill->total - $total;
-        if ($this->sub == 0){
-            $status_id = Status::where('type','bill')->where('name','paid')->first()->id;
-            $bill->status_id =$status_id ;
-            $bill->save();
-        }elseif($total == 0){
-            $status_id = Status::where('type','bill')->where('name','unpaid')->first()->id;
-            $bill->status_id =$status_id ;
-            $bill->payments()->delete();
-            $bill->save();
-        }
         //    $this->emitTo('tables.formulas-table','refreshFormulas');
         $this->reset();
 

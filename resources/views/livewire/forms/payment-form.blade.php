@@ -92,7 +92,7 @@
     <div class="card">
         @if($edit)
             <div class="card-body">
-                <button class="btn btn-dark" wire:click.pervent="clear">Reset Revenue</button>
+                <button class="btn btn-dark" wire:click.pervent="clear">Reset Payment</button>
             </div>
         @endif
         <div class="card-footer  d-flex justify-content-between">
