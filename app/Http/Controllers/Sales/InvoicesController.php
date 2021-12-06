@@ -82,6 +82,8 @@ class InvoicesController extends Controller
      */
     public function destroy(Invoice  $invoice)
     {
-        //
+        $invoice->delete();
+        toastSuccess('Invoice Deleted Successfully');
+        return redirect()->route('sales.invoices.index');
     }
 }

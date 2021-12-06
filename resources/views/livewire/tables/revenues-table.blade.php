@@ -30,7 +30,7 @@
             <thead>
             <tr>
                 <th>Number</th>
-                <th>Vendor</th>
+                <th>Client</th>
                 <th>Amount</th>
                 <th>Paid At</th>
                 <th>Actions</th>
