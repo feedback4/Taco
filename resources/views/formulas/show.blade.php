@@ -37,7 +37,7 @@
                     <thead>
                         <tr>
                           <th>Element</th>
-                            <th>Category</th>
+{{--                            <th>Category</th>--}}
                             <th>Amount</th>
                         </tr>
                     </thead>
@@ -45,7 +45,7 @@
                 @foreach($formula->elements as $element)
                     <tr>
                         <td>  <a href="{{route('formulas.elements.show',$element->id)}}"> {{$element->name}} -- {{$element->code}}</a>  </td>
-                        <td><a href="{{route('formulas.categories.show',$element->category->id)}}">{{$element->category->name}}</a></td>
+{{--                        <td><a href="{{route('formulas.categories.show',$element->category->id)}}">{{$element->category->name}}</a></td>--}}
                         <td> <b>{{$element->pivot->amount *10 }}</b> g </td>
                     </tr>
                 @endforeach
