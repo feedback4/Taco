@@ -158,7 +158,7 @@ class PaymentForm extends Component
         }
 
        $validated['vendor_id'] = $this->vendor->id ;
-
+        $validated['bill_id'] = $this->bill_id ;
 
         if ($this->payment) {
             $this->payment->update($validated);
