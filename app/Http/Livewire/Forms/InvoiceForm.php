@@ -269,7 +269,7 @@ class InvoiceForm extends Component
             $invoice= Invoice::create($data);
 
             foreach ($validated['invoiceItems'] as $k => $itm) {
-            //    $productId = Product::where('code', $itm['name'])->first()?->id;
+                $productId = Product::where('code', $itm['name'])->first()?->id;
                 Item::create([
                     'name' => $itm['name'],
                     'description' => $itm['description'] ?? null,
