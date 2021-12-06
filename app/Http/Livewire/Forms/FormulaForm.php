@@ -86,7 +86,7 @@ class FormulaForm extends Component
     {
         $this->resetErrorBag('activeElements');
         $total = 0;
-
+        $this->g = !$this->g;
         foreach ($this->activeElements as $k => $value) {
             if ($value['g'] < 0 || $value['per'] < 0) {
                 $this->total = 0;
@@ -110,6 +110,7 @@ class FormulaForm extends Component
                 $this->addError('activeElements', 'total must be equal 100%');
             }
         }
+        $this->g = !$this->g;
         $this->total = $total;
         return $result;
     }
