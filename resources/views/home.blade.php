@@ -31,10 +31,10 @@
             <h2>{{ $chart1->options['chart_title'] }}</h2>
             {!! $chart1->renderHtml() !!}
         </div>
-        <div class="col-md-6 ">
-            <h2>{{ $chart2->options['chart_title'] }}</h2>
-            {!! $chart2->renderHtml() !!}
-        </div>
+{{--        <div class="col-md-6 ">--}}
+{{--            <h2>{{ $chart2->options['chart_title'] }}</h2>--}}
+{{--            {!! $chart2->renderHtml() !!}--}}
+{{--        </div>--}}
     </div>
 
 @endsection
@@ -43,6 +43,6 @@
     {!! $chart1->renderChartJsLibrary() !!}
 
     {!! $chart1->renderJs() !!}
-    {!! $chart2->renderJs() !!}
+{{--    {!! $chart2->renderJs() !!}--}}
 
 @endsection
