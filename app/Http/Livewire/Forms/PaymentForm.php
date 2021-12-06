@@ -151,13 +151,19 @@ class PaymentForm extends Component
                 ['type' => 'success', 'message' => 'Payment Added Successfully!']);
         }
         $bill = Bill::findOrFail($this->bill_id);
-        $this->sub =  $bill->total - $bill->payments()->sum('amount');
+        $total =  $bill->payments()->sum('amount');
+
+        $this->sub =  $bill->total - $total;
         if ($this->sub == 0){
             $status_id = Status::where('type','bill')->where('name','paid')->first()->id;
             $bill->status_id =$status_id ;
-                $bill->save();
+            $bill->save();
+        }elseif($total == 0){
+            $status_id = Status::where('type','bill')->where('name','unpaid')->first()->id;
+            $bill->status_id =$status_id ;
+            $bill->payments()->delete();
+            $bill->save();
         }
-
         //    $this->emitTo('tables.formulas-table','refreshFormulas');
         $this->reset();
 
