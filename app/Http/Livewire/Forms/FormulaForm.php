@@ -45,7 +45,6 @@ class FormulaForm extends Component
             foreach ($this->formula->elements as $elem) {
                 $total += $elem->pivot->amount;
             }
-            dd($this->formula->elements);
             if ($total > 100) {
                 $this->g = true;
                 foreach ($this->formula->elements as $elem) {
