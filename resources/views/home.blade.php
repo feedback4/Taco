@@ -28,8 +28,8 @@
 
     <div class="row">
         <div class="col-md-6 ">
-            <h2>{{ $chart1->options['chart_title'] }}</h2>
-            {!! $chart1->renderHtml() !!}
+{{--            <h2>{{ $chart1->options['chart_title'] }}</h2>--}}
+{{--            {!! $chart1->renderHtml() !!}--}}
         </div>
 {{--        <div class="col-md-6 ">--}}
 {{--            <h2>{{ $chart2->options['chart_title'] }}</h2>--}}
@@ -40,9 +40,9 @@
 @endsection
 
 @section('js')
-    {!! $chart1->renderChartJsLibrary() !!}
+{{--    {!! $chart1->renderChartJsLibrary() !!}--}}
 
-    {!! $chart1->renderJs() !!}
+{{--    {!! $chart1->renderJs() !!}--}}
 {{--    {!! $chart2->renderJs() !!}--}}
 
 @endsection

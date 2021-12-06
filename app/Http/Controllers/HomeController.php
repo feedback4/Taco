@@ -26,23 +26,23 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $chart_options = [
-            'chart_title' => 'Balance of Vendors',
-            'chart_type' => 'bar',
-            'report_type' => 'group_by_relationship',
-            'model' => 'App\Models\payment',
-
-            'relationship_name' => 'vendor', // represents function elements() on Element model
-            'group_by_field' => 'name', // users.name
-
-            'aggregate_function' => 'sum',
-            'aggregate_field' => 'amount',
-
-            'filter_field' => 'created_at',
-            'filter_days' => 30, // show only transactions for last 30 days
-            'filter_period' => 'week', // show only transactions for this week
-        ];
-        $chart1 = new LaravelChart($chart_options);
+//        $chart_options = [
+//            'chart_title' => 'Balance of Vendors',
+//            'chart_type' => 'bar',
+//            'report_type' => 'group_by_relationship',
+//            'model' => 'App\Models\payment',
+//
+//            'relationship_name' => 'vendor', // represents function elements() on Element model
+//            'group_by_field' => 'name', // users.name
+//
+//            'aggregate_function' => 'sum',
+//            'aggregate_field' => 'amount',
+//
+//            'filter_field' => 'created_at',
+//            'filter_days' => 30, // show only transactions for last 30 days
+//            'filter_period' => 'week', // show only transactions for this week
+//        ];
+//        $chart1 = new LaravelChart($chart_options);
 
 //        $chart_options2 = [
 //            'chart_title' => 'Revenues by weeks',
@@ -74,7 +74,7 @@ class HomeController extends Controller
      //   ];
 //        $chart2 = new LaravelChart($chart_options2);
      //   dd($chart1);
-        return view('home',compact('chart1'));
+        return view('home');
     }
 
     public function notifications()
