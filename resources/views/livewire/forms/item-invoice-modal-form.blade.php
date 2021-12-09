@@ -34,7 +34,7 @@
                                 @forelse($searchItems as $itm)
                                     <a href="#" wire:click.prevent="addItem({{$itm->id}})"
                                        class="list-group-item text-decoration-none">
-                                        <div class="">{{$itm->name}} -- {{$itm->code}}</div>
+                                        <div class="">{{$itm->name}} -- {{$itm->price}} EGP</div>
                                     </a>
                                 @empty
                                     <div class="list-group-item">

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content_header')
-    <h1>Pending Items</h1>
+    <h1>Pending Products</h1>
 @stop
 
 @section('content')
@@ -50,7 +50,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6">There is no pending items, you can buy some at <a href="{{route('purchases.bills.create')}}">Bills</a></td>
+                            <td colspan="6">There is no pending Products, you can create order  at <a href="{{route('production.create')}}">Production</a></td>
                         </tr>
                     @endforelse
 

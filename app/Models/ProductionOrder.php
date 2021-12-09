@@ -10,7 +10,9 @@ class ProductionOrder extends Model
 {
     use HasFactory ,BelongsToThrough;
 
-    protected $fillable = ['amount','formula_id','status_id','user_id','times','done_at'];
+    protected $fillable = ['number','amount','formula_id','status_id','user_id','times','done_at'];
+
+    protected $casts = ['done_at'=>'datetime'];
 
     public function items ()
     {

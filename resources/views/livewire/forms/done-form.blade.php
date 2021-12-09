@@ -1,6 +1,6 @@
 <div class="col-md-12 ">
 
-    <h4>{{$productionOrder->amount}} kg of <a
+    <h4>{{$productionOrder->number}} : {{$productionOrder->amount}} kg of <a
             href="{{route('formulas.formulas.show',$productionOrder->formula->id)}}">{{$productionOrder->formula->code}}</a>
     </h4>
 
@@ -34,6 +34,13 @@
                         <label for="working_hours">Working Hours</label>
                         <input type="number" wire:model.lazy="working_hours" class="form-control">
                         @error('working_hours')
+                        <small class="text-danger">{{$message}}</small>
+                        @enderror
+                    </div>
+                    <div class="col-md-3">
+                        <label for="workers">Worker</label>
+                        <input type="number" wire:model.lazy="workers" class="form-control">
+                        @error('workers')
                         <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>
@@ -76,7 +83,7 @@
 
                     <tr>
                         <th>Total Cost</th>
-                        <td> <b>{{ $totalCost }}</b> {{setting('currency')}} <small>{{$perHour}} eg per hour</small></td>
+                        <td> <b>{{ $totalCost }}</b> {{setting('currency')}}</td>
                     </tr>
 
                     <tr>
@@ -92,7 +99,7 @@
 
 
                 </table>
-                <button type="submit" wire:click.prevent="save" class="btn btn-dark w-100 h4">
+                <button type="submit" wire:click.prevent="finish" class="btn btn-dark w-100 h4">
                     Finish
                 </button>
 

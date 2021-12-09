@@ -22,11 +22,11 @@ class CreateInvoicesTable extends Migration
             $table->string('number')->nullable();
             $table->text('notes')->nullable();
             $table->foreignIdFor(\App\Models\Tax::class)->nullable();
-            $table->bigInteger('partial_amount')->nullable();
-            $table->bigInteger('sub_total');
-            $table->bigInteger('tax_total')->default(0);
-            $table->bigInteger('discount')->default(0);
-            $table->bigInteger('total');
+            $table->string('partial_amount')->nullable();
+            $table->string('sub_total');
+            $table->string('tax_total')->default(0);
+            $table->string('discount')->default(0);
+            $table->string('total');
 
 
             $table->foreignIdFor(\App\Models\Client::class);

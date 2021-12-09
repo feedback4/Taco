@@ -44,7 +44,7 @@
             <tbody>
             @forelse($bills as $bill)
                 <tr>
-                    <td>{{$bill->number}}</td>
+                    <td><a href="{{route('purchases.bills.show',$bill->id)}}">{{$bill->number}}</a></td>
                     <td>{{$bill->vendor->name}}</td>
                     <td>{{$bill->total}} EGP</td>
                     <td>{{$bill->status->name}}</td>

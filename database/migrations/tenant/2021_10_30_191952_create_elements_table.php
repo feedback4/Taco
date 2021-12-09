@@ -15,8 +15,8 @@ class CreateElementsTable extends Migration
     {
         Schema::create('elements', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('code')->nullable();
+            $table->string('name')->nullable();
+            $table->string('code')->unique();
             $table->foreignIdFor(\App\Models\Category::class);
             $table->timestamps();
         });

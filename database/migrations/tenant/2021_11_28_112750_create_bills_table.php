@@ -22,11 +22,11 @@ class CreateBillsTable extends Migration
             $table->dateTime('due_at');
 
             $table->foreignIdFor(\App\Models\Tax::class)->nullable();
-            $table->bigInteger('partial_amount')->nullable();
-            $table->bigInteger('sub_total');
-            $table->bigInteger('tax_total');
-            $table->bigInteger('discount');
-            $table->bigInteger('total');
+            $table->string('partial_amount')->nullable();
+            $table->string('sub_total');
+            $table->string('tax_total');
+            $table->string('discount');
+            $table->string('total');
 
 
             $table->text('notes')->nullable();

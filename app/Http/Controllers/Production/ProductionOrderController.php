@@ -99,41 +99,24 @@ class ProductionOrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ProductionOrder  $productionOrder
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProductionOrder $productionOrder)
+    public function edit( $id)
     {
         //
+        $productionOrder =   ProductionOrder::whereId($id)->with(['items'])->first();
 
-        $order =   ProductionOrder::whereId($id)->with(['items'=>fn($q)=>$q->with('element')])->first();
+        return view('production.edit',compact('productionOrder'));
+    }
 
-
-        $invoice = \ConsoleTVs\Invoices\Classes\Invoice::make()
-            //   ->items($order->items)
-            ->addItem('Test Item 2', 5, 2, 923)
-            ->addItem('Test Item 3', 15.55, 5, 42)
-//            ->addItem('Test Item 4', 1.25, 1, 923)
-//            ->addItem('Test Item 5', 3.12, 1, 3142)
-//            ->addItem('Test Item 6', 6.41, 3, 452)
-//            ->addItem('Test Item 7', 2.86, 1, 1526)
-//            ->addItem('Test Item 8', 5, 2, 923)
-            ->number(4021)
-            ->with_pagination(true)
-            ->duplicate_header(true)
-            ->due_date(Carbon::now()->addMonths(1))
-            ->notes('Lrem ipsum dolor sit amet, consectetur adipiscing elit.')
-            ->customer([
-                'name'      => 'Èrik Campobadal Forés',
-                'id'        => '12345678A',
-                'phone'     => '+34 123 456 789',
-                'location'  => 'C / Unknown Street 1st',
-                'zip'       => '08241',
-                'city'      => 'Manresa',
-                'country'   => 'Spain',
-            ]);
-
-        $invoice->download('demo');
+    public function destroy( $id)
+    {
+        $productionOrder = ProductionOrder::findOrFail($id) ;
+        $productionOrder->items()->delete();
+        $productionOrder->delete();
+        toastSuccess('Production Order Deleted Successfully');
+        return redirect()->route('production.index');
     }
 
 }

@@ -15,8 +15,8 @@ class CreateCompoundsTable extends Migration
     {
         Schema::create('compounds', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('code');
+            $table->string('name')->nullable();
+            $table->string('code')->unique();
             $table->timestamps();
         });
     }

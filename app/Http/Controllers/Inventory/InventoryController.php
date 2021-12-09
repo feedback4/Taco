@@ -34,7 +34,7 @@ class InventoryController extends Controller
     }
     public function pending()
     {
-        $pendingItems = Item::where('type','material')->doesnthave('inventory')->get();
+        $pendingItems = Item::where('type','material')->doesnthave('inventory')->orderByDesc('id')->get();
 
         return view('inventory.pending',compact('pendingItems'));
     }

@@ -38,8 +38,10 @@ class BillForm extends Component
     public $amount = [];
     public $tax_id;
 
+
     public $subTotal = 0;
     public $discount = 0;
+    public $taxTotal = 0;
     public $total = 0;
 
     public $button = 'create';
@@ -59,11 +61,9 @@ class BillForm extends Component
             $this->notes = $this->bill->notes;
             $this->tax_id = $this->bill->tax_id;
 
+            $this->partial_amount = $this->bill->payments()->sum('amount');
+
             foreach ($this->bill->items as $k => $item) {
-//                if ($this->tax_id){
-//                    $percent = Tax::find($this->tax_id)->percent ?? 0;
-//                    $item->price = floatval($item->price /(100+$percent)* 100 ) ;
-//                }
                 $this->billItems[$k] = ['name' => $item->name, 'description' => $item->description, 'quantity' => $item->quantity, 'price' => $item->price];
             }
             $this->discount = $this->bill->discount;
@@ -160,6 +160,7 @@ class BillForm extends Component
             $this->cal();
         }else{
             $this->tax_id = 0;
+            $this->taxTotal = 0 ;
             $this->cal();
         }
     }
@@ -189,7 +190,8 @@ class BillForm extends Component
 
         if ($this->tax_id) {
             $percent = Tax::find($this->tax_id)->percent;
-            $this->total = ($this->subTotal  / 100 * (100+$percent) ) - $this->discount ;
+            $this->taxTotal = $this->subTotal *  ($percent /100)  ;
+            $this->total = $this->subTotal + $this->taxTotal - $this->discount ;
         } else {
             $this->total = $this->subTotal - $this->discount;
         }
@@ -239,8 +241,9 @@ class BillForm extends Component
             'vendor_id' => $this->vendor->id,
             'tax_id' => $this->tax_id,
             'partial_amount' => $this->partial_amount ,
-            'discount' => $this->discount,
             'sub_total' => $this->subTotal,
+            'discount' => $this->discount,
+            'tax_total' => $this->taxTotal,
             'total' => $this->total,
         ];
 
@@ -252,14 +255,10 @@ class BillForm extends Component
 
             foreach ($validated['billItems'] as $itm) {
                 $elementId = Element::where('code', $itm['name'])->first()?->id;
-                $percent = 0;
-                if ($this->tax_id){
-                    $percent = Tax::find($this->tax_id)->percent ?? 0;
-                }
                 Item::create([
                     'name' => $itm['name'],
                     'description' => $itm['description'] ?? null,
-                    'quantity' => intval($itm['quantity']),
+                    'quantity' => floatval($itm['quantity']),
                     'price' => floatval($itm['price'] ) ,
                     'bill_id' => $this->bill->id,
                     'user_id' => auth()->id(),
@@ -277,7 +276,7 @@ class BillForm extends Component
                 Item::create([
                     'name' => $itm['name'],
                     'description' => $itm['description'] ?? null,
-                    'quantity' => intval($itm['quantity']),
+                    'quantity' => floatval($itm['quantity']),
                     'price' => floatval($itm['price']),
                     'bill_id' => $bill->id,
                     'user_id' => auth()->id(),

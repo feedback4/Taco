@@ -1,6 +1,7 @@
 <div class="row">
 
     <div class="col-md-8 ">
+        <h3>{{$number}}</h3>
         <form method="POST" wire:submit.prevent="save">
             @csrf
             <input type="submit" wire:click.prevent="" class="d-none">
@@ -64,7 +65,7 @@
 
                                     @endphp
                                     <th> {{ $totalAmount}} kg</th>
-                                    <th> Inventory</th>
+                                    <th> Price</th>
                                     <th> Expire Date</th>
                                     <th>  {{$sum}} kg
                                         @if(isset($ready[$element->id]))
@@ -81,11 +82,11 @@
                                         <label for="ready">Ready</label>
                                         </th>
                                 </tr>
-                                @forelse( App\Models\Item::whereHas('inventory',fn($q)=> $q->where('inventories.type','materials'))->whereHas('element',fn($q)=> $q->where('elements.id',$element->id))->with('category','inventory')->get() as $item)
+                                @forelse(  App\Models\Item::whereHas('inventory')->where('type','material')->where('element_id',$element->id)->with('element')->get() as $item)
                                     <tr>
                                         <td> {{$item->element->name}} -- {{$item->element->code}}</td>
                                         <td>{{$item->quantity}} kg</td>
-                                        <td>{{$item->inventory->name}}</td>
+                                        <td>{{$item->price}} {{setting('currency')}}</td>
                                         <td>{{$item->created}}</td>
                                         <td><input type="number" step=".01" class="form-control"
                                                    @if(isset($ready[$element->id]) && $ready[$element->id])   disabled
@@ -119,6 +120,10 @@
                 <tr>
                     <th>Per Time</th>
                     <td>{{ number_format(floatval($amount / $times) , 2)}} </td>
+                </tr>
+                <tr>
+                    <th>Material Cost</th>
+                    <td>{{ number_format(floatval($cost) , 2)}} </td>
                 </tr>
                 <tr>
                     <th>Elements</th>

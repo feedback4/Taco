@@ -15,6 +15,7 @@ class CreateProductionOrdersTable extends Migration
     {
         Schema::create('production_orders', function (Blueprint $table) {
             $table->id();
+            $table->string('number');
             $table->string('amount');
             $table->string('times');
             $table->dateTime('done_at')->nullable();

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content_header')
-    <h1>Production Order</h1>
+    <h1>Edit Production Order</h1>
 @stop
 
 @section('content')
@@ -17,7 +17,7 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <livewire:forms.production-form />
+            <livewire:forms.production-form :productionOrder="$productionOrder" />
         </div>
     </div>
 

@@ -18,11 +18,11 @@ class CreateItemsTable extends Migration
             $table->string('name');
             $table->string('quantity');
             $table->string('description')->nullable();
-            $table->mediumInteger('price');
+            $table->string('price');
 
             $table->string('unit')->default('kg');
             $table->string('type')->default('material');
-            $table->mediumInteger('cost')->nullable();
+            $table->string('cost')->nullable();
 
             $table->foreignIdFor(\App\Models\Bill::class)->nullable();
             $table->foreignIdFor(\App\Models\Element::class)->nullable();

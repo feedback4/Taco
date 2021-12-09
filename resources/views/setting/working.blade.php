@@ -25,6 +25,13 @@
                         <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>
+                    <div class="col-md-6">
+                        <label for="avg_salary">Average Salary</label>
+                        <input type="number" name="avg_salary" class="form-control" value="{{ setting('avg_salary') ?? old('avg_salary')}}">
+                        @error('avg_salary')
+                        <small class="text-danger">{{$message}}</small>
+                        @enderror
+                    </div>
                     <button type="submit" class="btn bg-gradient-green text-white w-100 h4 mt-4">
                         Save
                     </button>

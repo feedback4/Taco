@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Forms;
 
+use App\Models\Item;
 use App\Models\Product;
 use Livewire\Component;
 
@@ -17,7 +18,7 @@ class ItemInvoiceModalForm extends Component
     public function updatedQuery()
     {
         // dd($this->searchVendors);
-        $this->searchItems = Product::search($this->query)->take(5)->get();
+        $this->searchItems = Item::searchInvoice($this->query)->take(5)->get();
     }
 
     public function close()

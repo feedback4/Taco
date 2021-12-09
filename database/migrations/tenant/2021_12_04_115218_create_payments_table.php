@@ -16,7 +16,7 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->dateTime('paid_at');
-            $table->mediumInteger('amount');
+            $table->string('amount');
             $table->foreignIdFor(\App\Models\Bill::class)->nullable();
             $table->foreignIdFor(\App\Models\Vendor::class)->nullable();
             $table->timestamps();

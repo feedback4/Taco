@@ -68,7 +68,7 @@
                 <tr>
                     <td>{{ $item->element->name }}</td>
                     <td>{{ $item->element->code }}</td>
-                    <td>{{ $item->pivot->amount }} kg</td>
+                    <td>{{ number_format($item->pivot->amount  , 2)}} kg</td>
                     <td class="border  py-2">{{$item->created}}</td>
                     <td>{{ $item->inventory->name }}</td>
 

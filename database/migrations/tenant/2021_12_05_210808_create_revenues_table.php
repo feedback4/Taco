@@ -16,7 +16,7 @@ class CreateRevenuesTable extends Migration
         Schema::create('revenues', function (Blueprint $table) {
             $table->id();
             $table->dateTime('paid_at');
-            $table->mediumInteger('amount');
+            $table->string('amount');
             $table->foreignIdFor(\App\Models\Invoice::class)->nullable();
             $table->foreignIdFor(\App\Models\Client::class)->nullable();
             $table->timestamps();

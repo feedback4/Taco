@@ -16,7 +16,7 @@ class CreateFormulasTable extends Migration
         Schema::create('formulas', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('code');
+            $table->string('code')->unique();
             $table->foreignIdFor(\App\Models\Category::class)->nullable();
             $table->timestamps();
         });

@@ -13,6 +13,9 @@ class DoneForm extends Component
         'quantity' => 'required',
         'price' => 'required|numeric|gt:0',
         'description' => 'nullable',
+
+        'working_hours' => 'nullable|numeric|min:0',
+        'workers' => 'nullable|numeric|min:1',
     ];
     public $productionOrder ;
     public $cost = 0 ;
@@ -30,23 +33,28 @@ class DoneForm extends Component
     public $profit =0;
     public $hourCost = 0;
     public $totalCost  = 0 ;
+    public $workers = 1 ;
 
 
     public function mount($productionOrder = null)
     {
-        $productionOrder = $this->productionOrder;
+//        $this->perHour = setting('per_hour') ?? 0;
+//        $salaries = \App\Models\Employee::sum('salary');
+//        $perHour = (float)  number_format($salaries /  (setting('working_days') * setting('working_hours')) , 2)  ;
+//        $this->perHour =    $perHour ;
 
-        $this->perHour = setting('per_hour') ?? 0;
-        $salaries = \App\Models\Employee::sum('salary');
-        $perHour = (float)  number_format($salaries /  (setting('working_days') * setting('working_hours')) , 2)  ;
-
+        $perHour = (float)  number_format( setting('avg_salary') /  (setting('working_days') * setting('working_hours')) , 2) ;
         $this->perHour =    $perHour ;
+
+        if ($productionOrder){
+            $productionOrder = $this->productionOrder;
 
         foreach ($productionOrder->items as $item){
             $this->cost +=  $item->pivot->amount * $item->price;
         }
         $this->expected_amount = $this->productionOrder->amount - ($this->productionOrder->amount *.05);
         $this->expected_price =  (float)  $this->cost /   $this->expected_amount;
+        }
     }
     public function render()
     {
@@ -58,15 +66,23 @@ class DoneForm extends Component
     }
     public function updatedWorkingHours()
     {
-        if($this->working_hours){
-        $salaries =  array_sum(\App\Models\Employee::pluck('salary')->toArray());
-          $perHour = (float)  number_format($salaries /  (setting('working_days') * setting('working_hours')) , 2)  ;
+     $this->sum();
+    }
+    public function updatedWorkers()
+    {
+        $this->sum();
+    }
+    private function sum()
+    {
+        if($this->working_hours && $this->workers){
+           // $salaries =  array_sum(\App\Models\Employee::pluck('salary')->toArray());
+            $perHour = (float)  number_format( (setting('avg_salary') * $this->workers ) /  (setting('working_days') * setting('working_hours')) , 2)  ;
             $this->hourCost = $this->working_hours * $perHour;
+            $this->perHour =    $this->hourCost / $this->working_hours ;
             $this->cal();
         }else{
             $this->hourCost  = 0 ;
         }
-
     }
     private function cal()
     {
@@ -79,7 +95,6 @@ class DoneForm extends Component
             $this->loses=  0  ;
             $this->cost_per_unit = 0 ;
         }
-
     }
 
     public function updated($propertyName)
@@ -87,14 +102,27 @@ class DoneForm extends Component
         $this->validateOnly($propertyName);
     }
 
-    public function save()
+    public function finish()
     {
         $validated = $this->validate();
 
         $this->cal();
 
+        $this->productionOrder->done_at = now();
+        $this->productionOrder->save();
+
+       foreach ($this->productionOrder->items as $item ) {
+           $item->quantity = $item->quantity - $item->pivot->amount  ;
+           if ($item->quantity== 0){
+               $item->delete();
+           }else{
+               $item->save();
+           }
+       }
+
+
         Item::create([
-           'name' => $this->productionOrder->formula->product->name,
+            'name' => $this->productionOrder->formula->product->name,
             'quantity' =>    $validated['quantity'],
             'description' => $validated['description'], null,
             'cost' => $this->cost_per_unit,
@@ -104,7 +132,8 @@ class DoneForm extends Component
             'type' => 'product',
 
         ]);
-        $this->productionOrder->done_at = now();
-        $this->productionOrder->save();
+
+
+        return redirect()->route('inventory.products.pending');
     }
 }

@@ -37,6 +37,7 @@ class StoreSettingRequest extends FormRequest
 
             'working_days' => 'sometimes|required|numeric|min:1',
             'working_hours' => 'sometimes|required|numeric|min:1',
+            'avg_salary' => 'sometimes|required|numeric|gt:0',
 
             'number_prefix' => 'sometimes|nullable',
             'due_to_days' => 'sometimes|required',

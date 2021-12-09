@@ -95,6 +95,8 @@ Route::middleware([
         Route::group(['prefix'=>'production', 'as' => 'production.',],function (){
             Route::get('/',[\App\Http\Controllers\Production\ProductionOrderController::class,'index'])->name('index');
             Route::get('/create',[\App\Http\Controllers\Production\ProductionOrderController::class,'create'])->name('create');
+            Route::get('/edit/{id}',[\App\Http\Controllers\Production\ProductionOrderController::class,'edit'])->name('edit');
+            Route::delete('/destroy/{id}',[\App\Http\Controllers\Production\ProductionOrderController::class,'destroy'])->name('destroy');
          //   Route::get('/products',[\App\Http\Controllers\Production\ProductsController::class,'index'])->name('products.index');
             Route::resource('products',\App\Http\Controllers\Production\ProductsController::class);
 

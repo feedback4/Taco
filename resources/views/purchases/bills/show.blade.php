@@ -1,13 +1,7 @@
 @extends('layouts.admin')
 
 @section('meta')
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
-        body{
-            margin-top:20px;
-            background:#eee;
-        }
-
         .invoice {
             background: #fff;
             padding: 20px
@@ -121,19 +115,24 @@
             background: #fff;
             border-color: #d9dfe3;
         }
+        @media print {
+            .hidden-print {
+                display: none;
+            }
+        }
     </style>
 
-@stop
+@endsection
 
 @section('content_header')
-    <div class="">
-        <h1>All Bills</h1>
-    </div>
-    <div class="">
-        <a href="{{route('purchases.bills.create')}}" class="btn btn-success">Create Bill</a>
-    </div>
 
-@stop
+        <h1>All Bills</h1>
+
+
+        <a href="{{route('purchases.bills.create')}}" class="btn btn-success">Create Bill</a>
+
+
+@endsection
 
 @section('content')
 
@@ -142,12 +141,13 @@
     <div class="col-md-12">
         <div class="invoice">
             <!-- begin invoice-company -->
-            <div class="invoice-company text-inverse f-w-600">
+            <div class="invoice-company text-inverse  d-flex justify-content-between">
+                Bill
             <span class="pull-right hidden-print">
-            <a href="javascript:;" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-file t-plus-1 text-danger fa-fw fa-lg"></i> Export as PDF</a>
-            <a href="javascript:;" onclick="window.print()" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-print t-plus-1 fa-fw fa-lg"></i> Print</a>
+            <a href="javascript:;" class="btn btn-sm btn-white m-b-10 p-l-5"><i class='bx bxs-file-blank bx-xs text-danger' ></i> Export as PDF</a>
+            <a href="javascript:;" onclick="window.print()" class="btn btn-sm btn-white m-b-10 p-l-5"><i class='bx bxs-printer bx-xs'></i> Print</a>
             </span>
-               Bill
+
             </div>
             <!-- end invoice-company -->
             <!-- begin invoice-header -->
@@ -221,8 +221,8 @@
                                 <i class="bx bx-plus bx-sm text-muted"></i>
                             </div>
                             <div class="sub-price">
-                                <small>PAYPAL FEE (5.4%)</small>
-                                <span class="text-inverse">{{$bill->sub_total - $bill->total }} {{setting('currency')}}</span>
+                                <small>Tax</small>
+                                <span class="text-inverse">{{ $bill->tax_total }} {{setting('currency')}}</span>
                             </div>
                             @if($bill->discount)
                                 <div class="sub-price">

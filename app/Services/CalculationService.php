@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Bill;
 use App\Models\Invoice;
 use App\Models\Status;
+use phpDocumentor\Reflection\Types\Collection;
 
 class CalculationService {
 //    public static function cal()
@@ -60,5 +61,19 @@ class CalculationService {
             $invoice->status_id =$status_id ;
             $invoice->save();
         }
+    }
+
+    public static function calItems(Collection  $items)
+    {
+        self::sumItems($items);
+    }
+
+    private static function sumItems($items)
+    {
+       foreach ($items as $item){
+        if ($item->quantity == 0){
+            $item->delete();
+        }
+       }
     }
 }

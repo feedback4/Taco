@@ -116,9 +116,9 @@ class InvoiceForm extends Component
 
     public function selectItem($id)
     {
-        $product = Product::find($id);
-        $item  = Item::where('product_id',$product->id)->first();
-        $this->invoiceItems[] = ['name' => $product->code, 'description' => '', 'quantity' => 1, 'price' => $item?->price];
+       // $product = Product::find($id);
+        $item  = Item::find($id);
+        $this->invoiceItems[] = ['name' => $item->name, 'description' => '', 'quantity' => 1, 'price' => $item?->price];
     }
 
     public function createItem()
@@ -181,6 +181,7 @@ class InvoiceForm extends Component
     {
         $this->subTotal = 0;
         $this->total = 0;
+        dd($this->invoiceItems);
         foreach ($this->invoiceItems as $k => $itm) {
             $this->amount[$k] =(float) $this->invoiceItems[$k]['quantity'] * $this->invoiceItems[$k]['price'];
         }

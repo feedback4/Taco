@@ -127,14 +127,14 @@
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
                             </td>
-                            <td colspan="1"><input type="number" class="form-control"
+                            <td colspan="1"><input type="number"  step="0.25" class="form-control"
                                                    wire:model.lazy="billItems.{{$index}}.quantity"
                                                    placeholder="add quantity">
                                 @error('billItems.'.$index.'.quantity')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
                             </td>
-                            <td colspan="1"><input type="number" class="form-control"
+                            <td colspan="1"><input type="number" class="form-control" step="0.01"
                                                    wire:model.lazy="billItems.{{$index}}.price" placeholder="add price">
                                 @error('billItems.'.$index.'.price')
                                 <small class="text-danger">{{$message}}</small>
@@ -168,8 +168,7 @@
                                         <td>{{$subTotal}} EGP</td>
                                     </tr>
                                     <tr>
-                                        <th>Tax</th>
-                                        <td>
+                                        <th>Tax
                                             <select wire:model="tax_id" class="form-control-sm">
                                                 <option value="">Select Tax</option>
                                                 @foreach($taxes as $tax)
@@ -177,6 +176,9 @@
                                                     </option>
                                                 @endforeach
                                             </select>
+                                        </th>
+                                        <td>
+                                            {{ $taxTotal  }}
                                         </td>
                                     </tr>
                                     <tr>

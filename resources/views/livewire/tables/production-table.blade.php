@@ -33,7 +33,8 @@
             <table class="table table-hover table-responsive-md">
                 <thead>
                 <tr>
-                    <th>Code</th>
+                    <th>Number</th>
+                    <th>Formula</th>
                     <th>Amount</th>
                     <th>Inventory</th>
                     <th>production</th>
@@ -44,6 +45,7 @@
                 <tbody>
                 @forelse($productionOrders as $k=> $order)
                     <tr>
+                        <td>{{$order->number}}</td>
                         <td>
                             <a href="{{route('production.show',$order->id)}}">{{$order->formula?->code}}</a>
                         </td>
@@ -55,7 +57,23 @@
                                 print
                             </a></td>
                         <td> {{$order->created_at->format('d-m-Y')}} <small>by {{ $order->user->name }}</small> </td>
-                        <td><a href="{{route('production.done',$order->id)}}" class="btn btn-dark">done</a></td>
+                        <td class="d-flex justify-content-between">
+                            @if(!$order->done_at)
+                            <a href="{{route('production.done',$order->id)}}" class="btn btn-dark">done</a>
+
+                            <a href="{{route('production.edit',$order->id)}}" class="btn btn-info">Edit</a>
+
+                                <form action="{{route('production.destroy',$order->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="submit" class="btn btn-danger" value="Delete">
+                                </form>
+
+                            @else
+                                order done at {{$order->done}}
+                            @endif
+                        </td>
+
                     </tr>
 
                 @empty

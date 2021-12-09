@@ -19,7 +19,7 @@ class CreateCompaniesTable extends Migration
             $table->text('address')->nullable();
             $table->string('state')->nullable();
             $table->boolean('active')->default(true);
-            $table->date('last_action_at')->nullable();
+            $table->dateTime('last_action_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
