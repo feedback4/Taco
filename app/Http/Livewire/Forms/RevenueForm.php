@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\Invoice;
 use App\Models\Revenue;
 use App\Models\Status;
+use App\Services\CalculationService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 
@@ -38,12 +39,15 @@ class RevenueForm extends Component
         if ($revenue) {
             $this->revenue = $revenue;
 
+            $this->revenue->amount = 0;
+            $this->revenue->save();
             //    $this->paid_at = $this->payment->paid_at->format('Y-m-d');
             $this->amount = $this->revenue->amount;
 
             $this->selectClient($this->revenue->client_id) ;
             $this->invoice_id = $this->revenue->invoice_id;
 
+            $this->updatedInvoiceId();
 
             $this->button = 'update';
             $this->color = 'primary';
@@ -64,16 +68,8 @@ class RevenueForm extends Component
     public function selectClient($id)
     {
         $this->client = Client::find($id);
+        $this->invoices =$this->client->invoices()->whereHas('status', fn($q)=>$q->whereNotIn('name',['paid']))->get();
 
-            $this->invoices =$this->client->invoices()->whereHas('status', fn($q)=>$q->whereNotIn('name',['paid']))->get();
-
-            if ($this->revenue){
-                if( !$this->invoices->contains('id',$this->revenue->invoice_id))
-                {
-                    $invoice = Invoice::find($this->revenue->invoice_id);
-                    $this->invoices->push($invoice);
-                }
-            }
     }
 
     public function clearClient()
@@ -89,7 +85,8 @@ class RevenueForm extends Component
     public function updatedInvoiceId()
     {
         if ($this->invoice_id){
-
+            $invoice= Invoice::findOrFail($this->invoice_id);
+            $this->sub =  $invoice->total - $invoice->revenues()->sum('amount');
             $this->cal();
         }else{
             $this->sub = 0;
@@ -116,16 +113,6 @@ class RevenueForm extends Component
         }
 
         return true ;
-    }
-    public function clear()
-    {
-        if ($this->revenue){
-            $this->revenue->amount = 0;
-          //  $this->revenue->paid_at = null ;
-            $this->revenue->save();
-            $this->emitSelf('$refresh');
-            $this->cal();
-        }
     }
     public function save()
     {
@@ -161,21 +148,10 @@ class RevenueForm extends Component
                 ['type' => 'success', 'message' => 'Revenue Added Successfully!']);
         }
         $invoice = Invoice::findOrFail($this->invoice_id);
-         $total =  $invoice->revenues()->sum('amount');
-
-        $this->sub =  $invoice->total - $total;
 
 
-        if ($this->sub == 0){
-            $status_id = Status::where('type','bill')->where('name','paid')->first()->id;
-            $invoice->status_id =$status_id ;
-            $invoice->save();
-        }elseif($total == 0){
-            $status_id = Status::where('type','bill')->where('name','unpaid')->first()->id;
-            $invoice->status_id =$status_id ;
-            $invoice->revenues()->delete();
-            $invoice->save();
-        }
+
+        CalculationService::calInvoice($invoice);
 
         //    $this->emitTo('tables.formulas-table','refreshFormulas');
         $this->reset();

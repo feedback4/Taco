@@ -27,11 +27,11 @@
 @endsection
 
 
-@section('js')
+@push('js')
     <script>
         window.addEventListener('closeModel', () => {
             $('#clientModal').modal('hide');
             $('#itemModal').modal('hide');
         })
     </script>
-@endsection
+@endpush

@@ -63,17 +63,19 @@
 
 
 
-@yield('js')
+
 
 
 <!-- Livewire Scripts -->
 
 @livewireScripts
+<!-- jquery Scripts -->
 @jquery
+<!-- jquery Scripts -->
 @toastr_js
 @toastr_render
 
-
+@stack('js')
 <!-- Alpine v3 -->
 
 <script>

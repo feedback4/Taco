@@ -76,7 +76,7 @@
                             <small class="text-danger">{{$message}}</small>
                             @enderror
                         </div>
-                        @if(isset($sub) )
+                        @if($sub )
                             <div class="col-md-6">
                                 <h4 class="mt-4">remain {{$sub}} EGP To pay </h4>
                             </div>
@@ -90,11 +90,6 @@
     </form>
 
     <div class="card">
-        @if($edit)
-            <div class="card-body">
-                <button class="btn btn-dark" wire:click.pervent="clear">Reset Revenue</button>
-            </div>
-        @endif
         <div class="card-footer  d-flex justify-content-between">
 
             <a href="{{route('sales.revenues.index')}}" onclick="return confirm('Are you sure?')"

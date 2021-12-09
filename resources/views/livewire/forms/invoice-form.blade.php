@@ -65,7 +65,7 @@
 
                     <div class="col-md-4">
                         <label for="number">Invoice Number</label>
-                        <input type="text" wire:model.lazy="number" class="form-control">
+                        <input type="text" wire:model.lazy="number" disabled class="form-control">
                         @error('number')
                         <small class="text-danger">{{$message}}</small>
                         @enderror
@@ -140,7 +140,7 @@
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
                             </td>
-                            <td>{{number_format($amount[$index] ?? 0)}}</td>
+                            <td>{{ number_format( floatval($amount[$index] ?? 0 ) ,2)}}</td>
                             <td>
                                 <span class="text-danger" wire:click.pervent="deleteItem({{$index}})" style="cursor: pointer">
                                     <i class="bx bx-trash bx-sm"></i>

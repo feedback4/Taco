@@ -6,6 +6,7 @@ use App\Models\Bill;
 use App\Models\Payment;
 use App\Models\Status;
 use App\Models\Vendor;
+use App\Services\CalculationService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
@@ -17,6 +18,7 @@ class PaymentForm extends Component
     protected $listeners = ['selectVendor'];
 
     public $payment;
+    private $billsService;
 
     public $paid_at;
     public $amount = 0;
@@ -34,15 +36,18 @@ class PaymentForm extends Component
 
     public function mount($payment = null)
     {
+        $this->billsService = new CalculationService();
         $this->paid_at =  now()->format('Y-m-d');
 
         if ($payment) {
             $this->payment = $payment;
+            $this->payment->amount = 0;
+            $this->payment->save();
 
-        //    $this->paid_at = $this->payment->paid_at->format('Y-m-d');
-            $this->amount = $this->payment->amount;
-        $this->selectVendor($this->payment->vendor_id) ;
 
+            $this->selectVendor($this->payment->vendor_id) ;
+            $this->bill_id = $this->payment->bill_id;
+            $this->updatedBillId();
 
             $this->button = 'update';
             $this->color = 'primary';
@@ -107,38 +112,7 @@ class PaymentForm extends Component
         return true ;
     }
 
-    public function sum()
-    {
-       if ($this->payment){
-           $this->bill_id = $this->payment->bill_id ;
-           $bill = Bill::findOrFail($this->bill_id);
-           $total =  $bill->payments()->sum('amount');
 
-           $this->sub =  $bill->total - $total;
-           if ($this->sub == 0){
-               $status_id = Status::where('type','bill')->where('name','paid')->first()->id;
-               $bill->status_id =$status_id ;
-               $bill->save();
-           }elseif($total == 0){
-               $status_id = Status::where('type','bill')->where('name','unpaid')->first()->id;
-               $bill->status_id =$status_id ;
-               $bill->payments()->delete();
-               $bill->save();
-           }
-       }
-    }
-
-    public function clear()
-    {
-        if ($this->payment){
-            $this->payment->amount = 0;
-            //  $this->revenue->paid_at = null ;
-            $this->payment->save();
-            $this->emitSelf('$refresh');
-            $this->sum();
-            $this->cal();
-        }
-    }
     public function save()
     {
         $this->authorize('purchases');
@@ -166,13 +140,11 @@ class PaymentForm extends Component
                 ['type' => 'info', 'message' => 'Payment Updated Successfully!']);
         } else {
            Payment::create($validated);
-
-
-
             $this->emit('alert',
                 ['type' => 'success', 'message' => 'Payment Added Successfully!']);
         }
-
+        $bill = Bill::findOrFail($this->bill_id);
+        CalculationService::calBill($bill);
         //    $this->emitTo('tables.formulas-table','refreshFormulas');
         $this->reset();
 

@@ -65,7 +65,7 @@
 
                     <div class="col-md-4">
                         <label for="number">Bill Number</label>
-                        <input type="text" wire:model.lazy="number" class="form-control">
+                        <input type="text" wire:model.lazy="number" disabled class="form-control">
                         @error('number')
                         <small class="text-danger">{{$message}}</small>
                         @enderror

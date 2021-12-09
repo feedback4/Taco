@@ -44,6 +44,6 @@
 {{--</script>--}}
 {{--    @stop--}}
 
-@section('js')
+@push('js')
 
     @stop

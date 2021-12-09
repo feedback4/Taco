@@ -32,6 +32,7 @@
         <table class="table table-hover table-responsive-md table-bordered">
             <thead>
             <tr>
+                <th>Number</th>
                 <th>Client</th>
                 <th>Amount</th>
                 <th>Status</th>
@@ -43,8 +44,9 @@
             <tbody>
             @forelse($invoices as $invoice)
                 <tr>
+                    <td>{{$invoice->number ?? 'no data'}} </td>
                     <td>{{$invoice->client->name}}</td>
-                    <td>{{$invoice->total}} EGP</td>
+                    <td>{{$invoice->total}} {{setting('currency')}}</td>
                     <td>{{$invoice->status->name}}</td>
                     <td>{{$invoice->invoiced}}</td>
                     <td>{{$invoice->due}}</td>

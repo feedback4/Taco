@@ -23,8 +23,9 @@ class CreateBillsTable extends Migration
 
             $table->foreignIdFor(\App\Models\Tax::class)->nullable();
             $table->bigInteger('partial_amount')->nullable();
-            $table->bigInteger('discount');
             $table->bigInteger('sub_total');
+            $table->bigInteger('tax_total');
+            $table->bigInteger('discount');
             $table->bigInteger('total');
 
 

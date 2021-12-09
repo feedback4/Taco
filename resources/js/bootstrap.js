@@ -13,7 +13,7 @@ try {
     require('bootstrap');
     // require('datatables.net-bs4');
     // require('datatables.net-buttons-bs4');
-    require('select2');
+    window.select2 = require("select2");
     $('.select2').select2();
 } catch (e) {}
 

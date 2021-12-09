@@ -83,6 +83,11 @@ class InvoiceForm extends Component
             } else {
                 $this->partial = false;
             }
+        }else{
+            $latest = Invoice::latest()->first()->id ?? 0;
+            $this->number = (setting('number_prefix') ?? '') . (str_pad((int)$latest + 1, 5, '0', STR_PAD_LEFT));
+            $this->invoiced_at =  now()->format('Y-m-d');
+            $this->due_at =  now()->addDays(14)->format('Y-m-d');
         }
     }
 
@@ -177,14 +182,12 @@ class InvoiceForm extends Component
         $this->subTotal = 0;
         $this->total = 0;
         foreach ($this->invoiceItems as $k => $itm) {
-            $this->amount[$k] = $this->invoiceItems[$k]['quantity'] * $this->invoiceItems[$k]['price'];
+            $this->amount[$k] =(float) $this->invoiceItems[$k]['quantity'] * $this->invoiceItems[$k]['price'];
         }
-
 
         foreach ($this->amount as $m) {
             $this->subTotal += $m;
         }
-
         if ($this->tax_id) {
             $percent = Tax::find($this->tax_id)->percent;
             $this->total = ($this->subTotal / 100 * (100+$percent) )- $this->discount ;

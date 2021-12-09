@@ -47,13 +47,17 @@ class VendorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Vendor  $vendor
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Vendor $vendor)
+    public function show( $id)
     {
-        //
-        return view('hr.vendors.show',compact('vendor'));
+        $vendor = Vendor::withCount('bills')->with('payments')->findOrFail($id);
+
+        $totalBills =   $vendor->bills()->sum('total')   ;
+        $totalPayments = $vendor->payments()->sum('amount');
+
+        return view('purchases.vendors.show',compact('vendor','totalBills','totalPayments'));
     }
 
     /**

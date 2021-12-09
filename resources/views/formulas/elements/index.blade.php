@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
 @section('content_header')
-    <div class="">       <h2>All Elements</h2></div>
-    <div class="">   <a href="{{route('formulas.compounds')}}" class="btn btn-outline-dark">Compounds</a></div>
+     <h2>All Elements</h2>
+  <a href="{{route('formulas.compounds')}}" class="btn btn-outline-dark">Compounds</a>
 @stop
 
 @section('content')
@@ -27,5 +27,7 @@
 
 
 @endsection
+
+
 
 

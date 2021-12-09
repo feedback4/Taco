@@ -24,7 +24,10 @@ class ElementForm extends Component
     public $button = 'create' ;
     public $color = 'success';
 
-
+    public function hydrate()
+    {
+        $this->emit('select2');
+    }
     public function render()
     {
         $categories = Category::where('type','element')->select('id','name')->get();

@@ -39,9 +39,9 @@ class CompoundsForm extends Component
 //                return;
 //            }
 //        }
-        foreach ($this->activeElements as $ele) {
-            $ids[] = $ele['element'];
-        }
+//        foreach ($this->activeElements as $ele) {
+//            $ids[] = $ele['element'];
+//        }
         $this->activeElements[] = ['element' => '', 'percent' => 0];
         //    dd(    $this->activeElements);
     }
@@ -50,6 +50,11 @@ class CompoundsForm extends Component
     {
         unset($this->activeElements[$index]);
         $this->activeElements = array_values($this->activeElements);
+        if($this->activeElements){
+            $this->cal();
+        }else{
+            $this->total = 0 ;
+        }
     }
     public function enter()
     {
@@ -61,8 +66,12 @@ class CompoundsForm extends Component
     }
     public function updatedActiveElements()
     {
+        if($this->activeElements){
+            $this->cal();
+        }else{
+            $this->total = 0 ;
+        }
 
-        $this->cal();
     }
 
     private function cal(): bool
@@ -80,7 +89,7 @@ class CompoundsForm extends Component
      //   dd(floatval($total));
         $result = false;
             if (floatval($total) > 100 ) {
-                $this->addError('activeElements', 'total must be equal 100%');
+                $this->addError('activeElements', 'total must be equal to 100%');
             }
         $this->total = $total;
       if (number_format($total,2) == 100.00){
@@ -92,13 +101,27 @@ class CompoundsForm extends Component
 
     public function save()
     {
-        if (!$this->cal()) {
-            $this->emit('alert',
-                ['type' => 'info', 'message' => 'يا جدع مينفعش']);
-            return back();
-        }
         $this->authorize('formula-create');
         $validated = $this->validate();
+
+        if (!$this->activeElements) {
+            $this->emit('alert',
+                ['type' => 'info', 'message' => 'please select some elements']);
+            return back();
+        }
+
+        if (count($this->activeElements) < 2 ) {
+            $this->emit('alert',
+                ['type' => 'info', 'message' => 'please select at least 2 elements']);
+            return back();
+        }
+
+        if (!$this->cal()) {
+            $this->emit('alert',
+                ['type' => 'info', 'message' => 'total must be equal to 100%']);
+            return back();
+        }
+
 
         $data = [
             'name' => $validated['name'],
@@ -158,7 +181,7 @@ class CompoundsForm extends Component
             'activeElements.*.element' => ['required','numeric',
              //   Rule::notIn($ids)
             ],
-            'activeElements.*.percent' => 'required|numeric|min:0|max:100',
+            'activeElements.*.percent' => 'required|numeric|gt:0|max:100',
         ];
     }
 }

@@ -69,7 +69,7 @@ class ClientsController extends Controller
      */
     public function show( $id)
     {
-       $client = Client::with('invoices','revenues')->withCount('invoices','revenues')->findOrFail($id);
+       $client = Client::with('revenues')->withCount('invoices')->findOrFail($id);
 
         $totalInvoices =   $client->invoices()->sum('total')   ;
         $totalRevenues = $client->revenues()->sum('amount');

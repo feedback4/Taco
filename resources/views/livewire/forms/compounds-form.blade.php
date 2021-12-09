@@ -1,12 +1,11 @@
 <div class="card card-primary  collapsed-card">
-    <div class="card-header bg-{{$color}} d-flex justify-content-between">
+    <div class="card-header bg-{{$color}} ">
         <h3 class="card-title">{{$title}} Compound</h3>
         <div class="card-tools text-light">
             <button type="button " class="btn btn-tool" data-card-widget="collapse">
                 <i class="bx bx-minus bx-sm"></i>
             </button>
         </div>
-
     </div>
     <div class="card-body" style="display: block;">
     <form method="POST" action="#" wire:submit.prevent="save">
@@ -33,11 +32,11 @@
                     </span>
                 @enderror
             </div>
-            @foreach($activeElements as $index => $activeElements )
+                @foreach($activeElements as $index => $activeElements )
                 <div class="col-md-7" >
 
                     <label for="element" class=" col-form-label text-md-right">Element</label>
-                    <select class="form-control " wire:model.lazy="activeElements.{{$index}}.element">
+                    <select class="form-control select-2" id="activeElements.{{$index}}.element"  wire:model.lazy="activeElements.{{$index}}.element">
                         <option value="">select Element</option>
                         @foreach($elements as $element)
                             <option value="{{$element->id}}">{{$element->name}} -- {{$element->code}}</option>
@@ -84,3 +83,52 @@
     </form>
     </div>
 </div>
+
+
+{{--@push('js')--}}
+{{--    <script>--}}
+{{--        $(document).ready(function () {--}}
+{{--            $(id).select2({--}}
+{{--                placeholder: "select Element",--}}
+{{--                //   multiple: true,--}}
+{{--                allowClear: true,--}}
+{{--            });--}}
+{{--            $('.select-2').each(function( index ) {--}}
+{{--                console.log( index + ": " + $( this ).attr('id') );--}}
+{{--                let id = $( this ).attr('id');--}}
+{{--            --}}
+{{--                $(id).on('change', function (e) {--}}
+{{--                    var data = $(id).select2("val");--}}
+{{--                    // let closeButton = $('.select2-selection__clear')[0];--}}
+{{--                    // if(typeof(closeButton)!='undefined'){--}}
+{{--                    //     if(data.length<=0)--}}
+{{--                    //     {--}}
+{{--                    //         $('.select2-selection__clear')[0].children[0].innerHTML = '';--}}
+{{--                    //     } else{--}}
+{{--                    //         $('.select2-selection__clear')[0].children[0].innerHTML = 'x';--}}
+{{--                    //     }--}}
+{{--                    // }--}}
+{{--                @this.set('activeElements.'+index+'.element', data);--}}
+{{--                });--}}
+{{--            });--}}
+{{--            // $('#category_id').select2({--}}
+{{--            //     placeholder: "select Element",--}}
+{{--            //     //   multiple: true,--}}
+{{--            //     allowClear: true,--}}
+{{--            // });--}}
+{{--            // $('#category_id').on('change', function (e) {--}}
+{{--            //     var data = $('#category_id').select2("val");--}}
+{{--            //     let closeButton = $('.select2-selection__clear')[0];--}}
+{{--            //     if(typeof(closeButton)!='undefined'){--}}
+{{--            //         if(data.length<=0)--}}
+{{--            //         {--}}
+{{--            //             $('.select2-selection__clear')[0].children[0].innerHTML = '';--}}
+{{--            //         } else{--}}
+{{--            //             $('.select2-selection__clear')[0].children[0].innerHTML = 'x';--}}
+{{--            //         }--}}
+{{--            //     }--}}
+{{--            // @this.set('category_id', data);--}}
+{{--            // });--}}
+{{--        });--}}
+{{--    </script>--}}
+{{--@endpush--}}

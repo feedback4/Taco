@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Purchases;
 
 use App\Http\Controllers\Controller;
 use App\Models\Payment;
+use App\Services\CalculationService;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -81,7 +82,10 @@ class PaymentController extends Controller
      */
     public function destroy(Payment $payment)
     {
+       $bill =  $payment->bill ;
         $payment->delete();
+
+        CalculationService::calBill($bill);
         toastSuccess('Payment Deleted Successfully.');
         return redirect()->route('purchases.payments.index');
     }

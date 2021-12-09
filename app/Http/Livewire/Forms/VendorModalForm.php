@@ -8,7 +8,7 @@ use Livewire\Component;
 class VendorModalForm extends Component
 {
     protected $rules = [
-        'name' => 'required',
+        'name' => 'required|unique:vendors',
         'phone' => 'required',
         'email' => 'nullable',
         'address' => 'nullable',

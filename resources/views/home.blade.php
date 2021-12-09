@@ -39,10 +39,10 @@
 
 @endsection
 
-@section('js')
+@push('js')
 {{--    {!! $chart1->renderChartJsLibrary() !!}--}}
 
 {{--    {!! $chart1->renderJs() !!}--}}
 {{--    {!! $chart2->renderJs() !!}--}}
 
-@endsection
+@endpush

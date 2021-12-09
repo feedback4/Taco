@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Sales;
 
 use App\Http\Controllers\Controller;
 use App\Models\Revenue;
+use App\Services\CalculationService;
 use Illuminate\Http\Request;
 
 class RevenuesController extends Controller
@@ -81,13 +82,13 @@ class RevenuesController extends Controller
      */
     public function destroy(Revenue $revenue)
     {
-        if(!$revenue->amount == 0){
-            toastError('Revenue still have value');
-            return back();
-        }
-
+//        if(!$revenue->amount == 0){
+//            toastError('Revenue still have value');
+//            return back();
+//        }
+        $invoice = $revenue->invoice;
         $revenue->delete();
-
+        CalculationService::calInvoice($invoice);
         toastSuccess('Revenue Deleted Successfully');
 
         return redirect()->route('sales.revenues.index');

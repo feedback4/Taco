@@ -32,6 +32,7 @@
         <table class="table table-hover table-responsive-md table-bordered">
             <thead>
             <tr>
+                <th>Number</th>
                 <th>Vendor</th>
                 <th>Amount</th>
                 <th>Status</th>
@@ -43,6 +44,7 @@
             <tbody>
             @forelse($bills as $bill)
                 <tr>
+                    <td>{{$bill->number}}</td>
                     <td>{{$bill->vendor->name}}</td>
                     <td>{{$bill->total}} EGP</td>
                     <td>{{$bill->status->name}}</td>

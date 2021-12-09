@@ -43,7 +43,7 @@
             <tbody>
             @forelse($vendors as $vendor)
                 <tr>
-                    <td>{{$vendor->name}}</td>
+                    <td><a href="{{route('purchases.vendors.show',$vendor->id)}}">{{$vendor->name}}</a></td>
                     <td>{{$vendor->phone ?? 'no phone'}}</td>
                     <td>{{$vendor->email ?? 'no phone'}}</td>
                     <td>{{$vendor->address ?? 'no phone'}}</td>

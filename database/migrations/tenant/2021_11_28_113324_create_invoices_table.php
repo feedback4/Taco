@@ -23,8 +23,9 @@ class CreateInvoicesTable extends Migration
             $table->text('notes')->nullable();
             $table->foreignIdFor(\App\Models\Tax::class)->nullable();
             $table->bigInteger('partial_amount')->nullable();
-            $table->bigInteger('discount');
             $table->bigInteger('sub_total');
+            $table->bigInteger('tax_total')->default(0);
+            $table->bigInteger('discount')->default(0);
             $table->bigInteger('total');
 
 

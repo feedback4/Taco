@@ -90,11 +90,6 @@
     </form>
 
     <div class="card">
-        @if($edit)
-            <div class="card-body">
-                <button class="btn btn-dark" wire:click.pervent="clear">Reset Payment</button>
-            </div>
-        @endif
         <div class="card-footer  d-flex justify-content-between">
 
             <a href="{{route('purchases.payments.index')}}" onclick="return confirm('Are you sure?')"

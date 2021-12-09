@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
-@section('content_header')\
-<div class="">    <h1>Element {{$element->name}}</h1></div>
-<div class="">              <a href="{{route('formulas.elements.index')}}" class="btn btn-outline-primary">Manage Elements</a></div>
+@section('content_header')
+  <h1>Element {{$element->name}}</h1>
+            <a href="{{route('formulas.elements.index')}}" class="btn btn-outline-primary">Manage Elements</a>
 
 @stop
 
@@ -46,7 +46,7 @@
 
                 @else
                     <br><b>
-                    this element hasn't been used
+                    This element hasn't been used yet.
                     </b>
                 @endif
                     <hr>

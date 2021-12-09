@@ -188,8 +188,8 @@
                         <thead>
                         <tr>
                             <th>Item</th>
-                            <th class="text-center" width="10%">RATE</th>
-                            <th class="text-center" width="10%">HOURS</th>
+                            <th class="text-center" width="10%">Quantity</th>
+                            <th class="text-center" width="10%">PRICE</th>
                             <th class="text-right" width="20%">LINE TOTAL</th>
                         </tr>
                         </thead>
@@ -200,9 +200,9 @@
                                 <span class="text-inverse">{{$item->name}}</span><br>
                                 <small>{{$item->description}}</small>
                             </td>
+                            <td class="text-center">{{$item->quantity}}</td>
                             <td class="text-center">{{$item->price}}</td>
-                            <td class="text-center">50</td>
-                            <td class="text-right">$2,500.00</td>
+                            <td class="text-right">{{ $item->quantity * $item->price}}</td>
                         </tr>
                         @endforeach
                         </tbody>
@@ -215,19 +215,28 @@
                         <div class="invoice-price-row">
                             <div class="sub-price">
                                 <small>SUBTOTAL</small>
-                                <span class="text-inverse">$4,500.00</span>
+                                <span class="text-inverse">{{$bill->sub_total}} {{setting('currency')}}</span>
                             </div>
                             <div class="sub-price">
-                                <i class="fa fa-plus text-muted"></i>
+                                <i class="bx bx-plus bx-sm text-muted"></i>
                             </div>
                             <div class="sub-price">
                                 <small>PAYPAL FEE (5.4%)</small>
-                                <span class="text-inverse">$108.00</span>
+                                <span class="text-inverse">{{$bill->sub_total - $bill->total }} {{setting('currency')}}</span>
                             </div>
+                            @if($bill->discount)
+                                <div class="sub-price">
+                                    <i class="bx bx-minus bx-sm text-muted"></i>
+                                </div>
+                                <div class="sub-price">
+                                    <small>DISCOUNT</small>
+                                    <span class="text-inverse">{{$bill->discount}} {{setting('currency')}}</span>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="invoice-price-right">
-                        <small>TOTAL</small> <span class="f-w-600">$4508.00</span>
+                        <small>TOTAL</small> <span class="f-w-600">{{$bill->total}} {{setting('currency')}}</span>
                     </div>
                 </div>
                 <!-- end invoice-price -->
@@ -235,20 +244,18 @@
             <!-- end invoice-content -->
             <!-- begin invoice-note -->
             <div class="invoice-note">
-                * Make all cheques payable to [Your Company Name]<br>
-                * Payment is due within 30 days<br>
-                * If you have any questions concerning this invoice, contact  [Name, Phone Number, Email]
+                {{ setting('notes')}}
             </div>
             <!-- end invoice-note -->
             <!-- begin invoice-footer -->
             <div class="invoice-footer">
                 <p class="text-center m-b-5 f-w-600">
-                    THANK YOU FOR YOUR BUSINESS
+                    {{ setting('footer')}}
                 </p>
                 <p class="text-center">
-                    <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i> matiasgallipoli.com</span>
-                    <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-volume"></i> T:016-18192302</span>
-                    <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> rtiemps@gmail.com</span>
+                    <span class="m-r-10"><i class="bx  bx-xs bx-globe"></i> matiasgallipoli.com</span>
+                    <span class="m-r-10"><i class="bx  bx-xs bxs-phone"></i> T:016-18192302</span>
+                    <span class="m-r-10"><i class="bx  bx-xs bx-envelope"></i> rtiemps@gmail.com</span>
                 </p>
             </div>
             <!-- end invoice-footer -->

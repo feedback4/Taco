@@ -4,14 +4,14 @@
 
 @section('content_header')
     <h1>Vendor {{$vendor->name}}</h1>
-    <a href="{{route('purchases.vendors.indexx')}}">Manage Vendors</a>
+    <a href="{{route('purchases.vendors.index')}}">Manage Vendors</a>
 @stop
 
 @section('content')
 
 
         <div class="row justify-content-center">
-            <div class="col-md-12">
+            <div class="col-md-6">
 
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
@@ -26,20 +26,11 @@
                 <p><b>{{$vendor->email}}</b></p> <hr>
                     <label>Vendor Address</label>
                     <p><b>{{$vendor->address}}</b></p> <hr>
-                <label>Vendor Role</label>
-                <p><b>@if (isset($roles))
-                        @foreach($roles as $role)
-                        {{$role }}
-                        @endforeach
-                        @else
-                          {{$user->role  }}
-                        @endif
-                    </b></p> <hr>
                 <div class="d-flex ">
 
-                    <a href="{{ route('users.edit',$user->id) }}" class="btn btn-info o">edit</a>
+                    <a href="{{ route('purchases.vendors.edit',$vendor->id) }}" class="btn btn-info o">edit</a>
 
-                    <form class="ml-5" action="{{route('users.destroy',$user->id) }}" method="POST">
+                    <form class="ml-5" action="{{route('purchases.vendors.destroy',$vendor->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <input type="submit" class="btn btn-danger" value="delete">
@@ -49,7 +40,44 @@
 
 
             </div>
+            <div class="col-md-6 ">
+
+                <h3>Vendor Balance</h3>
+                <table class="table table-responsive-md table-hover">
+                    <tr>
+                        <th>Total balance</th>
+                        <td>  {{$totalPayments}} {{ setting('currency') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Total Paid</th>
+                        <td>  {{$totalBills}} {{ setting('currency') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Open Bills</th>
+                        <td>  {{$totalBills - $totalPayments}} {{ setting('currency') }}</td>
+                    </tr>
+                </table>
+
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3>History</h3>
+
+                        <h5>{{$vendor->bills_count}} Bills </h5>
+                        @forelse($vendor->payments()->take(10)->get() as $payment)
+                            <p class=""><a href="{{route('purchases.bills.show',$payment->bill_id)}}">{{ $payment->amount }}
+                                    {{setting('currency')}}   <small> at {{$payment->paid}}</small></a></p>
+                        @empty
+                            <p>No Transactions Yet</p>
+                        @endforelse
+                    </div>
+                </div>
+            </div>
         </div>
 
 @endsection
+
+
+
+
 

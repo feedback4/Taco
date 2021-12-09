@@ -47,8 +47,7 @@ class BillForm extends Component
 
     public function mount($bill = null)
     {
-        $this->billed_at =  now()->format('Y-m-d');
-        $this->due_at =  now()->addMonth(1)->format('Y-m-d');
+
         if ($bill) {
             $this->bill = $bill;
 
@@ -80,6 +79,13 @@ class BillForm extends Component
             $this->button = 'update';
             $this->color = 'primary';
             $this->cal();
+        }else{
+              //  $year =   now()->format('y');
+
+            $latest = Bill::latest()->first()->id ?? 0;
+            $this->number = 'bill-' . (str_pad((int)$latest + 1, 5, '0', STR_PAD_LEFT));
+            $this->billed_at =  now()->format('Y-m-d');
+            $this->due_at =  now()->addDays(14)->format('Y-m-d');
         }
     }
 
@@ -310,7 +316,7 @@ class BillForm extends Component
     protected function rules()
     {
         return [
-            'number' => ['nullable', Rule::unique('bills')->ignore($this->bill?->id)],
+            'number' => ['required', Rule::unique('bills')->ignore($this->bill?->id)],
 
             'billed_at' => 'required|date',
             'due_at' => 'required|date',
