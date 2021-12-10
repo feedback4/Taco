@@ -53,9 +53,6 @@ class RolesController extends Controller
         //dd($request);
         $this->validate($request,[
             'name'=>'required|unique:roles,name',
-            'price'=>'required',
-            'zone' => '',
-            'state' => 'required'
         ]);
         $input = $request->all();
 
