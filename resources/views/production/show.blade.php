@@ -2,8 +2,8 @@
 
 @section('content_header')
 
-    <div class="">    <h1>Production {{$order->formula->code}} </h1></div>
-    <div class=""><a href="{{route('production.index')}}">Production</a></div>
+   <h1>Production  {{$order->number }}  </h1>
+<a href="{{route('production.index')}}" class="btn btn-primary">Production</a>
 @stop
 
 @section('content')
@@ -11,12 +11,12 @@
 
     <div class="row ">
         <div class="col-md-6">
-
             @if (session('status'))
                 <div class="alert alert-success" role="alert">
                     {{ session('status') }}
                 </div>
             @endif
+                <h3>Formula <a href="{{route('formulas.formulas.show',$order->formula->id)}}">{{$order->formula->code}}</a></h3>
                 <label>Order Date</label>
                 <p><b>{{$order->created_at->format('d/m/Y')}}</b></p> <hr>
             <label>Order Amount</label>

@@ -125,13 +125,8 @@
 @endsection
 
 @section('content_header')
-
         <h1>All Bills</h1>
-
-
         <a href="{{route('purchases.bills.create')}}" class="btn btn-success">Create Bill</a>
-
-
 @endsection
 
 @section('content')

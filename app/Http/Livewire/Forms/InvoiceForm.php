@@ -181,7 +181,7 @@ class InvoiceForm extends Component
     {
         $this->subTotal = 0;
         $this->total = 0;
-        dd($this->invoiceItems);
+//        dd($this->invoiceItems);
         foreach ($this->invoiceItems as $k => $itm) {
             $this->amount[$k] =(float) $this->invoiceItems[$k]['quantity'] * $this->invoiceItems[$k]['price'];
         }

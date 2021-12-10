@@ -44,7 +44,7 @@
             <tbody>
             @forelse($invoices as $invoice)
                 <tr>
-                    <td>{{$invoice->number ?? 'no data'}} </td>
+                    <td><a href="{{route('sales.invoices.show',$invoice->id)}}">{{$invoice->number ?? 'no data'}}</a> </td>
                     <td>{{$invoice->client->name}}</td>
                     <td>{{$invoice->total}} {{setting('currency')}}</td>
                     <td>{{$invoice->status->name}}</td>

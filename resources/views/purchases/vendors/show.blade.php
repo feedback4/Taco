@@ -65,8 +65,8 @@
 
                         <h5>{{$vendor->bills_count}} Bills </h5>
                         @forelse($vendor->payments()->take(10)->get() as $payment)
-                            <p class=""><a href="{{route('purchases.bills.show',$payment->bill_id)}}">{{ $payment->amount }}
-                                    {{setting('currency')}}   <small> at {{$payment->paid}}</small></a></p>
+                            <p class="">{{ $payment->amount }}
+                                    {{setting('currency')}} to <a href="{{route('purchases.bills.show',$payment->bill_id)}}">{{$payment->bill->number}} </a>  <small> at {{$payment->paid}}</small></p>
                         @empty
                             <p>No Transactions Yet</p>
                         @endforelse

@@ -1,13 +1,8 @@
 @extends('layouts.admin')
 
 @section('content_header')
-    <div class="">
         <h1>All Invoices</h1>
-    </div>
-    <div class="">
         <a href="{{route('sales.invoices.create')}}" class="btn btn-success">Create Invoice</a>
-    </div>
-
 @stop
 
 @section('content')

@@ -66,8 +66,8 @@
 
                 <h5>{{$client->invoices_count}} Invoice </h5>
                 @forelse($client->revenues()->take(10)->get() as $revenue)
-                    <p class=""><a href="{{route('sales.invoices.show',$revenue->invoice_id)}}">{{ $revenue->amount }}
-                        {{setting('currency')}}   <small> at {{$revenue->paid}}</small></a></p>
+                    <p class="">{{ $revenue->amount }}
+                        {{setting('currency')}} <a href="{{route('sales.invoices.show',$revenue->invoice_id)}}"> {{$revenue->invoice->number}} </a> <small> at {{$revenue->paid}}</small></p>
                     @empty
                     <p>No Transaction Yet</p>
                 @endforelse

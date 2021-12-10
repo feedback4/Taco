@@ -50,9 +50,19 @@
                             <a href="{{route('production.show',$order->id)}}">{{$order->formula?->code}}</a>
                         </td>
                         <td>{{$order->amount }} kg</td>
-                        <td> <a href="{{route('production.print',$order->id)}}" class="btn btn-secondary ">
+
+                        <td>
+
+                            @if(!$order->items->isEmpty())
+                            <a href="{{route('production.print',$order->id)}}" class="btn btn-secondary ">
                                 print
-                            </a></td>
+                            </a>
+                            @else
+                                no items to print
+                            @endif
+                        </td>
+
+
                         <td> <a href="{{route('production.pdf',$order->id)}}" class="btn btn-dark ">
                                 print
                             </a></td>
@@ -70,7 +80,7 @@
                                 </form>
 
                             @else
-                                order done at {{$order->done}}
+                                done at {{$order->done}}
                             @endif
                         </td>
 
