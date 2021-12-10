@@ -166,12 +166,12 @@ class ConstansSeeder extends Seeder
             ]);
         }
 
-        foreach ($elementCategories as $cat){
-            Category::factory()->create([
-                'name' => $cat,
-                'type' => 'element'
-            ]);
-        }
+//        foreach ($elementCategories as $cat){
+//            Category::factory()->create([
+//                'name' => $cat,
+//                'type' => 'element'
+//            ]);
+//        }
 
         Inventory::factory()->create([
             'name' => 'main',
@@ -190,7 +190,7 @@ class ConstansSeeder extends Seeder
         ]);
 
         $settings = [
-            'company' => tenant()->id,
+            'company' => 'Taco',
             'email' => '' ,
             'phone' => '' ,
             'address' => '' ,
@@ -205,6 +205,7 @@ class ConstansSeeder extends Seeder
             'auto_send' => false ,
             'working_days' => 24 ,
             'working_hours' => 8,
+            'avg_salary' => 8,
         ];
         foreach ($settings as $key => $val){
             Setting::factory()->create([
