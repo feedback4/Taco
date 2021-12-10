@@ -54,7 +54,7 @@
                         <table class="table table-hove table-responsive-md">
                             @foreach($formula->elements as $index => $element)
                                 <tr>
-                                    <th>{{$element->name}}</th>
+                                    <th>{{$element->name}} -- {{$element->code}}</th>
                                     @php
                                         $totalAmount =  ($element->pivot->amount * $amount ) / 100 ;
                                         if(isset($proElement[$element->id])){
@@ -84,7 +84,7 @@
                                 </tr>
                                 @forelse(  App\Models\Item::whereHas('inventory')->where('type','material')->where('element_id',$element->id)->with('element')->get() as $item)
                                     <tr>
-                                        <td> {{$item->element->name}} -- {{$item->element->code}}</td>
+                                        <td> {{$item->name}} </td>
                                         <td>{{$item->quantity}} kg</td>
                                         <td>{{$item->price}} {{setting('currency')}}</td>
                                         <td>{{$item->created}}</td>
@@ -119,7 +119,14 @@
                 </tr>
                 <tr>
                     <th>Per Time</th>
-                    <td>{{ number_format(floatval($amount / $times) , 2)}} </td>
+                    <td>
+                        @if($times )
+                        {{ number_format(floatval($amount / $times) , 2)}}
+                        @else
+                            0
+                        @endif
+
+                    </td>
                 </tr>
                 <tr>
                     <th>Material Cost</th>

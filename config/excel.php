@@ -59,7 +59,7 @@ return [
         |
         */
         'properties'             => [
-            'creator'        => '',
+            'creator'        => 'Feedback',
             'lastModifiedBy' => '',
             'title'          => '',
             'description'    => '',

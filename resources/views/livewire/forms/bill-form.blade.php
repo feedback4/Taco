@@ -2,13 +2,15 @@
     <form method="POST" action="{{ route('purchases.bills.store') }}">
         @csrf
         <div class="row">
+
             <div class="col-md-5 ">
+
                 <div class="card-body">
-                    <h2>Vendor</h2>
+                    <h2>{{$code}}</h2>
+                    <h3>Vendor</h3>
                     @if($vendor)
                         <p>{{$vendor->name}} -- {{$vendor->phone}}</p>
                         <p>{{$vendor->address}}</p>
-
                         <div wire:click.pervent="clearVendor" class="btn btn-secondary btn-sm">choose another Vendor
                         </div>
                     @else
@@ -65,7 +67,7 @@
 
                     <div class="col-md-4">
                         <label for="number">Bill Number</label>
-                        <input type="text" wire:model.lazy="number" disabled class="form-control">
+                        <input type="text" wire:model.lazy="number"  class="form-control">
                         @error('number')
                         <small class="text-danger">{{$message}}</small>
                         @enderror
@@ -100,6 +102,7 @@
         <div class="row">
 
             <div class="col-12">
+{{--                <livewire:forms.element-modal-form/>--}}
                 <table class="table table-bordered table-responsive-md">
 
                     <thead class="thead-light">

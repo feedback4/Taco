@@ -40,7 +40,7 @@
             <tbody>
             @forelse($payments as $payment)
                 <tr>
-                    <td>{{$payment->bill?->number ?? 'no data'}}</td>
+                    <td><a href="{{route('purchases.bills.show',$payment->bill->id)}}">{{$payment->bill?->number}}</a></td>
                     <td>{{$payment->vendor?->name ?? 'no data'}}</td>
                     <td>{{$payment->amount}} EGP</td>
                     <td>{{$payment->paid ?? ''}}</td>

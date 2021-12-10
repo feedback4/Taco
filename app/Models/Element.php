@@ -32,6 +32,6 @@ class Element extends Model
         return empty($search) ? static::query()
             : static::query()->where('name', 'like', '%'.$search.'%')
                 ->orWhere('code', 'like', '%'.$search.'%')
-                ->orWhereHas('category', fn($q) => $q->where('name','like', '%'.$search.'%')->orWhere('type','like', '%'.$search.'%'));
+                ->orWhereHas('category', fn($q) => $q->where('name','like', '%'.$search.'%'));
     }
 }

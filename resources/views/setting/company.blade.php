@@ -46,6 +46,13 @@
                             <small class="text-danger">{{$message}}</small>
                             @enderror
                         </div>
+                        <div class="col-md-6">
+                            <label for="website">Website</label>
+                            <input type="text" name="website" class="form-control" value="{{ setting('website') ?? old('website')}}">
+                            @error('website')
+                            <small class="text-danger">{{$message}}</small>
+                            @enderror
+                        </div>
 
 
 

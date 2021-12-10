@@ -15,6 +15,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <livewire:forms.element-modal-form/>
+                    <hr>
                     <div class="form-group sidebar-search-open w-100">
                         <div class="input-group">
                             <input class="form-control " wire:model.debounce.200ms="query" type="search"
@@ -47,8 +49,9 @@
 
                 </div>
                 <div class="modal-footer">
+
                     <button type="button" class="btn btn-secondary" wire:click.pervent="close" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" wire:click.pervent="createItem">Create Item</button>
+                    <button type="button" class="btn btn-primary" wire:click.pervent="createItem">Insert Item</button>
                 </div>
             </div>
         </div>

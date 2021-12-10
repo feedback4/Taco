@@ -8,10 +8,11 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Events\AfterSheet;
 
 
-class InventoryExpoter implements FromCollection , ShouldAutoSize ,WithMapping ,WithHeadings,WithEvents
+class ProductsInventoryExporter implements FromCollection , ShouldAutoSize ,WithMapping ,WithHeadings,WithEvents
 {
     private $items ;
     public function __construct($items)
@@ -24,8 +25,11 @@ class InventoryExpoter implements FromCollection , ShouldAutoSize ,WithMapping ,
     */
     public function collection()
     {
-     return Item::with(['bill'=> fn($q)=>$q->select('id','code')],'inventory','creator')->find($this->items);
+        return Item::with(['productionOrder','inventory','creator'])->find($this->items);
+       // return Item::query()->whereIn('id',$this->items);
     }
+
+
     public function map($item): array
     {
         // TODO: Implement map() method.
@@ -33,11 +37,12 @@ class InventoryExpoter implements FromCollection , ShouldAutoSize ,WithMapping ,
             $item->name,
             $item->description,
             $item->quantity . $item->unit,
-            $item->bill?->code,
+            number_format($item->cost,2) + 0,
+            $item->productionOrder?->number,
             $item->inventory->name,
             $item->price,
             $item->creator->name,
-            $item->created_at->format('d/m/Y'),
+            $item->created_at->format('d/m/Y')
         ];
     }
     public function headings():array
@@ -47,19 +52,21 @@ class InventoryExpoter implements FromCollection , ShouldAutoSize ,WithMapping ,
             'Item',
             'Description',
             'Quantity',
-            'Bill',
+            'Cost',
+            'Production Order',
             'Inventory',
             'Price',
             'Created By',
-            'Created',
+            'Created'
         ];
     }
+
     public function registerEvents(): array
     {
         // TODO: Implement registerEvents() method.
         return [
             AfterSheet::class => function(AfterSheet $event){
-           //         $event->sheet->getDelegate()->setRightToLeft(true);
+         //       $event->sheet->getDelegate()->setRightToLeft(true);
                 $event->sheet->getStyle('A1:J1')->applyFromArray(
                     [
                         'font'=>['bold'=>true]
@@ -67,4 +74,7 @@ class InventoryExpoter implements FromCollection , ShouldAutoSize ,WithMapping ,
             }
         ];
     }
+
+
+
 }

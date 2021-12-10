@@ -15,6 +15,10 @@ class ProductFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
+            'code' => $this->faker->name(),
+            'texture' => $this->faker->name(),
+            'formula_id' => 1,
+            'category_id' => 8,
         ];
     }
 }

@@ -3,11 +3,14 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Client;
 use App\Models\Element;
 use App\Models\Inventory;
+use App\Models\Product;
 use App\Models\Setting;
 use App\Models\Status;
 use App\Models\Tax;
+use App\Models\Vendor;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
@@ -41,7 +44,7 @@ class ConstansSeeder extends Seeder
             'production',
             'sales',
             'reports',
-           'setting'
+            'setting'
         ];
         foreach ($this->permissions as $permission) {
             Permission::create(['guard_name' => 'web', 'name' => $permission]);
@@ -89,90 +92,90 @@ class ConstansSeeder extends Seeder
 
 
         $elements =
-            ['Polyster GH-1770',
-                'Polyster 3305',
-                'Epoxy E12-(903)',
-                'Polyster GH-5021',
-                'TGIC',
-                'THR218',
-                'HyrdoCarb 90',
-                'BB1 (BaSo4)',
-                'BB-88',
-                'PV 88',
-                'BENZOIN ',
-                'XG605',
-                'YELLOW  920',
-                'black 306',
-                'RED 180 m',
-                'RED 130 m',
-                'Yellow 3910',
-                'blue 15/3 ',
-                'Printex V',
-                'Powder add 9083',
-                'Plustalc 1250',
-                'violet',
-                'green 7',
-                'OKAY (1gm/ kg) (15 kg/bag)',
-                'Alu-c',
-                'Aerosil 200',
-                'Red 170 (Dcc red 7470)',
-                'Yellow 1012 (Medium chrome yellow)',
-                ' Blue 15/1 ',
-                'Ora. Molbedate 1610 R104',
-                'EJ1',
-                'cap. 381-20',
-                'blue.G-58',
-                'RED 57/1',
-                'RED 48/2',
-                'Black N220',
-                'yellow 1080 (lemon)',
-                'DE3329 Matting Agent',
-                'HC68 Matting Hardner',
-                'silver 9407',
-                'gold 9604',
-                'cu.',
-                'Al. fine badaw',
-                'Al. grains badawy'];
+            [
+                '2105' => 'polyester',
+                '5021' => 'polyester',
+                '2441-0' => 'polyester',
+                '1770' => 'polyester',
+                '2427' => 'polyester',
+                'TGIC' => 'TGIC',
+                'Epoxy' => 'Epoxy',
+                'EJ1' => 'CaCO4',
+                'SF3' => 'CaCO4',
+                'synthetic BB-88' => 'BaSO4',
+                'N220' => 'Black',
+                '920' => 'Yellow',
+                '218' => 'Titanium',
+                'PV88' => 'leveling',
+                'H955' => 'Benzoin',
+                'HC68' => 'Matting Agent',
+                '130' => 'Red',
+                '170' => 'Red',
+                '180' => 'Red',
+                '48/2' => 'Red',
+                '48/3' => 'Red',
+                'middle chrome 34' => 'Yellow',
+                'Lemon' => 'Yellow',
+                '15:01' => 'Blue',
+                '15:3' => 'Blue',
+                'marine G58' => 'Blue',
+                'R-104' => 'Orange',
+                'green 7' => 'Green',
+                '????' => 'Violet',
+                'Printex-V (fine)' => 'Black',
+                'Fine silver' => 'Aluminium Powder',
+                'Sparcle Silver' => 'Aluminium Powder',
+                'OK-214' => 'Grinding Powder',
+            ];
 
-//        foreach ($elements as $elem){
-//            Element::factory()->create([
-//                'name' => $elem,
-//                'code' => $elem,
-//            ]);
-//        }
+        foreach ($elements as $k => $elem) {
+            Element::factory()->create([
+                'name' => $elem,
+                'code' =>  $k,
+            ]);
+        }
 
 
         $clientStatuses = ['Lead', 'Contacted', 'Sample Requested', 'Sample Submitted', 'Order', 'Manufacturing', 'Rejected', 'Done', 'InActive'];
-        $orderStatuses = ['pending','Manufacturing','done'];
-        $billStatuses = ['unpaid','partial','paid'];
-        $elementCategories = ['RawMaterialCategory', 'Epoxy Resin', 'Polyester Resin', 'Organic Pigments', 'Oxides', 'Additives', 'Filler'];
+        $orderStatuses = ['pending', 'Manufacturing', 'done'];
+        $billStatuses = ['unpaid', 'partial', 'paid'];
+        $elementCategories = ['resin', 'hybrid', 'tgic', 'pigment', 'filler', 'additive'];
 
-        foreach ($clientStatuses as $stat){
+        foreach ($clientStatuses as $stat) {
             Status::factory()->create([
                 'name' => $stat,
                 'type' => 'client'
             ]);
         }
-        foreach ($orderStatuses as $sta){
+        foreach ($orderStatuses as $sta) {
             Status::factory()->create([
                 'name' => $sta,
                 'type' => 'order'
             ]);
         }
-        foreach ($billStatuses as $st){
+        foreach ($billStatuses as $st) {
             Status::factory()->create([
                 'name' => $st,
                 'type' => 'bill'
             ]);
         }
 
-//        foreach ($elementCategories as $cat){
-//            Category::factory()->create([
-//                'name' => $cat,
-//                'type' => 'element'
-//            ]);
-//        }
+        foreach ($elementCategories as $cat) {
+            Category::factory()->create([
+                'name' => $cat,
+                'type' => 'element'
+            ]);
+        }
 
+        Category::factory()->create([
+            'name' => 'formula',
+            'type' => 'formula'
+        ]);
+
+        Category::factory()->create([
+            'name' => 'product',
+            'type' => 'product'
+        ]);
         Inventory::factory()->create([
             'name' => 'main',
             'type' => 'materials',
@@ -191,28 +194,30 @@ class ConstansSeeder extends Seeder
 
         $settings = [
             'company' => 'Taco',
-            'email' => '' ,
-            'phone' => '' ,
-            'address' => '' ,
-            'city' => '' ,
-            'zip' => '' ,
-            'state' => '' ,
-            'country' => '' ,
-            'logo' => '' ,
-            'color' => '' ,
-            'currency' => 'EGP' ,
-            'due_to_days' => '14' ,
-            'auto_send' => false ,
-            'working_days' => 24 ,
+            'email' => '',
+            'phone' => '',
+            'address' => '',
+            'city' => '',
+            'zip' => '',
+            'state' => 'Giza',
+            'country' => 'Egypt',
+            'logo' => '',
+            'color' => '',
+            'currency' => 'EGP',
+            'due_to_days' => '14',
+            'auto_send' => false,
+            'working_days' => 24,
             'working_hours' => 8,
-            'avg_salary' => 8,
+            'avg_salary' => 2000,
         ];
-        foreach ($settings as $key => $val){
+        foreach ($settings as $key => $val) {
             Setting::factory()->create([
                 'name' => $key,
                 'value' => $val,
-            ]) ;
+            ]);
         }
-
+        Client::factory(10)->create();
+        Vendor::factory(10)->create();
+        Product::factory(1)->create();
     }
 }

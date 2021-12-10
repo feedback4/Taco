@@ -16,6 +16,8 @@ class ClientFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'phone' => $this->faker->e164PhoneNumber(),
+            'status_id' => 1,
+
         ];
     }
 }

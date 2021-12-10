@@ -71,7 +71,7 @@
                         $t = $element->pivot->amount * ($order->amount / $order->times) / 100 ;
                     @endphp
 
-                    <td><b> @if($t > 1) {{number_format($t , 2) }} kg  @else {{ number_format($t * 1000 , 2)}} g  @endif</b></td>
+                    <td><b> @if($t > 1) {{number_format($t , 2) + 0 }} kg  @else {{ number_format($t * 1000 , 2) + 0}} g  @endif</b></td>
                 </tr>
             @endforeach
             </tbody>

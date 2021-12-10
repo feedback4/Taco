@@ -105,7 +105,7 @@
             font-size: 85%
         }
 
-        .invoice>div:not(.invoice-footer) {
+        .invoice > div:not(.invoice-footer) {
             margin-bottom: 20px
         }
 
@@ -114,6 +114,7 @@
             background: #fff;
             border-color: #d9dfe3;
         }
+
         @media print {
             .hidden-print {
                 display: none;
@@ -130,128 +131,150 @@
 @section('content')
 
     <div class="container">
-        <div class="col-md-12">
-            <div class="invoice">
-                <!-- begin invoice-company -->
-                <div class="invoice-company text-inverse  d-flex justify-content-between">
-                    Bill
-                    <span class="pull-right hidden-print">
-            <a href="javascript:;" class="btn btn-sm btn-white m-b-10 p-l-5"><i class='bx bxs-file-blank bx-xs text-danger' ></i> Export as PDF</a>
-            <a href="javascript:;" onclick="window.print()" class="btn btn-sm btn-white m-b-10 p-l-5"><i class='bx bxs-printer bx-xs'></i> Print</a>
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="invoice">
+                    <!-- begin invoice-company -->
+                    <div class="invoice-company text-inverse  d-flex justify-content-between">
+                        Invoice
+                        <span class="pull-right hidden-print">
+            <a href="javascript:;" class="btn btn-sm btn-white m-b-10 p-l-5"><i
+                    class='bx bxs-file-blank bx-xs text-danger'></i> Export as PDF</a>
+            <a href="javascript:;" onclick="window.print()" class="btn btn-sm btn-white m-b-10 p-l-5"><i
+                    class='bx bxs-printer bx-xs'></i> Print</a>
             </span>
 
-                </div>
-                <!-- end invoice-company -->
-                <!-- begin invoice-header -->
-                <div class="invoice-header">
-                    <div class="invoice-from">
-                        <small>from</small>
-                        <address class="m-t-5 m-b-5">
-                            <strong class="text-inverse"> {{setting('company_name')}}</strong><br>
-                            {{setting('address')}}<br>
-                            {{setting('city')}}<br>
-                            {{setting('phone')}}<br>
-                            {{setting('email')}}
-                        </address>
                     </div>
-                    <div class="invoice-to">
-                        <small>to</small>
-                        <address class="m-t-5 m-b-5">
-                            <strong class="text-inverse">{{$invoice->client->name}}</strong><br>
-                            {{$invoice->client->address}}<br>
-                            {{$invoice->client->phone}}<br>
-
-                        </address>
-                    </div>
-                    <div class="invoice-date">
-                        <small>Invoice / {{$invoice->invoiced_at->format('M')}} period</small>
-                        <div class="date text-inverse m-t-5">{{$invoice->invoiced}}</div>
-                        <div class="invoice-detail">
-                            {{$invoice->number}}<br>
+                    <!-- end invoice-company -->
+                    <!-- begin invoice-header -->
+                    <div class="invoice-header">
+                        <div class="invoice-from">
+                            <small>from</small>
+                            <address class="m-t-5 m-b-5">
+                                <strong class="text-inverse"> {{setting('company_name')}}</strong><br>
+                                {{setting('address')}}<br>
+                                {{setting('city')}}<br>
+                                {{setting('phone')}}<br>
+                                {{setting('email')}}
+                            </address>
                         </div>
-                    </div>
-                </div>
-                <!-- end invoice-header -->
-                <!-- begin invoice-content -->
-                <div class="invoice-content">
-                    <!-- begin table-responsive -->
-                    <div class="table-responsive">
-                        <table class="table table-invoice">
-                            <thead>
-                            <tr>
-                                <th>Item</th>
-                                <th class="text-center" width="10%">Quantity</th>
-                                <th class="text-center" width="10%">PRICE</th>
-                                <th class="text-right" width="20%">LINE TOTAL</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($invoice->items as $item)
-                                <tr>
-                                    <td>
-                                        <span class="text-inverse">{{$item->name}}</span><br>
-                                        <small>{{$item->description}}</small>
-                                    </td>
-                                    <td class="text-center">{{$item->quantity}}</td>
-                                    <td class="text-center">{{$item->price}}</td>
-                                    <td class="text-right">{{ $item->quantity * $item->price}}</td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- end table-responsive -->
-                    <!-- begin invoice-price -->
-                    <div class="invoice-price">
-                        <div class="invoice-price-left">
-                            <div class="invoice-price-row">
-                                <div class="sub-price">
-                                    <small>SUBTOTAL</small>
-                                    <span class="text-inverse">{{$invoice->sub_total}} {{setting('currency')}}</span>
-                                </div>
-                                <div class="sub-price">
-                                    <i class="bx bx-minus bx-sm text-muted"></i>
+                        <div class="invoice-to">
+                            <small>to</small>
+                            <address class="m-t-5 m-b-5">
+                                <strong class="text-inverse">{{$invoice->client->name}}</strong><br>
+                                {{$invoice->client->address}}<br>
+                                {{$invoice->client->phone}}<br>
 
-                                </div>
-                                <div class="sub-price">
-                                    <small>Tax</small>
-                                    <span class="text-inverse">{{ $invoice->tax_total }} {{setting('currency')}}</span>
-                                </div>
-                                @if($invoice->discount)
-                                    <div class="sub-price">
-                                        <i class="bx bx-plus bx-sm text-muted"></i>
-                                    </div>
-                                    <div class="sub-price">
-                                        <small>DISCOUNT</small>
-                                        <span class="text-inverse">{{$invoice->discount}} {{setting('currency')}}</span>
-                                    </div>
-                                @endif
+                            </address>
+                        </div>
+                        <div class="invoice-date">
+                            <small>Invoice / {{$invoice->invoiced_at->format('M')}} period</small>
+                            <div class="date text-inverse m-t-5">{{$invoice->invoiced}}</div>
+                            <div class="invoice-detail">
+                                {{$invoice->number}}<br>
                             </div>
                         </div>
-                        <div class="invoice-price-right">
-                            <small>TOTAL</small> <span class="f-w-600">{{$invoice->total}} {{setting('currency')}}</span>
-                        </div>
                     </div>
-                    <!-- end invoice-price -->
+                    <!-- end invoice-header -->
+                    <!-- begin invoice-content -->
+                    <div class="invoice-content">
+                        <!-- begin table-responsive -->
+                        <div class="table-responsive">
+                            <table class="table table-invoice">
+                                <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th class="text-center" width="10%">Quantity</th>
+                                    <th class="text-center" width="10%">PRICE</th>
+                                    <th class="text-right" width="20%">LINE TOTAL</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($invoice->items as $item)
+                                    <tr>
+                                        <td>
+                                            <span class="text-inverse">{{$item->name}}</span><br>
+                                            <small>{{$item->description}}</small>
+                                        </td>
+                                        <td class="text-center">{{$item->quantity}}</td>
+                                        <td class="text-center">{{$item->price}}</td>
+                                        <td class="text-right">{{ $item->quantity * $item->price}}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- end table-responsive -->
+                        <!-- begin invoice-price -->
+                        <div class="invoice-price">
+                            <div class="invoice-price-left">
+                                <div class="invoice-price-row">
+                                    <div class="sub-price">
+                                        <small>SUBTOTAL</small>
+                                        <span
+                                            class="text-inverse">{{$invoice->sub_total}} {{setting('currency')}}</span>
+                                    </div>
+                                    @if($invoice->tax_total)
+                                        <div class="sub-price">
+                                            <i class="bx bx-plus bx-sm text-muted"></i>
+                                        </div>
+                                        <div class="sub-price">
+                                            <small>Tax</small>
+                                            <span
+                                                class="text-inverse">{{ $invoice->tax_total }} {{setting('currency')}}</span>
+                                        </div>
+                                    @endif
+                                    @if($invoice->discount)
+                                        <div class="sub-price">
+                                            <i class="bx bx-minus bx-sm text-muted"></i>
+                                        </div>
+                                        <div class="sub-price">
+                                            <small>DISCOUNT</small>
+                                            <span
+                                                class="text-inverse">{{$invoice->discount}} {{setting('currency')}}</span>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="invoice-price-right">
+                                <small>TOTAL</small> <span
+                                    class="f-w-600">{{$invoice->total}} {{setting('currency')}}</span>
+                            </div>
+                        </div>
+                        <!-- end invoice-price -->
+                    </div>
+                    <!-- end invoice-content -->
+                    <!-- begin invoice-note -->
+                    <div class="invoice-note">
+                        {{ setting('notes')}}
+                    </div>
+                    <!-- end invoice-note -->
+                    <!-- begin invoice-footer -->
+                    <div class="invoice-footer">
+                        <p class="text-center m-b-5 f-w-600">
+                            {{ setting('footer')}}
+                        </p>
+                        <p class="text-center">
+                            <span class="m-r-10"><i class="bx  bx-xs bx-globe"></i>{{ setting('website')}}</span>
+                            <span class="m-r-10"><i class="bx  bx-xs bxs-phone"></i> {{ setting('phone')}}</span>
+                            <span class="m-r-10"><i class="bx  bx-xs bx-envelope"></i> {{ setting('email') }}</span>
+                        </p>
+                    </div>
+                    <!-- end invoice-footer -->
                 </div>
-                <!-- end invoice-content -->
-                <!-- begin invoice-note -->
-                <div class="invoice-note">
-                    {{ setting('notes')}}
+            </div>
+            <div class="col-md-6 hidden-print">
+                <div class="card my-5 ">
+                    <div class="card-body">
+                        <h3>History</h3>
+                        @forelse($invoice->revenues as $revenue)
+                            <hr>
+                            <p>{{$revenue->amount}} {{setting('currency')}} <small>at {{$revenue->paid}}</small></p>
+                        @empty
+                            <p>No Transactions Yet</p>
+                        @endforelse
+                    </div>
                 </div>
-                <!-- end invoice-note -->
-                <!-- begin invoice-footer -->
-                <div class="invoice-footer">
-                    <p class="text-center m-b-5 f-w-600">
-                        {{ setting('footer')}}
-                    </p>
-                    <p class="text-center">
-                        <span class="m-r-10"><i class="bx  bx-xs bx-globe"></i> www.taco.com</span>
-                        <span class="m-r-10"><i class="bx  bx-xs bxs-phone"></i> {{ setting('phone')}}</span>
-                        <span class="m-r-10"><i class="bx  bx-xs bx-envelope"></i> {{ setting('email') }}</span>
-                    </p>
-                </div>
-                <!-- end invoice-footer -->
             </div>
         </div>
     </div>

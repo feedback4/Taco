@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ElementFactory extends Factory
+class VendorFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,9 +15,9 @@ class ElementFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'code' => $this->faker->randomElement(),
-
-            'category_id' => rand(1,6),
+            'phone' => $this->faker->e164PhoneNumber(),
+            'email' => $this->faker->email(),
+            'address' => $this->faker->address(),
         ];
     }
 }

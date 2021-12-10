@@ -32,19 +32,20 @@
         <table class="table table-hover table-responsive-md table-bordered">
             <thead>
             <tr>
-                <th>Number</th>
+                <th>Code</th>
                 <th>Vendor</th>
                 <th>Amount</th>
                 <th>Status</th>
                 <th>billed_at</th>
                 <th>due_at</th>
+
                 <th>notes</th>
             </tr>
             </thead>
             <tbody>
             @forelse($bills as $bill)
                 <tr>
-                    <td><a href="{{route('purchases.bills.show',$bill->id)}}">{{$bill->number}}</a></td>
+                    <td><a href="{{route('purchases.bills.show',$bill->id)}}">{{$bill->code}}</a></td>
                     <td>{{$bill->vendor->name}}</td>
                     <td>{{$bill->total}} EGP</td>
                     <td>{{$bill->status->name}}</td>

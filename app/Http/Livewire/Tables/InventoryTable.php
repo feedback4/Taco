@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Tables;
 
 use App\Exports\InventoryExpoter;
+use App\Exports\ProductsInventoryExporter;
 use App\Models\Inventory;
 use App\Models\Item;
 use Livewire\Component;
@@ -51,6 +52,9 @@ class InventoryTable extends Component
             })->with('element')
             ->orderBy($this->orderBy, $this->orderDesc ? 'desc' : 'asc')
             ->pluck('id');
-        return Excel::download(new InventoryExpoter($items),'Inventory '.$name.'.csv');
+        if ($name == 'main'){
+            return Excel::download(new InventoryExpoter($items),'Inventory '.$name.'.xlsx');
+        }
+        return Excel::download(new ProductsInventoryExporter($items),'Inventory '.$name.'.xlsx');
     }
 }

@@ -89,7 +89,7 @@ class DoneForm extends Component
         if ($this->quantity){
             $this->loses = (float) ($this->productionOrder->amount - $this->quantity ) * 100 / $this->productionOrder->amount ;
             $this->totalCost = $this->cost + $this->hourCost;
-            $this->cost_per_unit = $this->totalCost / $this->quantity ;
+            $this->cost_per_unit = number_format($this->totalCost / $this->quantity ,2 ) +0 ;
         }else{
             $this->quantity=  0  ;
             $this->loses=  0  ;
@@ -123,6 +123,7 @@ class DoneForm extends Component
 
         Item::create([
             'name' => $this->productionOrder->formula->product->name,
+            'product_id' => $this->productionOrder->formula->product->id,
             'quantity' =>    $validated['quantity'],
             'description' => $validated['description'], null,
             'cost' => $this->cost_per_unit,

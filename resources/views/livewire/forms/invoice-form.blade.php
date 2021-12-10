@@ -133,6 +133,7 @@
                                 @error('invoiceItems.'.$index.'.quantity')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
+                                <small> available {{$invoiceItems[$index]['amount']}} kg</small>
                             </td>
                             <td colspan="1"><input type="number" class="form-control"
                                                    wire:model.lazy="invoiceItems.{{$index}}.price" placeholder="add price">
@@ -147,7 +148,6 @@
                                 </span>
                             </td>
                         </tr>
-
                     @empty
                     @endforelse
                     <tr>
@@ -168,8 +168,7 @@
                                         <td>{{$subTotal}} EGP</td>
                                     </tr>
                                     <tr>
-                                        <th>Tax</th>
-                                        <td>
+                                        <th>Tax
                                             <select wire:model="tax_id" class="form-control-sm">
                                                 <option value="">Select Tax</option>
                                                 @foreach($taxes as $tax)
@@ -177,6 +176,9 @@
                                                     </option>
                                                 @endforeach
                                             </select>
+                                        </th>
+                                        <td>
+                                            {{ $taxTotal  }}
                                         </td>
                                     </tr>
                                     <tr>

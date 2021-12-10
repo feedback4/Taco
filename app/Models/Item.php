@@ -37,6 +37,10 @@ class Item extends Model
     {
         return $this->belongsTo(Bill::class);
     }
+    public function productionOrder()
+    {
+        return $this->belongsTo(ProductionOrder::class);
+    }
     public function productionOrders (): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(ProductionOrder::class,'item_production_order')->withPivot('amount');

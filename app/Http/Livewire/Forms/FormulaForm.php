@@ -48,11 +48,11 @@ class FormulaForm extends Component
             if ($total > 100) {
                 $this->g = true;
                 foreach ($this->formula->elements as $elem) {
-                    $this->activeElements[] = ['element_id' => $elem->id, 'g' => $elem->pivot->amount, 'per' => $elem->pivot->amount /10];
+                    $this->activeElements[$elem->id] = ['name' =>$elem->name .' -- '. $elem->code,'g' => $elem->pivot->amount, 'per' => $elem->pivot->amount /10];
                 }
             } else {
                 foreach ($this->formula->elements as $elem) {
-                    $this->activeElements[] = ['element_id' => $elem->id, 'g' => $elem->pivot->amount *10, 'per' => $elem->pivot->amount];
+                    $this->activeElements[$elem->id] = ['name' =>$elem->name .' -- '. $elem->code, 'g' => $elem->pivot->amount *10, 'per' => $elem->pivot->amount];
                 }
             }
             $this->title = 'edit';
@@ -64,7 +64,7 @@ class FormulaForm extends Component
 
     public function updatedQuery()
     {
-       // dd($this->activeElements);
+
         $this->searchElements = Element::search($this->query)->with('category')->take(6)->get();
     }
 
@@ -77,9 +77,105 @@ class FormulaForm extends Component
         ]);
     }
 
-    public function enter()
+    public function updated($propertyName)
     {
-        return back();
+        $this->validateOnly($propertyName);
+    }
+
+    public function updatedActiveElements()
+    {
+        $this->cal();
+    }
+
+    public function updatedG()
+    {
+
+        $this->cal();
+    }
+
+    public function addElement($element)
+    {
+        foreach ($this->activeElements as $ele) {
+            if (isset($this->activeElements[$element])) {
+                $this->emit('alert',
+                    ['type' => 'error', 'message' => 'Element Already Exists!']);
+                return back();
+            }
+        }
+        $elem = Element::findOrFail($element);
+        $this->activeElements[$element] = ['name' =>$elem->name .' -- '. $elem->code, 'g' => 0, 'per' => 0];
+        $this->query = '';
+
+    }
+
+    public function removeElement($index)
+    {
+        unset($this->activeElements[$index]);
+  //      $this->activeElements ;
+        $this->cal();
+    }
+    public function addCompound()
+    {
+        if (!$this->compound){
+            $this->emit('alert',
+                ['type' => 'info', 'message' => 'Please Select Compound']);
+            return back();
+        }
+
+        if (!$this->percent){
+            $this->emit('alert',
+                ['type' => 'info', 'message' => 'Compound percent cannot be 0']);
+            return back();
+        }
+        $elements = Compound::find($this->compound)->elements;
+        foreach ($elements as $elem){
+            $amount = $elem->pivot->percent * $this->percent / 100;
+            $this->activeElements[$elem->id] = ['name' =>$elem->name .' -- '. $elem->code ,'g' => $amount *10, 'per' => $amount];
+        }
+        $this->cal();
+    }
+
+    public function filler()
+    {
+        if ($this->g) {
+            if ($this->total > 1000) {
+                session()->flash('message', 'Please lower the percentage');
+                return back();
+            }
+        } else {
+            if ($this->total > 100) {
+                session()->flash('message', 'Please lower the percentage');
+
+                return back();
+            }
+        }
+        if (!$this->filler) {
+            $this->emit('alert',
+                ['type' => 'info', 'message' => 'Please Select A Filler']);
+            return back();
+        }
+    //    $elements = Element::whereHas('category', fn($q) => $q->where('categories.name', 'filler'))->pluck('id');
+        $filler = Element::findOrFail($this->filler);
+        foreach ($this->activeElements as $ele) {
+//            foreach ($elements as $fillElement) {
+//                if (array_search($fillElement, $ele)) {
+//                    session()->flash('message', 'Another filler Already Exists!');
+//                    return back();
+//                }
+//            }
+            if (isset($this->activeElements[$filler->id])) {
+
+                $this->emit('alert',
+                    ['type' => 'error', 'message' => 'Element Already Exists!']);
+                return back();
+            }
+        }
+
+
+        $amount = $this->g ? ((1000 - $this->total) / 10) : (100 - $this->total);
+
+        $this->activeElements[$filler->id] = ['name' =>$filler->name .' -- '. $filler->code ,'g' => $amount * 10, 'per' => number_format($amount,2)];
+        $this->cal();
     }
 
     private function cal(): bool
@@ -123,104 +219,16 @@ class FormulaForm extends Component
         return $result;
     }
 
-    public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName);
-    }
-
-    public function updatedActiveElements()
-    {
-        $this->cal();
-    }
-
-    public function updatedG()
-    {
-
-        $this->cal();
-    }
-
-    public function addElement($element)
-    {
-        foreach ($this->activeElements as $ele) {
-            if (array_search($element, $ele)) {
-                $this->emit('alert',
-                    ['type' => 'waring', 'message' => 'Element Already Exists!']);
-                return;
-            }
-        }
-        $this->activeElements[] = ['element_id' => $element, 'g' => 0, 'per' => 0];
-        //    dd(    $this->activeElements);
-        $this->query = '';
-    }
-
-    public function removeElement($index)
-    {
-        unset($this->activeElements[$index]);
-        $this->activeElements = array_values($this->activeElements);
-        $this->cal();
-    }
-    public function addCompound()
-    {
-        if (!$this->percent){
-            session()->flash('message', 'Compound percent cannot be 0');
-            return;
-        }
-        if (!$this->compound){
-            session()->flash('message', 'Please Select Compound');
-            return;
-        }
-        $elements = Compound::find($this->compound)->elements;
-        foreach ($elements as $element){
-            $amount = $element->pivot->percent * $this->percent / 100;
-            $this->activeElements[] = ['element_id' => $element->id, 'g' => $amount *10, 'per' => $amount];
-        }
-        $this->cal();
-    }
-
-    public function filler()
-    {
-        if ($this->g) {
-            if ($this->total > 1000) {
-                session()->flash('message', 'Please lower the percentage');
-                return back();
-            }
-        } else {
-            if ($this->total > 100) {
-                session()->flash('message', 'Please lower the percentage');
-                return back();
-            }
-        }
-        if (!$this->filler) {
-            session()->flash('message', 'Please Select A Filler');
-            return back();
-        }
-        $elements = Element::whereHas('category', fn($q) => $q->where('categories.name', 'filler'))->pluck('id');
-
-        foreach ($this->activeElements as $ele) {
-//            foreach ($elements as $fillElement) {
-//                if (array_search($fillElement, $ele)) {
-//                    session()->flash('message', 'Another filler Already Exists!');
-//                    return back();
-//                }
-//            }
-            if (array_search($this->filler, $ele)) {
-                session()->flash('message', 'Element Already Exists!');
-                return back();
-            }
-        }
-
-
-        $amount = $this->g ? ((1000 - $this->total) / 10) : (100 - $this->total);
-
-        $this->activeElements[] = ['element_id' => $this->filler, 'g' => $amount * 10, 'per' => number_format($amount,2)];
-        $this->cal();
-    }
-
     public function save()
     {
+        if (!$this->activeElements) {
+            $this->emit('alert',
+                ['type' => 'info', 'message' => 'Please Select Some Elements First']);
+            return;
+        }
         if (!$this->cal()) {
             $this->emit('alert',
-                ['type' => 'info', 'message' => 'يا جدع مينفعش']);
+                ['type' => 'info', 'message' => 'Something went wrong']);
             return;
         }
         $this->authorize('formula-create');
@@ -236,7 +244,7 @@ class FormulaForm extends Component
             $this->formula->update($data);
             $this->formula->elements()->detach();
             foreach ($validated['activeElements'] as $k => $ele) {
-                $this->formula->elements()->attach($ele['element_id'], ['amount' => floatval($ele['per']) ]);
+                $this->formula->elements()->attach($k , ['amount' => floatval($ele['per']) ]);
             }
             $this->emit('alert',
                 ['type' => 'info', 'message' => 'Formula Updated Successfully!']);
@@ -244,7 +252,7 @@ class FormulaForm extends Component
             $formula = Formula::create($data);
 
             foreach ($validated['activeElements'] as $k => $ele) {
-                $formula->elements()->attach($ele['element_id'], ['amount' => floatval($ele['per'])]);
+                $formula->elements()->attach($k, ['amount' => floatval($ele['per'])]);
             }
 
             $this->emit('alert',
@@ -273,7 +281,7 @@ class FormulaForm extends Component
     protected function rules()
     {
         return [
-            'name' => ['required', Rule::unique('formulas')->ignore($this->formula?->id)],
+            'name' => ['required'],
             'code' => ['required', Rule::unique('formulas')->ignore($this->formula?->id)],
             'category_id' => 'nullable|numeric',
             'filler' => 'nullable|numeric',

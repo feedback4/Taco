@@ -41,6 +41,7 @@ class InvoiceForm extends Component
 
     public $subTotal = 0;
     public $discount = 0;
+    public $taxTotal = 0;
     public $total = 0;
 
     public $button = 'create';
@@ -64,11 +65,7 @@ class InvoiceForm extends Component
 
 
             foreach ($this->invoice->items as $k => $item) {
-//                if ($this->tax_id){
-//                    $percent = Tax::find($this->tax_id)->percent ?? 0;
-//                    $item->price = floatval($item->price /(100+$percent)* 100 ) ;
-//                 }
-                    $this->invoiceItems[$k] = ['name' => $item->name, 'description' => $item->description, 'quantity' => $item->quantity, 'price' => $item->price];
+                    $this->invoiceItems[$k] = ['name' => $item->name,'product_id' => $item->product_id,'amount' => $item->quantity, 'description' => $item->description, 'quantity' => $item->quantity, 'price' => $item->price];
                 }
             $this->discount = $this->invoice->discount;
 
@@ -118,12 +115,12 @@ class InvoiceForm extends Component
     {
        // $product = Product::find($id);
         $item  = Item::find($id);
-        $this->invoiceItems[] = ['name' => $item->name, 'description' => '', 'quantity' => 1, 'price' => $item?->price];
+        $this->invoiceItems[] = ['name' => $item->name,'product_id' => $item->product_id,'amount' => $item->quantity, 'description' => '', 'quantity' => 1, 'price' => $item?->price];
     }
 
     public function createItem()
     {
-        $this->invoiceItems[] = ['name' => '', 'description' => '', 'quantity' => 1, 'price' => 0];
+        $this->invoiceItems[] = ['name' => '','product_id' => 0, 'description' => '', 'quantity' => 1, 'price' => 0];
     }
 
     public function deleteItem($index)
@@ -162,6 +159,7 @@ class InvoiceForm extends Component
             $this->cal();
         }else{
             $this->tax_id = 0;
+            $this->taxTotal = 0 ;
             $this->cal();
         }
     }
@@ -183,6 +181,13 @@ class InvoiceForm extends Component
         $this->total = 0;
 //        dd($this->invoiceItems);
         foreach ($this->invoiceItems as $k => $itm) {
+            if ($this->invoiceItems[$k]['quantity'] >$this->invoiceItems[$k]['amount']){
+             //   $this->invoiceItems[$k]['quantity'] = $this->invoiceItems[$k]['amount'];
+                $this->emit('alert',
+                    ['type' => 'error', 'message' => 'Inventory doesn\'t have this amount ']);
+           //     return back();
+            }
+
             $this->amount[$k] =(float) $this->invoiceItems[$k]['quantity'] * $this->invoiceItems[$k]['price'];
         }
 
@@ -191,7 +196,8 @@ class InvoiceForm extends Component
         }
         if ($this->tax_id) {
             $percent = Tax::find($this->tax_id)->percent;
-            $this->total = ($this->subTotal / 100 * (100+$percent) )- $this->discount ;
+            $this->taxTotal = $this->subTotal *  ($percent /100)  ;
+            $this->total = $this->subTotal + $this->taxTotal - $this->discount ;
         } else {
             $this->total = $this->subTotal - $this->discount;
         }
@@ -199,18 +205,19 @@ class InvoiceForm extends Component
 
     public function save()
     {
+      //  dd($this->invoiceItems);
         $this->authorize('sales');
 
         if (!$this->client) {
             $this->emit('alert',
                 ['type' => 'error', 'message' => 'Please Select or Create a Client']);
-            return;
+            return back();
         }
         if ($this->partial){
             if ($this->partial_amount == 0 ){
                 $this->emit('alert',
                     ['type' => 'error', 'message' => 'The partial amount must be greater than 0']);
-                return;
+                return back();
             }
         }
 
@@ -239,8 +246,10 @@ class InvoiceForm extends Component
             'client_id' => $this->client->id,
             'tax_id' => $this->tax_id,
             'partial_amount' => $this->partial_amount ,
-            'discount' => $this->discount,
             'sub_total' => $this->subTotal,
+            'discount' => $this->discount,
+            'tax_total' => $this->taxTotal,
+
             'total' => $this->total,
         ];
 
@@ -250,45 +259,42 @@ class InvoiceForm extends Component
                 $item->delete();
             }
 
-            foreach ($validated['invoiceItems'] as $itm) {
-                $productId = Product::where('code', $itm['name'])->first()?->id;
-                $percent = 0;
-                if ($this->tax_id){
-                    $percent = Tax::find($this->tax_id)->percent ?? 0;
-                }
-                Item::create([
-                    'name' => $itm['name'],
-                    'description' => $itm['description'] ?? null,
-                    'quantity' => intval($itm['quantity']),
-                    'price' => floatval($itm['price']  / 100 * (100+$percent)) ,
-                    'invoice_id' => $this->invoice->id,
-                    'user_id' => auth()->id(),
-                    'product_id' => $productId
-                ]);
-            }
+//            foreach ($validated['invoiceItems'] as $itm) {
+//                $productId = Product::where('code', $itm['name'])->first()?->id;
+//                Item::create([
+//                    'name' => $itm['name'],
+//                    'description' => $itm['description'] ?? null,
+//                    'quantity' => intval($itm['quantity']),
+//                    'price' => number_format($itm['price'] ,2 ) +0 ,
+//                    'invoice_id' => $this->invoice->id,
+//                    'user_id' => auth()->id(),
+//                    'product_id' => $productId
+//                ]);
+//            }
+
             $this->emit('alert',
                 ['type' => 'info', 'message' => 'Invoice Updated Successfully!']);
             $invoice =   $this->invoice ;
         } else {
             $invoice= Invoice::create($data);
 
-            foreach ($validated['invoiceItems'] as $k => $itm) {
-                $productId = Product::where('code', $itm['name'])->first()?->id;
-                Item::create([
-                    'name' => $itm['name'],
-                    'description' => $itm['description'] ?? null,
-                    'quantity' => intval($itm['quantity']),
-                    'price' => floatval($itm['price']),
-                    'invoice_id' => $invoice->id,
-                    'user_id' => auth()->id(),
-                    'product_id' => $productId
-                ]);
-            }
+//            foreach ($validated['invoiceItems'] as $k => $itm) {
+//                $productId = Product::where('code', $itm['name'])->first()?->id;
+//                Item::create([
+//                    'name' => $itm['name'],
+//                    'description' => $itm['description'] ?? null,
+//                    'quantity' => intval($itm['quantity']),
+//                    'price' => floatval($itm['price']),
+//                    'invoice_id' => $invoice->id,
+//                    'user_id' => auth()->id(),
+//                    'product_id' => $productId
+//                ]);
+//            }
 
             $this->emit('alert',
                 ['type' => 'success', 'message' => 'Invoice Created Successfully!']);
         }
-
+        $invoice->revenues()->delete();
         if ($invoice->status->name != 'unpaid'){
             $amount= 0;
             if ($invoice->status->name == 'paid'){

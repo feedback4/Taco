@@ -33,6 +33,8 @@ class StoreSettingRequest extends FormRequest
             'email' => 'sometimes|required',
             'address' => 'sometimes|required',
             'city' => 'sometimes|nullable',
+            'website' => 'sometimes|nullable',
+
             'company_logo' => 'sometimes|required|image|max:2048',
 
             'working_days' => 'sometimes|required|numeric|min:1',

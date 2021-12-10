@@ -14,7 +14,7 @@ class ProductionOrder extends Model
 
     protected $casts = ['done_at'=>'datetime'];
 
-    public function items ()
+    public function items()
     {
         return $this->belongsToMany(Item::class,'item_production_order')->withPivot('amount');
     }

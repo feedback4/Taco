@@ -28,7 +28,7 @@ class BillForm extends Component
 
     public $billed_at ;
     public $due_at;
-    public $number;
+    public $number , $code;
     public $status_id;
     public $partial_amount = 0;
     public $notes;
@@ -49,13 +49,12 @@ class BillForm extends Component
 
     public function mount($bill = null)
     {
-
         if ($bill) {
             $this->bill = $bill;
 
             $this->billed_at = $this->bill->billed_at->format('Y-m-d');
             $this->due_at = $this->bill->due_at->format('Y-m-d');
-            $this->number = $this->bill->number;
+            $this->code = $this->bill->code;
             $this->status_id = $this->bill->status_id;
             $this->vendor = Vendor::find($this->bill->vendor_id);
             $this->notes = $this->bill->notes;
@@ -63,8 +62,8 @@ class BillForm extends Component
 
             $this->partial_amount = $this->bill->payments()->sum('amount');
 
-            foreach ($this->bill->items as $k => $item) {
-                $this->billItems[$k] = ['name' => $item->name, 'description' => $item->description, 'quantity' => $item->quantity, 'price' => $item->price];
+            foreach ($bill->items as $k => $item) {
+                $this->billItems[$k] = ['name' => $item->name,'element_id' => $item->element_id, 'description' => $item->description, 'quantity' => $item->quantity, 'price' => $item->price];
             }
             $this->discount = $this->bill->discount;
 
@@ -83,7 +82,7 @@ class BillForm extends Component
               //  $year =   now()->format('y');
 
             $latest = Bill::latest()->first()->id ?? 0;
-            $this->number = 'bill-' . (str_pad((int)$latest + 1, 5, '0', STR_PAD_LEFT));
+            $this->code = 'bill-' . (str_pad((int)$latest + 1, 5, '0', STR_PAD_LEFT));
             $this->billed_at =  now()->format('Y-m-d');
             $this->due_at =  now()->addDays(14)->format('Y-m-d');
         }
@@ -116,12 +115,12 @@ class BillForm extends Component
     public function selectItem($id)
     {
         $element = Element::find($id);
-        $this->billItems[] = ['name' => $element->code, 'description' => '', 'quantity' => 1, 'price' => 0];
+        $this->billItems[] = ['name' => $element->name .' -- '.$element->code ,'element_id' => $element->id, 'description' => '', 'quantity' => 1, 'price' => 0];
     }
 
     public function createItem()
     {
-        $this->billItems[] = ['name' => '', 'description' => '', 'quantity' => 1, 'price' => 0];
+        $this->billItems[] = ['name' => '', 'element_id' => 0 ,'description' => '', 'quantity' => 1, 'price' => 0];
     }
 
     public function deleteItem($index)
@@ -181,9 +180,9 @@ class BillForm extends Component
         $this->subTotal = 0;
         $this->total = 0;
         foreach ($this->billItems as $k => $itm) {
-            $this->amount[$k] = $this->billItems[$k]['quantity'] * $this->billItems[$k]['price'];
+            $this->amount[$k] = ( (float) $this->billItems[$k]['quantity'] ?? 0 ) * ( (float) $this->billItems[$k]['price'] ?? 0 );
         }
-
+//dd( $this->amount);
         foreach ($this->amount as $m) {
             $this->subTotal += $m;
         }
@@ -199,6 +198,7 @@ class BillForm extends Component
 
     public function save()
     {
+     //   dd($this->billItems);
         $this->authorize('purchases');
 
         if (!$this->vendor) {
@@ -236,6 +236,7 @@ class BillForm extends Component
             'billed_at' => $validated['billed_at'],
             'due_at' => $validated['due_at'],
             'status_id' => $validated['status_id'],
+            'code' => $this->code ?? null,
             'number' => $validated['number'] ?? null,
             'notes' => $validated['notes'] ?? null,
             'vendor_id' => $this->vendor->id,
@@ -254,7 +255,7 @@ class BillForm extends Component
             }
 
             foreach ($validated['billItems'] as $itm) {
-                $elementId = Element::where('code', $itm['name'])->first()?->id;
+
                 Item::create([
                     'name' => $itm['name'],
                     'description' => $itm['description'] ?? null,
@@ -262,7 +263,7 @@ class BillForm extends Component
                     'price' => floatval($itm['price'] ) ,
                     'bill_id' => $this->bill->id,
                     'user_id' => auth()->id(),
-                    'element_id' => $elementId
+                    'element_id' => $itm['element_id']
                 ]);
             }
             $this->emit('alert',
@@ -272,7 +273,7 @@ class BillForm extends Component
             $bill = Bill::create($data);
 
             foreach ($validated['billItems'] as $k => $itm) {
-                $elementId = Element::where('code', $itm['name'])->first()?->id;
+
                 Item::create([
                     'name' => $itm['name'],
                     'description' => $itm['description'] ?? null,
@@ -280,7 +281,7 @@ class BillForm extends Component
                     'price' => floatval($itm['price']),
                     'bill_id' => $bill->id,
                     'user_id' => auth()->id(),
-                    'element_id' => $elementId
+                    'element_id' =>  $itm['element_id']
                 ]);
             }
 
@@ -309,13 +310,17 @@ class BillForm extends Component
         //    $this->emitTo('tables.formulas-table','refreshFormulas');
         $this->reset();
 
+        if ($this->authorize('inventory')){
+            return redirect()->route('inventory.pending');
+        }
+
         return redirect()->route('purchases.bills.index');
     }
 
     protected function rules()
     {
         return [
-            'number' => ['required', Rule::unique('bills')->ignore($this->bill?->id)],
+            'number' => ['nullable', Rule::unique('bills')->ignore($this->bill?->id)],
 
             'billed_at' => 'required|date',
             'due_at' => 'required|date',
@@ -327,7 +332,9 @@ class BillForm extends Component
             'discount' => 'nullable|numeric',
 
             'billItems.*.name' => 'required',
+            'billItems.*.element_id' => 'nullable|numeric',
             'billItems.*.description' => 'nullable',
+
             'billItems.*.quantity' => 'required|numeric|min:0|max:10000',
             'billItems.*.price' => 'required|numeric|min:0',
         ];

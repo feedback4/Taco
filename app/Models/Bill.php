@@ -9,7 +9,7 @@ class Bill extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['vendor_id', 'status_id', 'billed_at', 'due_at','number','tax_id','tax_total','discount','sub_total','total', 'notes','parent_id'];
+    protected $fillable = ['code','vendor_id', 'status_id', 'billed_at', 'due_at','number','tax_id','tax_total','discount','sub_total','total', 'notes','parent_id'];
 
     protected $casts = [
         'billed_at' => 'date',

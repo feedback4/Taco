@@ -18,7 +18,7 @@ class ItemBillModalForm extends Component
     }
     public function updatedQuery()
     {
-        // dd($this->searchVendors);
+        // dd($this->searchItems);
         $this->searchItems = Element::search($this->query)->take(5)->get();
     }
 

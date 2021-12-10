@@ -72,6 +72,13 @@ class ProductionForm extends Component
         $this->reset('formula','invElement','proElement','ready') ;
     }
 
+    public function updatedTimes()
+    {
+        if(!$this->times){
+            $this->times= 1 ;
+
+        }
+    }
     public function updatedInvElement()
     {
         $this->cost = 0 ;
@@ -88,7 +95,7 @@ class ProductionForm extends Component
                     $this->invElement[$k][$key] =0;
                 }
 
-                $this->cost += $index * $item->price ;
+                $this->cost += $element[$key]  * $item->price  ;
             }
             $this->proElement[$k] =  $element;
         }
@@ -154,16 +161,15 @@ class ProductionForm extends Component
         }
 
         if ($this->productionOrder){
-
-            $this->productionOrder->update([
+                $this->productionOrder->update([
                 'formula_id' => $this->formula->id,
                 'amount' => floatval($this->amount),
                 'times' => $this->times,
                 'user_id' => auth()->id(),
             ]);
 
-
-
+            $this->productionOrder->items()->detach();
+            $order = $this->productionOrder;
             $this->emit('alert',
                 ['type' => 'info', 'message' => 'Production Order Updated Successfully!']);
 
@@ -177,30 +183,31 @@ class ProductionForm extends Component
             ]);
 
 
-            foreach ($this->formula->elements as $element){
-                if($this->ready[$element->id] ) {
-                    if(isset($this->invElement[$element->id])) {
-                        foreach ($this->invElement[$element->id] as $key => $index){
-                            if ($index > 0) {
-                                $order->items()->attach($key, ['amount' => floatval($index) ]);
-                            }
-                        }
-                    }
-                }else{
-                    if(isset($this->invElement[$element->id])) {
-                        foreach ($this->invElement[$element->id] as $key => $index){
-                            $index = (float) $index;
-                            if ($index > 0){
-                                $order->items()->attach($key, ['amount' => floatval($index)]);
-                            }
-                        }
-                    }
-                }
-            }
+
             $this->emit('alert',
                 ['type' => 'info', 'message' => 'Production Order Created Successfully!']);
         }
 
+        foreach ($this->formula->elements as $element){
+            if($this->ready[$element->id] ) {
+                if(isset($this->invElement[$element->id])) {
+                    foreach ($this->invElement[$element->id] as $key => $index){
+                        if ($index > 0) {
+                            $order->items()->attach($key, ['amount' => floatval($index) ]);
+                        }
+                    }
+                }
+            }else{
+                if(isset($this->invElement[$element->id])) {
+                    foreach ($this->invElement[$element->id] as $key => $index){
+                        $index = (float) $index;
+                        if ($index > 0){
+                            $order->items()->attach($key, ['amount' => floatval($index)]);
+                        }
+                    }
+                }
+            }
+        }
 
 
 

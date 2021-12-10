@@ -11,7 +11,7 @@ class ElementForm extends Component
     protected $listeners = ['editElement' => 'edit' ];
     protected $rules = [
         'name' => 'required',
-        'code' => 'required',
+        'code' => 'required|unique:elements',
         'category_id' => 'required|numeric',
     ];
 

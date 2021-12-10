@@ -33,6 +33,7 @@
         window.addEventListener('closeModel', () => {
             $('#vendorModal').modal('hide');
             $('#itemModal').modal('hide');
+            $('#elementModal').modal('hide');
         })
     </script>
 @endpush

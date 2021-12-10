@@ -17,6 +17,7 @@ class CreateBillsTable extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\Vendor::class);
             $table->foreignIdFor(\App\Models\Status::class);
+            $table->string('code');
             $table->string('number')->nullable();
             $table->dateTime('billed_at');
             $table->dateTime('due_at');

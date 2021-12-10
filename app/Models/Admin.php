@@ -44,16 +44,16 @@ class Admin extends Authenticatable
         'google2fa_secret' => 'array'
     ];
 
-    /**
-     * Ecrypt the user's google_2fa secret.
-     *
-     * @param string $value
-     * @return string
-     */
-    public function setGoogle2faSecretAttribute(string $value): string
-    {
-        $this->attributes['google2fa_secret'] = encrypt($value);
-    }
+//    /**
+//     * Ecrypt the user's google_2fa secret.
+//     *
+//     * @param string $value
+//     * @return string
+//     */
+//    public function setGoogle2faSecretAttribute(string $value): string
+//    {
+//        $this->attributes['google2fa_secret'] = encrypt($value);
+//    }
 
     /**
      * Decrypt the user's google_2fa secret.

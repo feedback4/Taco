@@ -147,7 +147,7 @@
 
                         <div class="row form-group" >
                             <div class="col-lg-12 col-xl-4">
-                              <strong>{{ \App\Models\Element::find($activeElement['element_id'])?->name }}</strong>
+                              <strong>{{ $activeElement['name'] }}</strong>
                             </div>
                             <div class="col-lg-12 col-xl-8 row" >
                                 <div class="col-4 ">
