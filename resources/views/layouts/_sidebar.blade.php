@@ -13,7 +13,7 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-header ">Interface</li>
+                <li class="nav-header text-muted ">Interface</li>
                 @can('hr')
                 <li class="nav-item has-treeview">
                     <a class="nav-link  " href="">
@@ -62,9 +62,9 @@
                         <i class="bx bx-atom bx-xs"></i>
                         <p>
                             Formulas
-
+                            <i class='bx bxs-left-arrow right'></i>
                         </p>
-                        <i class='bx bxs-left-arrow right'></i>
+
                     </a>
                     <ul class="nav nav-treeview">
                             <li class="nav-item">
@@ -99,8 +99,9 @@
                             <i class='bx bx-briefcase bx-xs'></i>
                             <p>
                                 CRM
+                                <i class='bx bxs-left-arrow right'></i>
                             </p>
-                            <i class='bx bxs-left-arrow right'></i>
+
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
@@ -135,8 +136,9 @@
                             <i class='bx bx-purchase-tag bx-xs '></i>
                             <p>
                                 Purchases
+                                <i class='bx bxs-left-arrow right'></i>
                             </p>
-                            <i class='bx bxs-left-arrow right'></i>
+
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
@@ -173,8 +175,9 @@
                             <i class='bx bx-cabinet bx-xs '></i>
                             <p>
                                 Inventories
+                                <i class='bx bxs-left-arrow right'></i>
                             </p>
-                            <i class='bx bxs-left-arrow right'></i>
+
                         </a>
                         <ul class="nav nav-treeview">
 
@@ -201,8 +204,9 @@
                         <i class='bx bxs-network-chart bx-xs '></i>
                         <p>
                             Production
+                            <i class='bx bxs-left-arrow right'></i>
                         </p>
-                        <i class='bx bxs-left-arrow right'></i>
+
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
@@ -228,8 +232,9 @@
                             <i class='bx bx-line-chart bx-xs'></i>
                             <p>
                                 Sales
+                                <i class='bx bxs-left-arrow right'></i>
                             </p>
-                            <i class='bx bxs-left-arrow right'></i>
+
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
@@ -246,15 +251,23 @@
                                     </p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link  " href="{{route('sales.price-offer')}}">
+                                    <p>
+                                        Price Offer
+                                    </p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 @endcan
-
+                <li class="nav-header text-muted ">Controls</li>
                 @can('reports')
                     <li class="nav-item">
                         <a class="nav-link  " href="{{route('reports')}}">
+                            <i class='bx bx-paperclip bx-xs'></i>
                             <p>
-                                <i class='bx bx-paperclip bx-xs'></i>
+
                                 Reports
                             </p>
                         </a>
@@ -282,8 +295,8 @@
                 @can('setting')
                     <li class="nav-item">
                         <a class="nav-link  " href="{{route('setting.index')}}">
+                            <i class='bx bx-cog bx-xs'></i>
                             <p>
-                                <i class='bx bx-cog bx-xs'></i>
                                 Setting
                             </p>
                         </a>

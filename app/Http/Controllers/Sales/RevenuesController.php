@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class RevenuesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:sales');
+    }
     /**
      * Display a listing of the resource.
      *

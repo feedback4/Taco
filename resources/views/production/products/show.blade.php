@@ -24,7 +24,7 @@
                     <p><b>{{$product->code}}</b></p> <hr>
                     <label>Product Formula</label>
                     <p><b> <a href="{{route('formulas.formulas.show',$product->formula->id)}}">{{$product->formula->name}}</a></b></p> <hr>
-                    <label>Product Formula</label>
+                    <label>Product Category</label>
                     <p><b> <a href="{{route('formulas.categories.show',$product->category->id)}}">{{$product->category->name}}</a></b></p> <hr>
                 <label>Product Texture</label>
                 <p><b>{{$product->texture}}</b></p> <hr>

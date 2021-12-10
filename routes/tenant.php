@@ -106,6 +106,8 @@ Route::middleware([
             Route::get('/{id}/done',[\App\Http\Controllers\Production\ProductionOrderController::class,'done'])->name('done');
         });
         Route::group(['prefix'=>'sales', 'as' => 'sales.',],function (){
+            Route::get('/price-offer',[\App\Http\Controllers\Sales\InvoicesController::class,'priceOffer'])->name('price-offer');
+
             Route::resource('invoices',\App\Http\Controllers\Sales\InvoicesController::class);
             Route::resource('revenues',\App\Http\Controllers\Sales\RevenuesController::class);
         });
