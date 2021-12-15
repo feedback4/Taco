@@ -224,8 +224,10 @@ class ConstansSeeder extends Seeder
      //   Element::factory(50000)->create();
      //   Category::factory(6000)->create();
    //     Inventory::factory(700)->create();
-        Client::factory(50)->create();
-        Vendor::factory(10)->create();
-        Product::factory(10)->create();
+
+
+//        Client::factory(50)->create();
+//        Vendor::factory(10)->create();
+//        Product::factory(10)->create();
     }
 }

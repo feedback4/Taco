@@ -25,7 +25,6 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-6 ">
 {{--            <h2>{{ $chart1->options['chart_title'] }}</h2>--}}
