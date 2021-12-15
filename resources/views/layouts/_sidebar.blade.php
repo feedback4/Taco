@@ -252,7 +252,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link  " href="{{route('sales.price-offer')}}">
+                                <a class="nav-link " href="{{route('sales.price-offers.index')}}">
                                     <p>
                                         Price Offer
                                     </p>

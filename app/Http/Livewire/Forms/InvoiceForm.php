@@ -118,10 +118,10 @@ class InvoiceForm extends Component
         $this->invoiceItems[] = ['name' => $item->name,'product_id' => $item->product_id,'amount' => $item->quantity, 'description' => '', 'quantity' => 1, 'price' => $item?->price];
     }
 
-    public function createItem()
-    {
-        $this->invoiceItems[] = ['name' => '','product_id' => 0, 'description' => '', 'quantity' => 1, 'price' => 0];
-    }
+//    public function createItem()
+//    {
+//        $this->invoiceItems[] = ['name' => '','product_id' => 0,'amount' =>0, 'description' => '', 'quantity' => 1, 'price' => 0];
+//    }
 
     public function deleteItem($index)
     {
@@ -184,7 +184,7 @@ class InvoiceForm extends Component
             if ($this->invoiceItems[$k]['quantity'] >$this->invoiceItems[$k]['amount']){
              //   $this->invoiceItems[$k]['quantity'] = $this->invoiceItems[$k]['amount'];
                 $this->emit('alert',
-                    ['type' => 'error', 'message' => 'Inventory doesn\'t have this amount ']);
+                    ['type' => 'warning', 'message' => 'Inventory doesn\'t have this amount ']);
            //     return back();
             }
 

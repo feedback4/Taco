@@ -34,10 +34,10 @@ class ItemInvoiceModalForm extends Component
         $this->dispatchBrowserEvent('closeModel');
         $this->reset('query','searchItems');
     }
-    public function createItem()
-    {
-        $this->emitTo('forms.invoice-form','createItem');
-        $this->dispatchBrowserEvent('closeModel');
-        $this->reset('query','searchItems');
-    }
+//    public function createItem()
+//    {
+//        $this->emitTo('forms.invoice-form','createItem');
+//        $this->dispatchBrowserEvent('closeModel');
+//        $this->reset('query','searchItems');
+//    }
 }

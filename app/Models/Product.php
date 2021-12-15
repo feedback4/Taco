@@ -15,7 +15,7 @@ class Product extends Model
     protected $fillable = [
         'name',
         'code','category_id','texture','gloss','color_family','curing_time',
-        'formula_id',
+        'formula_id','last_price'
     ];
 
 
@@ -28,10 +28,6 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function orders()
-    {
-        return $this->hasMany(Order::class);
-    }
 
     public static function search($search)
     {

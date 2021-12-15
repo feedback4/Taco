@@ -8,7 +8,7 @@ use Znck\Eloquent\Traits\BelongsToThrough;
 
 class ProductionOrder extends Model
 {
-    use HasFactory ,BelongsToThrough;
+    use  BelongsToThrough;
 
     protected $fillable = ['number','amount','formula_id','status_id','user_id','times','done_at'];
 
@@ -18,7 +18,7 @@ class ProductionOrder extends Model
     {
         return $this->belongsToMany(Item::class,'item_production_order')->withPivot('amount');
     }
-    public function elements ()
+    public function element ()
     {
         return $this->belongsToThrough('App\Models\Element','App\Models\Item');
     }

@@ -13,11 +13,14 @@ class ElementForm extends Component
         'name' => 'required',
         'code' => 'required|unique:elements',
         'category_id' => 'required|numeric',
+        'last_price' => 'nullable|numeric|min:0',
     ];
 
     public $name ;
     public $code ;
     public $category_id ;
+    public $last_price ;
+
     public $element;
 
     public $title = 'create' ;
@@ -59,15 +62,7 @@ class ElementForm extends Component
                 ['type' => 'success',  'message' => 'Element Created Successfully!']);
         }
         $this->emitTo('tables.elements-table','refreshElements');
-        $this->reset(
-            'name',
-            'code' ,
-            'category_id',
-            'element',
-            'title',
-            'button',
-            'color'
-        );
+        $this->reset();
 
         return back();
     }
@@ -81,6 +76,7 @@ class ElementForm extends Component
         $this->name = $this->element->name;
         $this->code = $this->element->code;
         $this->category_id = $this->element->category_id;
+        $this->last_price = $this->element->last_price;
 
 
         $this->title = 'edit';

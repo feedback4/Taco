@@ -20,10 +20,9 @@
                     </div>
                     <div class="col-md-6">
                         <label for="currency">Currency</label>
-                        <input type="text" name="currency" class="form-control" value="{{ setting('currency') ?? old('currency')}}">
-                        <select name="" id="">
-                            @foreach($currencies as $curren)
-
+                        <select name="currency" class="form-control">
+                            @foreach($currencies as $currency)
+                                <option @if($currency == setting('currency')) selected @endif>{{$currency}} </option>
                             @endforeach
                         </select>
                         @error('currency')

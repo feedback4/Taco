@@ -12,11 +12,6 @@ class InvoicesController extends Controller
     {
         $this->middleware('permission:sales');
     }
-
-    public function priceOffer()
-    {
-        return  view('sales.price-offer');
-    }
     /**
      * Display a listing of the resource.
      *

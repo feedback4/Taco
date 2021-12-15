@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
 @section('content_header')
-    <h1>Price Offer</h1>
-    <a href="{{route('sales.invoices.create')}}" class="btn btn-success">Create Invocie</a>
+    <h1>All Price Offers</h1>
+    <a href="{{route('sales.price-offers.create')}}" class="btn btn-success">Create Price Offer</a>
 @stop
 
 @section('content')
@@ -15,7 +15,7 @@
                     {{ session('status') }}
                 </div>
             @endif
-{{--            <livewire:tables.revenues-table />--}}
+            <livewire:tables.price-offers-table />
         </div>
     </div>
 

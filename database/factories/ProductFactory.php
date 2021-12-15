@@ -19,6 +19,7 @@ class ProductFactory extends Factory
             'texture' => $this->faker->name(),
             'formula_id' => 1,
             'category_id' => 8,
+            'last_price' => rand(10,50),
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Feedback\Tenant;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
@@ -38,7 +39,7 @@ class FeedbackPermissionSeeder extends Seeder
         foreach ($this->permissions as $permission){
             Permission::create(['guard_name' => 'admin', 'name' => $permission]);
         }
-        $permission = Permission::create(['guard_name' => 'admin', 'name' => 'publish articles']);
+     //   $permission = Permission::create(['guard_name' => 'admin', 'name' => 'publish articles']);
         $role1 = Role::create(['guard_name' => 'admin', 'name' => 'viewer']);
         $role1->givePermissionTo('role-show');
         $role1->givePermissionTo('admin-show');
@@ -77,5 +78,14 @@ class FeedbackPermissionSeeder extends Seeder
             'password'=>$password,
         ]);
         $admin->assignRole($role3);
+
+
+//        $tenant1 = Tenant::create(['id' => 'taco1']);
+//       $tenant1->domains()->create(['domain' => 'www.taco1.test']);
+//
+//        $tenant2 = Tenant::create(['id' => 'taco2']);
+//        $tenant2->domains()->create(['domain' => 'www.taco2.test']);
+
+
     }
 }

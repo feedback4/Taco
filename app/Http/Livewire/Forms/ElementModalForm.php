@@ -12,11 +12,13 @@ class ElementModalForm extends Component
         'name' => 'required',
         'code' => 'required|unique:elements',
         'category_id' => 'required|numeric',
+        'last_price' => 'nullable|numeric|min:0',
     ];
 
     public $name ;
     public $code ;
     public $category_id ;
+    public $last_price ;
 
     public $element;
 

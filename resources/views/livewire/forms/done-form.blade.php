@@ -37,6 +37,7 @@
                         <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>
+                    @if(!$avg)
                     <div class="col-md-3">
                         <label for="workers">Worker</label>
                         <input type="number" wire:model.lazy="workers" class="form-control">
@@ -44,6 +45,7 @@
                         <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>
+                    @endif
                 </div>
             </div>
 

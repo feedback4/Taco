@@ -9,6 +9,7 @@ use App\Models\Payment;
 use App\Models\Status;
 use App\Models\Tax;
 use App\Models\Vendor;
+use App\Services\CalculationService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
@@ -254,43 +255,35 @@ class BillForm extends Component
                 $item->delete();
             }
 
-            foreach ($validated['billItems'] as $itm) {
 
-                Item::create([
-                    'name' => $itm['name'],
-                    'description' => $itm['description'] ?? null,
-                    'quantity' => floatval($itm['quantity']),
-                    'price' => floatval($itm['price'] ) ,
-                    'bill_id' => $this->bill->id,
-                    'user_id' => auth()->id(),
-                    'element_id' => $itm['element_id']
-                ]);
-            }
             $this->emit('alert',
                 ['type' => 'info', 'message' => 'Bill Updated Successfully!']);
             $bill =   $this->bill ;
         } else {
             $bill = Bill::create($data);
 
-            foreach ($validated['billItems'] as $k => $itm) {
-
-                Item::create([
-                    'name' => $itm['name'],
-                    'description' => $itm['description'] ?? null,
-                    'quantity' => floatval($itm['quantity']),
-                    'price' => floatval($itm['price']),
-                    'bill_id' => $bill->id,
-                    'user_id' => auth()->id(),
-                    'element_id' =>  $itm['element_id']
-                ]);
-            }
-
-
-
 
             $this->emit('alert',
                 ['type' => 'success', 'message' => 'Bill Created Successfully!']);
         }
+
+        foreach ($validated['billItems'] as $k => $itm) {
+
+            Item::create([
+                'name' => $itm['name'],
+                'description' => $itm['description'] ?? null,
+                'quantity' => floatval($itm['quantity']),
+                'price' => floatval($itm['price']),
+                'bill_id' => $bill->id,
+                'user_id' => auth()->id(),
+                'element_id' =>  $itm['element_id']
+            ]);
+
+            $element =  Element::find($itm['element_id']);
+            CalculationService::calElement($element);
+        }
+
+
 
         if ($bill->status->name != 'unpaid'){
             $amount= 0;

@@ -119,6 +119,9 @@
             .hidden-print {
                 display: none;
             }
+            .invoice-price-right{
+                color: black;
+            }
         }
     </style>
 
@@ -246,13 +249,17 @@
                     <!-- end invoice-content -->
                     <!-- begin invoice-note -->
                     <div class="invoice-note">
-                        {{ setting('notes')}}
+                        @if($invoice->notes)
+                            {{ nl2br($invoice->notes) }}
+                        @else
+                            {{nl2br(setting('invoice_notes')) }}
+                        @endif
                     </div>
                     <!-- end invoice-note -->
                     <!-- begin invoice-footer -->
                     <div class="invoice-footer">
                         <p class="text-center m-b-5 f-w-600">
-                            {{ setting('footer')}}
+                            {{ setting('invoice_footer')}}
                         </p>
                         <p class="text-center">
                             <span class="m-r-10"><i class="bx  bx-xs bx-globe"></i>{{ setting('website')}}</span>

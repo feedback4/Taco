@@ -106,7 +106,8 @@ Route::middleware([
             Route::get('/{id}/done',[\App\Http\Controllers\Production\ProductionOrderController::class,'done'])->name('done');
         });
         Route::group(['prefix'=>'sales', 'as' => 'sales.',],function (){
-            Route::get('/price-offer',[\App\Http\Controllers\Sales\InvoicesController::class,'priceOffer'])->name('price-offer');
+            Route::get('/{id}/print',[\App\Http\Controllers\Sales\PriceOfferController::class,'print'])->name('price-offers.print');
+            Route::resource('/price-offers',\App\Http\Controllers\Sales\PriceOfferController::class);
 
             Route::resource('invoices',\App\Http\Controllers\Sales\InvoicesController::class);
             Route::resource('revenues',\App\Http\Controllers\Sales\RevenuesController::class);
@@ -128,6 +129,8 @@ Route::middleware([
         Route::get('notifications',[\App\Http\Controllers\HomeController::class ,'notifications'])->name('notifications');
 
         Route::get('reports',[\App\Http\Controllers\HomeController::class ,'reports'])->name('reports');
+
+        Route::get('test',[\App\Http\Controllers\HomeController::class ,'test'])->name('test');
 
         Route::get('404',function (){
             abort(404);

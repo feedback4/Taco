@@ -5,11 +5,13 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Client;
 use App\Models\Element;
+use App\Models\Formula;
 use App\Models\Inventory;
 use App\Models\Product;
 use App\Models\Setting;
 use App\Models\Status;
 use App\Models\Tax;
+use App\Models\User;
 use App\Models\Vendor;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -198,17 +200,16 @@ class ConstansSeeder extends Seeder
             'phone' => '',
             'address' => '',
             'city' => '',
-            'zip' => '',
             'state' => 'Giza',
             'country' => 'Egypt',
-            'logo' => '',
-            'color' => '',
             'currency' => 'EGP',
             'due_to_days' => '14',
-            'auto_send' => false,
+            'auto_send' => 0,
             'working_days' => 24,
             'working_hours' => 8,
             'avg_salary' => 2000,
+            'element_last_price' => 0,
+            'product_last_price' => 0,
         ];
         foreach ($settings as $key => $val) {
             Setting::factory()->create([
@@ -216,8 +217,15 @@ class ConstansSeeder extends Seeder
                 'value' => $val,
             ]);
         }
-        Client::factory(10)->create();
+
+
+      //  User::factory(1000)->create();
+     //   Formula::factory(10000)->create();
+     //   Element::factory(50000)->create();
+     //   Category::factory(6000)->create();
+   //     Inventory::factory(700)->create();
+        Client::factory(50)->create();
         Vendor::factory(10)->create();
-        Product::factory(1)->create();
+        Product::factory(10)->create();
     }
 }

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\ProductionOrder;
+use http\Client;
 use Illuminate\Http\Request;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 use phpDocumentor\Reflection\Types\Compound;
@@ -84,5 +87,12 @@ class HomeController extends Controller
     public function reports()
     {
         return view('reports');
+    }
+
+    public function test()
+    {
+        $order = ProductionOrder::first();
+
+        return view('vendor.invoices.pdf',compact('order'));
     }
 }

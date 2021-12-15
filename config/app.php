@@ -234,6 +234,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'PDF' => Barryvdh\DomPDF\Facade::class,
+       // 'PDF' => Meneses\LaravelMpdf\Facades\LaravelMpdf::class,
+       // 'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
         'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,

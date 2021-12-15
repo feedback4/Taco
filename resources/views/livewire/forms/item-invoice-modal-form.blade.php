@@ -48,7 +48,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" wire:click.pervent="close" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" wire:click.pervent="createItem">Create Item</button>
+{{--                    <button type="button" class="btn btn-primary" wire:click.pervent="createItem">Create Item</button>--}}
                 </div>
             </div>
         </div>

@@ -15,7 +15,7 @@ class FormulaFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'code' => $this->faker->languageCode(),
+            'code' => $this->faker->postcode(),
             'category_id' => rand(1,50),
         ];
     }

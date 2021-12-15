@@ -3,7 +3,10 @@
 namespace App\Services;
 
 use App\Models\Bill;
+use App\Models\Element;
 use App\Models\Invoice;
+use App\Models\Item;
+use App\Models\Product;
 use App\Models\Status;
 use phpDocumentor\Reflection\Types\Collection;
 
@@ -76,4 +79,42 @@ class CalculationService {
         }
        }
     }
+
+
+    public static function calElement(Element $element)
+    {
+        self::sumElement($element);
+    }
+
+    private static function sumElement($element)
+    {
+        if (setting('is_element_last_price') == true){
+            $price = Item::where('element_id',$element->id)->latest()->first()->price ;
+            $element->last_price = $price ;
+            $element->save();
+        }else{
+            $price = Item::where('element_id',$element->id)->avg('price')  ?? 0 ;
+            $element->last_price = $price ;
+            $element->save();
+        }
+    }
+
+    public static function calProduct(Product $product)
+    {
+        self::sumProduct($product);
+    }
+
+    private static function sumProduct($product)
+    {
+        if (setting('is_product_last_price') == true){
+            $price = Item::where('product_id',$product->id)->latest()->first()->price ?? 0 ;
+            $product->last_price = $price ;
+            $product->save();
+        }else{
+            $price = Item::where('product_id',$product->id)->avg('price') ?? 0 ;
+            $product->last_price = $price ;
+            $product->save();
+        }
+    }
+
 }

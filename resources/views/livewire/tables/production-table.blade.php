@@ -54,7 +54,7 @@
                         <td>
 
                             @if(!$order->items->isEmpty())
-                            <a href="{{route('production.print',$order->id)}}" class="btn btn-secondary ">
+                            <a href="{{route('production.print',$order->id)}}" target="_blank" class="btn btn-secondary ">
                                 print
                             </a>
                             @else
@@ -63,9 +63,11 @@
                         </td>
 
 
-                        <td> <a href="{{route('production.pdf',$order->id)}}" class="btn btn-dark ">
+                        <td>
+                            <a href="{{route('production.pdf',$order->id)}}" target="_blank" class="btn btn-dark ">
                                 print
-                            </a></td>
+                            </a>
+                        </td>
                         <td> {{$order->created_at->format('d-m-Y')}} <small>by {{ $order->user->name }}</small> </td>
                         <td class="d-flex justify-content-between">
                             @if(!$order->done_at)

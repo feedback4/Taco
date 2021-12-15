@@ -16,11 +16,12 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->string('code')->unique();
+            $table->string('code'); //->unique()
             $table->string('texture')->nullable();
             $table->string('gloss')->nullable();
             $table->string('color_family')->nullable();
             $table->string('curing_time')->nullable();
+            $table->string('last_price')->nullable();
             $table->foreignIdFor(\App\Models\Formula::class);
             $table->foreignIdFor(\App\Models\Category::class)->nullable();
             $table->timestamps();

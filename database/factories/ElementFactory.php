@@ -18,6 +18,7 @@ class ElementFactory extends Factory
             'code' => $this->faker->randomElement(),
 
             'category_id' => rand(1,6),
+            'last_price' => rand(10,50),
         ];
     }
 }

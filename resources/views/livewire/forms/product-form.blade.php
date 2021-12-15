@@ -89,6 +89,16 @@
                     </span>
                 @enderror
             </div>
+            <div class="col-md-6">
+                <label for="last_price" class=" col-form-label text-md-right">Last Price</label>
+                <input  type="number" min="0" class="form-control @error('last_price') is-invalid @enderror" wire:model.lazy="last_price" name="last_price" value="{{ old('last_price') }}"  >
+                @error('last_price')
+                <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            </div>
         </div>
 
         <div class="form-group row mb-0">

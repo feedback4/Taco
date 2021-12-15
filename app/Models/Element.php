@@ -12,7 +12,8 @@ class Element extends Model
     protected $fillable = [
         'name',
         'code',
-        'category_id'
+        'category_id',
+        'last_price'
     ];
     public function category()
     {

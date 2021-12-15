@@ -19,7 +19,7 @@ class ProductForm extends Component
         'gloss' => 'nullable',
         'color_family' => 'nullable',
         'curing_time' => 'nullable',
-
+        'last_price' => 'nullable|numeric|min:0',
     ];
 
     public $name ;
@@ -30,6 +30,7 @@ class ProductForm extends Component
     public $gloss ;
     public $color_family ;
     public $curing_time;
+    public $last_price ;
 
     public $product;
 
@@ -90,7 +91,7 @@ class ProductForm extends Component
         $this->gloss = $this->product->gloss;
         $this->color_family = $this->product->color_family;
         $this->curing_time = $this->product->curing_time;
-
+        $this->last_price = $this->product->last_price;
 
         $this->title = 'edit';
         $this->button = 'update';

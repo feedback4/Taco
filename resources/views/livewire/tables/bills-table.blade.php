@@ -47,7 +47,7 @@
                 <tr>
                     <td><a href="{{route('purchases.bills.show',$bill->id)}}">{{$bill->code}}</a></td>
                     <td>{{$bill->vendor->name}}</td>
-                    <td>{{$bill->total}} EGP</td>
+                    <td>{{$bill->total}} {{setting('currency')}}</td>
                     <td>{{$bill->status->name}}</td>
                     <td>{{$bill->billed}}</td>
                     <td>{{$bill->due}}</td>

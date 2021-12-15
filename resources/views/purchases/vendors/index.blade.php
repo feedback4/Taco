@@ -8,7 +8,7 @@
 @section('content')
 
     <div class="row ">
-        <div class="col-md-8">
+        <div class="col-md-12">
 
             @if (session('status'))
                 <div class="alert alert-success" role="alert">

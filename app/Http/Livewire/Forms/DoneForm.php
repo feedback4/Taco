@@ -3,8 +3,10 @@
 namespace App\Http\Livewire\Forms;
 
 use App\Models\Item;
+use App\Services\CalculationService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
+use function Symfony\Component\String\s;
 
 class DoneForm extends Component
 {
@@ -34,16 +36,20 @@ class DoneForm extends Component
     public $hourCost = 0;
     public $totalCost  = 0 ;
     public $workers = 1 ;
+    public $avg = true;
 
 
     public function mount($productionOrder = null)
     {
-//        $this->perHour = setting('per_hour') ?? 0;
-//        $salaries = \App\Models\Employee::sum('salary');
-//        $perHour = (float)  number_format($salaries /  (setting('working_days') * setting('working_hours')) , 2)  ;
-//        $this->perHour =    $perHour ;
+        $this->avg =setting('is_all_salaries')?? false ;
+       // $this->perHour = setting('per_hour') ?? 0;
+        if ($this->avg){
+            $salaries = \App\Models\Employee::sum('salary');
+            $perHour = (float)  number_format($salaries /  (setting('working_days') * setting('working_hours')) , 2)  ;
+        }else{
+            $perHour = (float)  number_format( setting('avg_salary') /  (setting('working_days') * setting('working_hours')) , 2) ;
+        }
 
-        $perHour = (float)  number_format( setting('avg_salary') /  (setting('working_days') * setting('working_hours')) , 2) ;
         $this->perHour =    $perHour ;
 
         if ($productionOrder){
@@ -75,8 +81,13 @@ class DoneForm extends Component
     private function sum()
     {
         if($this->working_hours && $this->workers){
-           // $salaries =  array_sum(\App\Models\Employee::pluck('salary')->toArray());
-            $perHour = (float)  number_format( (setting('avg_salary') * $this->workers ) /  (setting('working_days') * setting('working_hours')) , 2)  ;
+
+            if ($this->avg){
+                $salaries = \App\Models\Employee::sum('salary');
+                $perHour = (float)  number_format($salaries /  (setting('working_days') * setting('working_hours')) , 2)  ;
+            }else{
+                $perHour = (float)  number_format( setting('avg_salary') /  (setting('working_days') * setting('working_hours')) , 2) ;
+            }
             $this->hourCost = $this->working_hours * $perHour;
             $this->perHour =    $this->hourCost / $this->working_hours ;
             $this->cal();
@@ -133,6 +144,8 @@ class DoneForm extends Component
             'type' => 'product',
 
         ]);
+
+       CalculationService::calProduct($this->productionOrder->formula->product);
 
 
         return redirect()->route('inventory.products.pending');
