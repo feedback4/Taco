@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSettingRequest;
 use App\Models\Setting;
+use App\Models\Tax;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
@@ -27,7 +28,9 @@ class SettingController extends Controller
         $currencies     = Setting::$currencies;
         $languages = Setting::$languages;
 
-        return view('setting.default',compact('currencies','languages'));
+        $taxes = Tax::where('active',true)->get();
+
+        return view('setting.default',compact('currencies','languages','taxes'));
     }
     public function company()
     {
@@ -53,7 +56,9 @@ class SettingController extends Controller
 
        $input = $request->validated();
 
-
+        if (isset($input['default_taxes'])){
+            $input['default_taxes'] = json_encode($input['default_taxes']);
+        }
 
         if (isset($input['company_logo'])){
             $path ='uploads/setting/logo';

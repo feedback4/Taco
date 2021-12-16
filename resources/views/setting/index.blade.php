@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="col ml--2"><h4 class="mb-0">Working</h4>
-                        <p class="text-sm text-muted mb-0">Change working days, hours, etc.</p></div>
+                        <p class="text-sm text-muted mb-0">Change working days, hours, price calculation, etc.</p></div>
                 </div>
             </a>
         </div>
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="col ml--2 " style="text-decoration: none;"><h4 class="mb-0 ">Invoices</h4>
-                        <p class="text-sm text-muted mb-0" style="text-decoration: none;">Change invoice color, email, address, tax number etc</p>
+                        <p class="text-sm text-muted mb-0" style="text-decoration: none;">Change invoice color, email, address, tax number, notes etc</p>
                     </div>
                 </div>
             </a>

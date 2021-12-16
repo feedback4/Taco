@@ -8,29 +8,20 @@
     <div class="row justify-content-center ">
         <div class="col-lg-8 card">
             <div class="card-body">
-                <form action="{{route('setting.store')}}" method="post">
-                    @csrf
+
                 <div class="form-group row">
-                    <div class="col-md-6">
-                        <label for="name">Tax Name</label>
-                        <input type="text" name="name" class="form-control">
-                        @error('name')
-                        <small class="text-danger">{{$message}}</small>
-                        @enderror
+                    <div class="col-md-12">
+                        <livewire:forms.tax-form />
                     </div>
-                    <div class="col-md-6">
-                        <label for="percent">Tax percent</label>
-                        <input type="number" name="percent" class="form-control">
-                        @error('percent')
-                        <small class="text-danger">{{$message}}</small>
-                        @enderror
+                    <br>
+                    <div class="col-md-12">
+                        <h2>All Taxes</h2>
+                        <livewire:tables.taxes-table />
                     </div>
-                    <button type="submit" class="btn bg-gradient-green text-white w-100 h4 mt-4">
-                        Save
-                    </button>
+
 
                 </div>
-                </form>
+
             </div>
 
         </div>

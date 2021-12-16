@@ -18,6 +18,7 @@ class CreateTaxesTable extends Migration
             $table->string('name');
             $table->smallInteger('percent');
             $table->boolean('active')->default(true);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

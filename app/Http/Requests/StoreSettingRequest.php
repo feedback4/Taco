@@ -24,9 +24,9 @@ class StoreSettingRequest extends FormRequest
     public function rules()
     {
         return [
-            'language' => 'sometimes|nullable',
+            'default_language' => 'sometimes|nullable',
             'currency' => 'sometimes|nullable',
-            'default_tax' => 'sometimes|nullable',
+            'default_taxes' => 'sometimes|nullable|array',
 
             'company_name' => 'sometimes|required',
             'phone' => 'sometimes|required',

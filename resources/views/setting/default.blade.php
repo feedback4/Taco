@@ -12,15 +12,19 @@
                     @csrf
                 <div class="form-group row">
                     <div class="col-md-6">
-                        <label for="language">Language</label>
-                        <input type="text" name="language" class="form-control" value="{{ setting('language') ?? old('language')}}">
-                        @error('language')
+                        <label for="default_language">Language</label>
+                        <select name="default_language"  class="form-control select2">
+                            @foreach($languages as $lang)
+                                <option @if($lang == setting('default_language')) selected @endif>{{$lang}} </option>
+                            @endforeach
+                        </select>
+                        @error('default_language')
                         <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>
                     <div class="col-md-6">
                         <label for="currency">Currency</label>
-                        <select name="currency" class="form-control">
+                        <select name="currency"  class="form-control select2">
                             @foreach($currencies as $currency)
                                 <option @if($currency == setting('currency')) selected @endif>{{$currency}} </option>
                             @endforeach
@@ -30,9 +34,15 @@
                         @enderror
                     </div>
                     <div class="col-md-6">
-                        <label for="default_tax">Tax</label>
-                        <input type="text" name="default_tax" class="form-control" value="{{ setting('default_tax') ?? old('v')}}">
-                        @error('default_tax')
+                        <label for="default_taxes">Tax</label>
+                        <select name="default_taxes[]" multiple class="form-control select2">
+                            @forelse($taxes as $tax)
+                            <option value="{{$tax->id}}" @if(in_array($tax->id, json_decode(setting('default_taxes')) )) selected  @endif>{{$tax->name}} ({{$tax->percent}} %)</option>
+                                @empty
+                                <option value="">Add at least on tax at the setting</option>
+                            @endforelse
+                        </select>
+                        @error('default_taxes')
                         <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>

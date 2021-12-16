@@ -89,7 +89,7 @@ class ProductionForm extends Component
                     $element[$key] = $item->quantity  ;
                     $this->invElement[$k][$key] = $item->quantity ;
                     $this->emit('alert',
-                        ['type' => 'info', 'message' => 'يا جدع مينفعش']);
+                        ['type' => 'info', 'message' => 'amount can\'t be more than Inventory']);
                 }elseif(!$index){
                     $element[$key] = 0 ;
                     $this->invElement[$k][$key] =0;
