@@ -43,6 +43,8 @@ class HomeController extends Controller
         $revenuesTotal = Revenue::whereHas('invoice')->sum('amount');
         $avgSalary = Employee::avg('salary');
 
+        $salariesTotal =  Employee::sum('salary');
+
         $chart_options = [
             'chart_title' => 'Balance of Vendors',
             'chart_type' => 'bar',
@@ -95,6 +97,7 @@ class HomeController extends Controller
             'clientsCount',
             'vendorsCount',
             'avgSalary',
+            'salariesTotal',
             'billsTotal',
             'paymentsTotal',
             'invoicesTotal',

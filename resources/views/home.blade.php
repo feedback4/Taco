@@ -20,7 +20,7 @@
 
                     </h5>
                     @if($invoicesTotal - $revenuesTotal)
-                    <small>still {{$invoicesTotal - $revenuesTotal}} to collect</small>
+                    <small>open Invoices: {{$invoicesTotal - $revenuesTotal}} to collect</small>
                     @else
                         <small>nothing to collect</small>
                     @endif
@@ -35,20 +35,35 @@
 
                     </h5>
                     @if($billsTotal - $paymentsTotal)
-                        <small>still {{$billsTotal - $paymentsTotal}} to pay</small>
+                        <small>open Bills: {{$billsTotal - $paymentsTotal}} to pay</small>
                     @else
                         <small>nothing to pay</small>
                     @endif
                 </div>
             </div>
         </div>
+        <div class="col mb-2">
+            <div class="card text-white bg-gradient-gray ">
+                <div class="card-header">Total Salaries</div>
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{{route('hr.employees.index')}}" class="text-white">{{$salariesTotal}} {{setting('currency') ?? 'EGP'}}</a>
+
+                    </h5>
+                    @if($avgSalary)
+                        <small>with Avg {{$avgSalary}} EGP</small>
+                    @else
+                        <small>Add Employee Salaries</small>
+                    @endif
+                </div>
+            </div>
+        </div>
 
         <div class="col mb-2">
-            @if(($invoicesTotal - $billsTotal) > 0)
+            @if(($invoicesTotal - $billsTotal -$salariesTotal) > 0)
             <div class="card text-white bg-gradient-green ">
                 <div class="card-header">Total Profits</div>
                 <div class="card-body">
-                    <h5 class="card-title"><span class="text-white">{{$invoicesTotal - $billsTotal}} {{setting('currency') ?? 'EGP'}}</span>
+                    <h5 class="card-title"><span class="text-white">{{$invoicesTotal - $billsTotal -$salariesTotal}} {{setting('currency') ?? 'EGP'}}</span>
                     </h5>
                 </div>
             </div>
@@ -56,12 +71,13 @@
                 <div class="card text-white bg-gradient-dark ">
                     <div class="card-header">Total Loses</div>
                     <div class="card-body">
-                        <h5 class="card-title"><span class="text-white">{{$billsTotal - $invoicesTotal }} {{setting('currency') ?? 'EGP'}}</span>
+                        <h5 class="card-title"><span class="text-white">{{$billsTotal - $invoicesTotal + $salariesTotal }} {{setting('currency') ?? 'EGP'}}</span>
                         </h5>
                     </div>
                 </div>
             @endif
         </div>
+
 
 
 
