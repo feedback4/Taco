@@ -135,7 +135,7 @@ class RolesController extends Controller
     public function permissions(){
         $permissions = Permission::getPermissions();
         //$roles = Role::
-        return view('roles.permissions',compact('permissions'));
+        return view('hr.roles.permissions',compact('permissions'));
     }
     public function permissionsCreate(Request $request){
         $this->validate($request,[

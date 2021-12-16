@@ -63,7 +63,7 @@
             <div class="card text-white bg-gradient-green ">
                 <div class="card-header">Total Profits</div>
                 <div class="card-body">
-                    <h5 class="card-title"><span class="text-white">{{$invoicesTotal - $billsTotal -$salariesTotal}} {{setting('currency') ?? 'EGP'}}</span>
+                    <h5 class="card-title"><a href="{{route('reports.index')}}" class="text-white">{{$invoicesTotal - $billsTotal -$salariesTotal}} {{setting('currency') ?? 'EGP'}}</a>
                     </h5>
                 </div>
             </div>
@@ -71,7 +71,7 @@
                 <div class="card text-white bg-gradient-dark ">
                     <div class="card-header">Total Loses</div>
                     <div class="card-body">
-                        <h5 class="card-title"><span class="text-white">{{$billsTotal - $invoicesTotal + $salariesTotal }} {{setting('currency') ?? 'EGP'}}</span>
+                        <h5 class="card-title"><a href="{{route('reports.index')}}" class="text-white">{{$billsTotal - $invoicesTotal + $salariesTotal }} {{setting('currency') ?? 'EGP'}}</a>
                         </h5>
                     </div>
                 </div>

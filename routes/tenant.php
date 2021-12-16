@@ -112,6 +112,10 @@ Route::middleware([
             Route::resource('invoices',\App\Http\Controllers\Sales\InvoicesController::class);
             Route::resource('revenues',\App\Http\Controllers\Sales\RevenuesController::class);
         });
+
+        Route::group(['prefix'=>'reports', 'as' => 'reports.',],function (){
+            Route::get('/',[\App\Http\Controllers\ReportsController::class,'index'])->name('index');
+        });
         Route::group(['prefix'=>'setting', 'as' => 'setting.',],function (){
             Route::get('/',[\App\Http\Controllers\SettingController::class,'index'])->name('index');
 
@@ -128,7 +132,6 @@ Route::middleware([
 
         Route::get('notifications',[\App\Http\Controllers\HomeController::class ,'notifications'])->name('notifications');
 
-        Route::get('reports',[\App\Http\Controllers\HomeController::class ,'reports'])->name('reports');
 
         Route::get('test',[\App\Http\Controllers\HomeController::class ,'test'])->name('test');
 

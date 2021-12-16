@@ -264,7 +264,7 @@
                 <li class="nav-header text-muted ">Controls</li>
                 @can('reports')
                     <li class="nav-item">
-                        <a class="nav-link  " href="{{route('reports')}}">
+                        <a class="nav-link  " href="{{route('reports.index')}}">
                             <i class='bx bx-paperclip bx-xs'></i>
                             <p>
 

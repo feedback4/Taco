@@ -109,10 +109,7 @@ class HomeController extends Controller
     {
         return view('notifications');
     }
-    public function reports()
-    {
-        return view('reports');
-    }
+
 
     public function test()
     {
