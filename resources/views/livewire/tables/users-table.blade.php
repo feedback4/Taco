@@ -44,7 +44,7 @@
                         <td class="border  py-2">{{$user->id}} </td>
                         <td class="border  py-2"> <a href="{{ route('hr.users.show',$user->id) }}"> {{$user->name}} </a></td>
                         <td class="border  py-2">{{$user->email}} </td>
-{{--                        <td class="border  py-2"><a href="{{ route('hr.roles.show',  $user->roles[0]?->id) }}">{{$user->getRoleNames()}}</a></td>--}}
+                        <td class="border  py-2"><a href="{{ route('hr.roles.show',  $user->roles->first()) }}">{{$user->roles->first()->name}}</a></td>
 
                             <td class="border  py-2">
                                 {{--                                {{$user->active}}--}}

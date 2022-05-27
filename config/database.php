@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' =>  'central',
+    'default' =>  'main',
 
     /*
     |--------------------------------------------------------------------------
@@ -35,24 +35,9 @@ return [
 
     'connections' => [
 
-        'tenant' => [
+        'main' => [
             'driver' => 'mysql',
-            'database' => null,
-            'host' => '127.0.0.1',
-            'username' => 'root',
-            'password' => '',
-            'charset' => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
-            'prefix' => '',
-            'prefix_indexes' => true,
-            'strict' => true,
-            'engine' => null,
-            // And other options if needed ...
-        ],
-
-        'central' => [
-            'driver' => 'mysql',
-            'database' => 'feedback',
+            'database' => 'taco',
             'host' => '127.0.0.1',
             'username' => 'root',
             'password' => env('DB_PASSWORD',''),

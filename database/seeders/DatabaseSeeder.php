@@ -29,25 +29,8 @@ class DatabaseSeeder extends Seeder
 
     public function run()
     {
-
-        tenant()
-            ? $this->runTenantSpecificSeeders()
-            : $this->runLandlordSpecificSeeders();
-    }
-
-    public function runTenantSpecificSeeders()
-    {
         $this->call(ConstansSeeder::class);
 
     }
-    /** @var  $factory */
-    public function runLandlordSpecificSeeders()
-    {
-//        Admin::factory()->create([
-//                'name' => 'ahmed badr',
-//                'email' => 'a@mail.com',
-//                'password' => Hash::make('feedback')
-//            ]);
-        $this->call(FeedbackPermissionSeeder::class);
-    }
+
 }

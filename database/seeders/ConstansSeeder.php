@@ -13,6 +13,7 @@ use App\Models\Status;
 use App\Models\Tax;
 use App\Models\User;
 use App\Models\Vendor;
+use App\Notifications\ActionReminderNotification;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
@@ -192,6 +193,7 @@ class ConstansSeeder extends Seeder
         Tax::factory()->create([
             'name' => 'VAT',
             'percent' => '14',
+            'active' => true
         ]);
 
         $settings = [
@@ -210,6 +212,7 @@ class ConstansSeeder extends Seeder
             'avg_salary' => 2000,
             'element_last_price' => 0,
             'product_last_price' => 0,
+
         ];
         foreach ($settings as $key => $val) {
             Setting::factory()->create([
