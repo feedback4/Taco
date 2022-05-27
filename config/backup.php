@@ -79,7 +79,7 @@ return [
              */
             'databases' => [
             //    'central',
-                'tenant'
+                'main'
             ],
         ],
 

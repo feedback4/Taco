@@ -62,7 +62,7 @@ You can now access the server at http://localhost:8000
     php artisan key:generate
 **Make sure you set the correct database connection information before running the migrations** [Environment variables](#environment-variables)
 
-    php artisan tenants:migrate
+    php artisan migrate
 
 **Make sure you set the connection between storage and public directory (run only once in project lifetime)**
 
@@ -78,7 +78,7 @@ Open the DummyDataSeeder and set the property values as per your requirement
 
 Run the database seeder and you're done
 
-    php artisan tenants:seed
+    php artisan seed
 
 ***Note*** : It's recommended to have a clean database before seeding. You can refresh your migrations at any point to clean the database by running the following command
 

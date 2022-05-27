@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Production Order {{ $order->id }} By {{ $order->user->name }}</title>
-    <link href="{{ global_asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
         * {
             -webkit-box-sizing: border-box;

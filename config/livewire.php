@@ -1,6 +1,5 @@
 <?php
 
-use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 
 return [
 
@@ -86,7 +85,6 @@ return [
     'middleware_group' => [
         'web',
       //  'centeral',
-        InitializeTenancyByDomain::class, // or whatever tenancy middleware you use
     ],
 
     /*

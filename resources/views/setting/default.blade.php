@@ -37,7 +37,7 @@
                         <label for="default_taxes">Tax</label>
                         <select name="default_taxes[]" multiple class="form-control select2">
                             @forelse($taxes as $tax)
-                            <option value="{{$tax->id}}" @if(in_array($tax->id, json_decode(setting('default_taxes')) )) selected  @endif>{{$tax->name}} ({{$tax->percent}} %)</option>
+                            <option value="{{$tax->id}}" @if($tax->active ) selected  @endif>{{$tax->name}} ({{$tax->percent}} %)</option>
                                 @empty
                                 <option value="">Add at least on tax at the setting</option>
                             @endforelse

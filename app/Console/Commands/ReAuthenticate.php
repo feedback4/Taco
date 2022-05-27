@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Console\Command;
 
 class ReAuthenticate extends Command
@@ -45,7 +45,7 @@ class ReAuthenticate extends Command
         if (!$email) $email = $this->ask('what is the Admin\'s email?');
 
         // retrieve the user with the specified email
-        $user = Admin::where('email', $email)->first();
+        $user = User::where('email', $email)->first();
 
         if (!$user) {
             // show an error and exist if the user does not exist
