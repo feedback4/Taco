@@ -24,7 +24,7 @@ class RolesController extends Controller
     public function index(Request $request)
     {
         //
-        $roles = Role::whereNotIn('name', ['client'])->orderBy('id','DESC')->paginate(5);
+        $roles = Role::whereNotIn('name', ['feedback'])->orderBy('id','DESC')->paginate(5);
 
         return view('hr.roles.index',compact('roles'))->with('i',($request->input('page',1)-1)*5);
 
