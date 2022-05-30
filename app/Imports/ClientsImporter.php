@@ -38,9 +38,13 @@ class ClientsImporter implements ToModel ,WithHeadingRow ,WithBatchInserts ,With
         return new Client([
             'name' => $row['name'],
             'phone' =>$row['phone'],
+            'type' =>$row['type'],
             'status_id' => $status->id,
             'company_id' => $company->id,
-            'code' => $row['code']
+            'location' =>$row['location'],
+            'vat' =>$row['vat'],
+            'code' => $row['code'],
+            'payment' =>$row['payment'],
         ]);
 
 

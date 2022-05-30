@@ -10,7 +10,7 @@ class Vendor extends Model
 {
     use HasFactory,softDeletes;
 
-    protected $fillable = ['name','phone','email','address','active'];
+    protected $fillable = ['name','phone','email','address','active','vat'];
 
     public function bills()
     {

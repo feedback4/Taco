@@ -110,13 +110,20 @@ Route::group(['middleware'=>['auth','active']],function (){
         Route::post('/clients',[\App\Http\Controllers\ImportController::class,'clients'])->name('clients');
         Route::post('/companies',[\App\Http\Controllers\ImportController::class,'companies'])->name('companies');
         Route::post('/vendors',[\App\Http\Controllers\ImportController::class,'vendors'])->name('vendors');
-    });
 
+        Route::post('/elements',[\App\Http\Controllers\ImportController::class,'elements'])->name('elements');
+        Route::post('/items',[\App\Http\Controllers\ImportController::class,'items'])->name('items');
+        Route::post('/products',[\App\Http\Controllers\ImportController::class,'products'])->name('products');
+    });
 
     Route::group(['prefix'=>'template', 'as' => 'template.',],function (){
         Route::get('/clients',[\App\Http\Controllers\TemplatesController::class,'clients'])->name('clients');
         Route::get('/companies',[\App\Http\Controllers\TemplatesController::class,'companies'])->name('companies');
         Route::get('/vendors',[\App\Http\Controllers\TemplatesController::class,'vendors'])->name('vendors');
+
+        Route::get('/elements',[\App\Http\Controllers\TemplatesController::class,'elements'])->name('elements');
+        Route::get('/items',[\App\Http\Controllers\TemplatesController::class,'items'])->name('items');
+        Route::get('/products',[\App\Http\Controllers\TemplatesController::class,'products'])->name('products');
     });
 
 

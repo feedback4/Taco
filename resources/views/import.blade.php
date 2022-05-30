@@ -70,7 +70,67 @@
     </div>
 </div>
 
+<div class="row  d-flex justify-content-between ">
+    <div class="card  flex-md-fill m-1 ">
+        <h3 class="card-header">Elements</h3>
+        <form action="{{ route('import.elements') }}" method="POST" enctype="multipart/form-data" class="card-body">
+            @csrf
+            <a class="btn btn-dark" href="{{ route('template.elements') }}">Download Template</a>
+            <hr>
+            <div class="form-group mb-4" style="max-width: 500px; margin: 0 auto;">
+                <div class="custom-file text-left">
+                    <input type="file" name="elements" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                @error('elements')
+                <small class="text-danger">{{$message}}</small>
+                @enderror
+            </div>
 
+            <button class="btn btn-primary">Import data</button>
+            {{--            <a class="btn btn-success" href="{{ route('import') }}">Export data</a>--}}
+        </form>
+    </div>
+
+    <div class="card flex-md-fill m-1">
+        <h3 class="card-header">Items</h3>
+        <form action="{{ route('import.items') }}" method="POST" enctype="multipart/form-data" class="card-body">
+            @csrf
+            <a class="btn btn-dark" href="{{ route('template.items') }}">Download Template</a>
+            <hr>
+            <div class="form-group mb-4" style="max-width: 500px; margin: 0 auto;">
+                <div class="custom-file text-left">
+                    <input type="file" name="items" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+            </div>
+            @error('items')
+            <small class="text-danger">{{$message}}</small>
+            @enderror
+            <button class="btn btn-primary">Import data</button>
+            {{--            <a class="btn btn-success" href="{{ route('import') }}">Export data</a>--}}
+        </form>
+    </div>
+    <div class="card flex-md-fill m-1">
+        <h3 class="card-header">Final Products</h3>
+        <form action="{{ route('import.products') }}" method="POST" enctype="multipart/form-data" class="card-body">
+            @csrf
+            <a class="btn btn-dark" href="{{ route('template.products') }}">Download Template</a>
+            <hr>
+            <div class="form-group mb-4" style="max-width: 500px; margin: 0 auto;">
+                <div class="custom-file text-left">
+                    <input type="file" name="products" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                @error('products')
+                <small class="text-danger">{{$message}}</small>
+                @enderror
+            </div>
+            <button class="btn btn-primary">Import data</button>
+            {{--            <a class="btn btn-success" href="{{ route('') }}">Export data</a>--}}
+        </form>
+    </div>
+</div>
 
 
 @endsection

@@ -43,19 +43,42 @@ class TemplatesController extends Controller
 
     public function vendors ()
     {
-        $file = public_path(). "/storage/templates/vendors.xlsx";
-
-        $headers = ['Content-Type: application/pdf'];
-
-
-
+        $file = public_path() . "/storage/templates/vendors.xlsx";
         if (file_exists($file)) {
-            return \Response::download($file, 'vendors.xlsx', $headers);
+            return \Response::download($file, 'vendors.xlsx');
         } else {
             toastError('File not found.');
             return back();
         }
-    //    return response()->download(asset('/storage/templates/vendors.xlsx'));
-        return Storage::download('templates/vendors.xlsx');
+    }
+    public function elements ()
+    {
+        $file = public_path() . "/storage/templates/elements.xlsx";
+        if (file_exists($file)) {
+            return \Response::download($file, 'elements.xlsx');
+        } else {
+            toastError('File not found.');
+            return back();
+        }
+    }
+    public function items ()
+    {
+        $file = public_path() . "/storage/templates/items.xlsx";
+        if (file_exists($file)) {
+            return \Response::download($file, 'items.xlsx');
+        } else {
+            toastError('File not found.');
+            return back();
+        }
+    }
+    public function products ()
+    {
+        $file = public_path() . "/storage/templates/products.xlsx";
+        if (file_exists($file)) {
+            return \Response::download($file, 'products.xlsx');
+        } else {
+            toastError('File not found.');
+            return back();
+        }
     }
 }

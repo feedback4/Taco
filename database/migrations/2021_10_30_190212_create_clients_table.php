@@ -17,11 +17,15 @@ class CreateClientsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone');
+            $table->string('type');
 //            $table->string('address')->nullable();
             $table->foreignIdFor(\App\Models\Status::class);
             $table->foreignIdFor(\App\Models\Company::class)->nullable();
             $table->string('code')->nullable()->unique();
+            $table->string('location');
+            $table->string('payment');
             $table->bigInteger('balance')->nullable();
+            $table->boolean('vat')->default(true);
             $table->dateTime('last_action_at')->nullable();
             $table->timestamps();
             $table->softDeletes();

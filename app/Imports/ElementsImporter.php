@@ -12,6 +12,6 @@ class ElementsImporter implements ToCollection
     */
     public function collection(Collection $collection)
     {
-        //
+
     }
 }

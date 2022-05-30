@@ -20,6 +20,7 @@ class CreateVendorsTable extends Migration
             $table->string('email')->nullable();
             $table->text('address')->nullable();
             $table->boolean('active')->default(true);
+            $table->boolean('vat')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });

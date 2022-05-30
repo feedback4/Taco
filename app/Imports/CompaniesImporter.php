@@ -21,7 +21,8 @@ class CompaniesImporter implements ToModel ,WithHeadingRow ,WithBatchInserts ,Wi
         return new Company([
             'name' => $row['name'],
             'address' =>$row['address'],
-            'state' => $row['state']
+            'state' => $row['state'],
+            'active'     => true,
         ]);
 
 
