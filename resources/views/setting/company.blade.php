@@ -70,7 +70,7 @@
                         </div>
 
                         <div class="col-md-6 mb-2">
-                            <img id="preview-image-before-upload"  src="{{ setting('company_logo') ? asset( setting('company_logo') ) :  asset('storage/pics/placeholder/logo-placeholder-image.png') }}"
+                            <img id="preview-image-before-upload"  src="{{ setting('company_logo') ? asset( setting('company_logo') ) :  public_path() . 'storage/pics/placeholder/logo-placeholder-image.png' }}"
                                  alt="preview image" style="max-height: 250px;">
                         </div>
                     </div>
