@@ -20,6 +20,8 @@ class CreateClientsTable extends Migration
 //            $table->string('address')->nullable();
             $table->foreignIdFor(\App\Models\Status::class);
             $table->foreignIdFor(\App\Models\Company::class)->nullable();
+            $table->string('code')->nullable()->unique();
+            $table->bigInteger('balance')->nullable();
             $table->dateTime('last_action_at')->nullable();
             $table->timestamps();
             $table->softDeletes();

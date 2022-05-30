@@ -138,7 +138,8 @@ class ConstansSeeder extends Seeder
             ]);
         }
 
-
+//        Lead,Contacted,Sample Requested,Sample Submitted,Order,Manufacturing,Rejected,Done,InActive
+//
         $clientStatuses = ['Lead', 'Contacted', 'Sample Requested', 'Sample Submitted', 'Order', 'Manufacturing', 'Rejected', 'Done', 'InActive'];
         $orderStatuses = ['pending', 'Manufacturing', 'done'];
         $billStatuses = ['unpaid', 'partial', 'paid'];

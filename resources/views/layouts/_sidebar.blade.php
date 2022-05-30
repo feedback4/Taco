@@ -292,6 +292,16 @@
                 {{--                        </p>--}}
                 {{--                    </a>--}}
                 {{--                </li>--}}
+
+                    <li class="nav-item">
+                        <a class="nav-link  " href="{{route('import.index')}}">
+                            <i class='bx bx-import bx-xs'></i>
+                            <p>
+                                Import
+                            </p>
+                        </a>
+                    </li>
+
                 @can('setting')
                     <li class="nav-item">
                         <a class="nav-link  " href="{{route('setting.index')}}">

@@ -16,6 +16,7 @@ class Client extends Model
         'status_id',
         'company_id',
         'balance',
+        'code'
     ];
 
 

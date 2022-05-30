@@ -103,6 +103,24 @@ Route::group(['middleware'=>['auth','active']],function (){
     Route::group(['prefix'=>'reports', 'as' => 'reports.',],function (){
         Route::get('/',[\App\Http\Controllers\ReportsController::class,'index'])->name('index');
     });
+
+
+    Route::group(['prefix'=>'import', 'as' => 'import.',],function (){
+        Route::get('/',[\App\Http\Controllers\ImportController::class,'index'])->name('index');
+        Route::post('/clients',[\App\Http\Controllers\ImportController::class,'clients'])->name('clients');
+        Route::post('/companies',[\App\Http\Controllers\ImportController::class,'companies'])->name('companies');
+        Route::post('/vendors',[\App\Http\Controllers\ImportController::class,'vendors'])->name('vendors');
+    });
+
+
+    Route::group(['prefix'=>'template', 'as' => 'template.',],function (){
+        Route::get('/clients',[\App\Http\Controllers\TemplatesController::class,'clients'])->name('clients');
+        Route::get('/companies',[\App\Http\Controllers\TemplatesController::class,'companies'])->name('companies');
+        Route::get('/vendors',[\App\Http\Controllers\TemplatesController::class,'vendors'])->name('vendors');
+    });
+
+
+
     Route::group(['prefix'=>'setting', 'as' => 'setting.',],function (){
         Route::get('/',[\App\Http\Controllers\SettingController::class,'index'])->name('index');
 
