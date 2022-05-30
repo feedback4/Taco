@@ -105,8 +105,9 @@ class UsersController extends Controller
     public function edit(int $id)
     {
         //
-        $user = User::findOrFail($id);
-        $roles =Role::pluck('name')->all();
+        $user  = User::findOrFail($id);
+      //  $roles = Role::pluck('name')->all();
+        $roles = Role::whereNotIn('name', ['feedback'])->pluck('name')->all();
         $userRole = $user->roles->pluck('name')->all();
 
         return view('hr.users.edit',compact('user','roles','userRole'));
@@ -133,7 +134,8 @@ class UsersController extends Controller
         DB::table('model_has_roles')->where('model_id',$id)->delete();
         $roleId = DB::table('roles')->where('name',$request->input('role'))->value('id');
 
-        DB::table('users')->where('id',$id)->update(['role'=>$roleId]);
+       // DB::table('users')->where('id',$id)->update(['role'=>$roleId]);
+
         $user->assignRole($request->input('role'));
         return redirect()->route('hr.users.index')->with('success','User Updated Successfully');
     }
