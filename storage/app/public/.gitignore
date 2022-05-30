@@ -1,2 +1,4 @@
 *
 !.gitignore
+!pics
+!templates
