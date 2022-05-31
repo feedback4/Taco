@@ -21,8 +21,12 @@
                 <tr>
                     <td>Name</td>
                     <td>Phone</td>
-                    <td>Status</td>
                     <td>Company</td>
+                    <td>Type</td>
+                    <td>Payment</td>
+                    <td>VAT</td>
+                    <td>Status</td>
+
                 </tr>
                 </thead>
                 <tbody>
@@ -30,8 +34,12 @@
                     <tr>
                         <td><a href="{{route('crm.clients.show',$client->id)}}">{{$client->name}}</a></td>
                         <td>{{$client->phone ?? 'no phone'}}</td>
-                        <td>{{$client->status->name ?? 'no status'}}</td>
                         <td>{{$client->company->name ?? 'none'}}</td>
+                        <td>{{$client->type ?? 'no type'}}</td>
+                        <td>{{$client->payment ?? 'no payment'}}</td>
+                        <td>{{$client->vat ? 'Y' : 'N'}}</td>
+                        <td>{{$client->status->name ?? 'no status'}}</td>
+
                         <td>
                             <div class="d-flex justify-content-between">
                                 <a href="{{ route('crm.clients.edit',$client->id) }}"

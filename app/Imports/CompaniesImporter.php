@@ -5,6 +5,7 @@ namespace App\Imports;
 
 use App\Models\Company;
 use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\SkipsErrors;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
@@ -15,10 +16,13 @@ use Maatwebsite\Excel\Concerns\WithValidation;
 class CompaniesImporter implements ToModel ,WithHeadingRow ,WithBatchInserts ,WithCustomChunkSize  ,SkipsOnError
 {
     // use SkipsFailures ;
-    use Importable ;
+    use Importable,SkipsErrors ;
     public function model(array $row)
     {
-
+        if ( Company::where('name',$row['name'])->first()  ) {
+            toastWarning('this name has been used before',$row['name']);
+            return null;
+        }
        //   dd($row);
         if (isset($row['name'])){
             return new Company([

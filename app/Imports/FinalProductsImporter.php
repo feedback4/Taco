@@ -40,24 +40,34 @@ class FinalProductsImporter implements  ToModel ,WithHeadingRow ,SkipsOnError
 //
 //            ])->validate();
 
-        if (!isset($row['quantity']) || !isset($row['price']) || !isset($row['product'])) {
-           // dd('empty');
+        if ( !isset($row['price'])  ) {
+            toastWarning('price can\'t be blank');
+            return null;
+        }
+        if (!isset($row['quantity']) ) {
+            toastWarning('quantity can\'t be blank');
+            return null;
+        }
+        if ( !isset($row['product'])) {
+            toastWarning('product can\'t be blank');
             return null;
         }
         $product = $this->products->where('code', trim($row['product']))->orWhere('name',trim($row['product']))->first();
 
         if (!isset($product)) {
             // dd($this->elements->get());
-            dd($row['product']);
+            toastError("Not a product name or code" , $row['product']);
+
             return null;
         }
         return Item::create([
             'name' => $product->name,
             'quantity' => $row['quantity'],
-            'description' => $row['description'],
+            'description' => $row['description'] ?? 'no description',
             'unit' => $row['unit'] ?? 'kg',
             'cost' => $row['cost'] ,
             'price' => $row['price'],
+            'expire_at' => $row['expire_at'] ?? null,
             'invoice_code' => 0,
             'product_id' => $product->id,
             'type' => 'product',

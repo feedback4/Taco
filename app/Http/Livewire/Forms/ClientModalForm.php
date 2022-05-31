@@ -12,8 +12,12 @@ class ClientModalForm extends Component
     protected $rules = [
         'name' => 'required',
         'phone' => 'required',
+        'type' => 'required',
+        'payment' => 'required',
+        'location' => 'required',
         'status_id' => 'required|numeric',
-        'company_id' => 'nullable|numeric'
+        'company_id' => 'nullable|numeric',
+        'vat' => 'required|boolean',
 //        'email' => 'required',
 //        'address' => 'required',
     ];
@@ -21,6 +25,10 @@ class ClientModalForm extends Component
     public $name ;
     public $phone ;
     public $status_id;
+    public $type ;
+    public $payment ;
+    public $vat = true;
+    public $location ;
     public $company_id;
 //    public $email ;
 //    public $address;
@@ -32,7 +40,9 @@ class ClientModalForm extends Component
     {
         return view('livewire.forms.client-modal-form',[
             'companies' => Company::where('active',true)->get(),
-            'statuses' => Status::where('type','client')->get()
+            'statuses' => Status::where('type','client')->get(),
+              'types' =>  Client::$types,
+            'payments' =>  Client::$payments,
         ]);
     }
 
@@ -54,6 +64,7 @@ class ClientModalForm extends Component
     public function save()
     {
         $validated =  $this->validate();
+    //    dd($validated);
         $this->client =   Client::create($validated);
         $this->emitTo('forms.invoice-form','selectClient',$this->client->id);
         $this->dispatchBrowserEvent('closeModel');

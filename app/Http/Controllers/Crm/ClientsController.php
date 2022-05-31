@@ -36,7 +36,9 @@ class ClientsController extends Controller
     {
         $statuses = Status::where('type', 'client')->get();
         $companies = Company::where('active', true)->select('id', 'name')->get();
-        return view('crm.clients.create', compact('statuses', 'companies'));
+        $types = Client::$types;
+        $payments = Client::$payments;
+        return view('crm.clients.create', compact('statuses', 'companies','types','payments'));
     }
 
     /**
@@ -50,8 +52,12 @@ class ClientsController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'phone' => 'required',
+            'type' => 'required',
+            'location' => 'required',
             'status_id' => 'required|numeric',
-             'company_id' => 'nullable|numeric'
+             'company_id' => 'nullable|numeric',
+            'vat' => 'required|boolean',
+
         ]);
         $input = $request->all();
 
@@ -87,7 +93,9 @@ class ClientsController extends Controller
     {
         $statuses = Status::where('type', 'client')->get();
         $companies = Company::where('active', true)->select('id', 'name')->get();
-        return view('crm.clients.edit', compact('client', 'statuses','companies'));
+        $types = Client::$types;
+        $payments = Client::$payments;
+        return view('crm.clients.edit', compact('client', 'statuses','companies','types','payments'));
     }
 
     /**
@@ -102,8 +110,12 @@ class ClientsController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'phone' => 'required',
+            'type' => 'required',
+            'payment' => 'required',
+            'location' => 'required',
             'status_id' => 'required|numeric',
-            'company_id' => 'nullable'
+            'company_id' => 'nullable|numeric',
+            'vat' => 'required|boolean',
         ]);
         $input = $request->all();
 

@@ -49,8 +49,25 @@ class ElementsImporter implements ToModel ,WithHeadingRow ,WithBatchInserts ,Wit
 
     public function model(array $row)
     {
-       // dd($row);
+        if ( !isset($row['category'])  ) {
+            toastWarning('category can\'t be blank');
+            return null;
+        }
+        if ( !isset($row['code'])  ) {
+            toastWarning('code can\'t be blank');
+            return null;
+        }
+        if ( !isset($row['name'])  ) {
+            toastWarning('name can\'t be blank');
+            return null;
+        }
+        if ( Element::where('code',$row['code'])->first()  ) {
+            toastWarning('this code has been used before',$row['code']);
+            return null;
+        }
+
         $category = $this->categories->where('name',trim($row['category']))->first() ?? Category::create(['name' => trim( $row['category']) ,'type'=>'element']);
+
         return new Element([
             'name'              =>  trim($row["name"]),
             'code'             =>  trim($row["code"]),
@@ -61,7 +78,6 @@ class ElementsImporter implements ToModel ,WithHeadingRow ,WithBatchInserts ,Wit
 
     public function onError(\Throwable $e)
     {
-
         toastr()->error('something went wrong please try again later','oops');
         throw($e);
     }

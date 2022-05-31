@@ -51,7 +51,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="company" class=" col-form-label text-md-right">Company</label>
-                                    <select wire:model.lazy="company_id"  name="" class="form-control "  >
+                                    <select wire:model.lazy="company_id"  name="company_id" class="form-control "  >
                                         <option value="">Select Company</option>
                                         @foreach($companies as $company)
                                             <option value="{{$company->id}}">{{$company->name}}</option>
@@ -62,6 +62,7 @@
                                     <strong>{{ $message }}</strong>
                                     @enderror
                                 </div>
+
 
 {{--                            <div class="col-md-4">--}}
 {{--                                <label for="email" class=" col-form-label text-md-right">Email</label>--}}
@@ -83,6 +84,45 @@
 {{--                                @enderror--}}
 {{--                            </div>--}}
                         </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label for="type" class=" col-form-label text-md-right">{{ __('Type') }}</label>
+                                <select wire:model.lazy="type" class="form-control "  >
+                                    <option value="">Select Type</option>
+                                    @foreach($types as $type)
+                                        <option value="{{$type}}">{{$type}}</option>
+                                    @endforeach
+                                </select>
+                                @error('type')
+                                <strong>{{ $message }}</strong>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <label for="payment" class=" col-form-label text-md-right">{{ __('Payment') }}</label>
+                                <select wire:model.lazy="payment" class="form-control "  >
+                                    <option value="">Select Payment</option>
+                                    @foreach($payments as $payment)
+                                        <option value="{{$payment}}">{{$payment}}</option>
+                                    @endforeach
+                                </select>
+                                @error('payment')
+                                <strong>{{ $message }}</strong>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label for="location" class=" col-form-label text-md-right">{{ __('Location') }}</label>
+                                <input  type="text" class="form-control @error('location') is-invalid @enderror" wire:model.lazy="location" autocomplete="location" >
+
+                                @error('location')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <!-- Modal -->
                     </form>
                 </div>

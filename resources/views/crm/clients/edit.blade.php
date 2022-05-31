@@ -20,7 +20,7 @@
                 <form method="POST" action="{{route('crm.clients.update',$client->id)}}">
                     @csrf
                     @method('PUT')
-
+                    <input name="vat" type="hidden" value="0"  >
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label for="name" class=" col-form-label text-md-right">{{ __('Name') }}</label>
@@ -68,6 +68,53 @@
                             <strong>{{ $message }}</strong>
                             @enderror
                         </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-5">
+                            <label for="type" class=" col-form-label text-md-right">Type</label>
+                            <select name="type" class="form-control "  >
+                                <option value="">Select Status</option>
+                                @foreach($types as $type)
+                                    <option value="{{$type}}" @if($type == $client->type) selected  @endif >{{$type}}</option>
+                                @endforeach
+                            </select>
+                            @error('type')
+                            <strong>{{ $message }}</strong>
+                            @enderror
+                        </div>
+                        <div class="col-md-5">
+                            <label for="payment" class=" col-form-label text-md-right">Payment</label>
+                            <select name="payment" class="form-control "  >
+                                <option value="">Select Payment</option>
+                                @foreach($payments as $payment)
+                                    <option value="{{$payment}}"  @if($payment == $client->payment) selected  @endif>{{$payment}}</option>
+                                @endforeach
+                            </select>
+                            @error('payment')
+                            <strong>{{ $message }}</strong>
+                            @enderror
+                        </div>
+                        <div class="col-md-2">
+                            <label for="vat" class=" col-form-label text-md-right">VAT</label>
+                            <input name="vat" type="checkbox" value="1" @if($client->vat) checked @endif class="form-control "  >
+                            @error('vat')
+                            <strong>{{ $message }}</strong>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label for="location" class=" col-form-label text-md-right">{{ __('Location') }}</label>
+                            <input id="location" type="text" class="form-control @error('location') is-invalid @enderror" name="location" value="{{ $client->location }}"  autocomplete="location" >
+
+                            @error('location')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+
                     </div>
 
                     <div class="form-group row mb-0">

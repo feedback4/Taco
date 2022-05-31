@@ -32,19 +32,38 @@ class ImportController extends Controller
         $this->validate($request ,[
             'clients'          => 'required|mimes:xlsx',
         ]);
-        Excel::import(new ClientsImporter(), $request->file('clients')->store('temp'));
-        toastSuccess('Done ....');
+
+      //  Excel::import(new ClientsImporter(), $request->file('clients')->store('temp'));
+        $file = $request->file('clients')->store('import');
+        $importer = new ClientsImporter()  ;
+        $importer->import($file);
+      //  dd($importer);
+        if (! $importer->errors()->isEmpty()){
+            dd($importer->errors());
+        }
+        toastSuccess('Done Importing ');
         return back();
     }
 
     public function companies(Request $request)
     {
 
+//        $this->validate($request ,[
+//            'companies'          => 'required|mimes:xlsx',
+//        ]);
+//        Excel::import(new CompaniesImporter(), $request->file('companies')->store('temp'));
         $this->validate($request ,[
             'companies'          => 'required|mimes:xlsx',
         ]);
-        Excel::import(new CompaniesImporter(), $request->file('companies')->store('temp'));
-        toastSuccess('Done ....');
+        $file = $request->file('companies')->store('import');
+        $importer = new CompaniesImporter()  ;
+        $importer->import($file);
+
+        if (! $importer->errors()->isEmpty()){
+            dd($importer->errors());
+        }
+     //   toastSuccess('new companies imported ','success');
+        toastSuccess('Done Importing ');
         return back();
     }
 
@@ -62,7 +81,9 @@ class ImportController extends Controller
             dd($importer->errors());
         }
 
-        toastSuccess('Done ....');
+    //    toastSuccess('new vendors imported ','success');
+        toastSuccess('Done Importing ');
+
         return back();
     }
     public function elements(Request $request)
@@ -79,8 +100,8 @@ class ImportController extends Controller
         if (! $importer->errors()->isEmpty()){
             dd($importer->errors());
         }
-
-        toastSuccess('Done ....');
+     //   toastSuccess('new elements created ','success');
+        toastSuccess('Done Importing ');
         return back();
     }
     public function items(Request $request)
@@ -96,7 +117,7 @@ class ImportController extends Controller
         if (! $importer->errors()->isEmpty()){
             dd($importer->errors());
         }
-        toastSuccess('Done ....');
+        toastSuccess('check Main Inventory','products imported');
         return back();
     }
     public function products(Request $request)
@@ -115,7 +136,8 @@ class ImportController extends Controller
             dd($importer->errors());
         }
 
-        toastSuccess('Done ....');
+        toastSuccess('check Final Product inventory','products imported');
+
         return back();
     }
 

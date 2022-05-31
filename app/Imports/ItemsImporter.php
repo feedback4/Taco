@@ -42,32 +42,38 @@ class ItemsImporter implements ToModel ,WithHeadingRow ,SkipsOnError
 //
 //            ])->validate();
 
-            if (!isset($row['quantity']) || !isset($row['cost']) || !isset($row['element_code']) ){
-                dd('empty');
-                return null ;
-            }
+        if ( !isset($row['cost'])  ) {
+            toastWarning('price can\'t be blank');
+            return null;
+        }
+        if (!isset($row['quantity']) ) {
+            toastWarning('quantity can\'t be blank');
+            return null;
+        }
+        if ( !isset($row['element_code'])) {
+            toastWarning('Element code can\'t be blank');
+            return null;
+        }
                 $element = $this->elements->where('code' ,  trim($row['element_code']) )->first();
 
-            if (!isset($element)) {
-               // dd($this->elements->get());
-                dd($row['element_code']);
-                return null ;
-            }
-                return Item::create([
-                    'name' => $element->name,
-                    'quantity' => $row['quantity'],
-                    'description' => $row['description'],
-                    'unit' => $row['unit'] ?? 'kg',
-                    'price' => $row['cost'],
-                    'bill_code' => 0,
-                    'element_id' => $element->id,
-                    'type' => 'material',
-                    'user_id' => $this->userId,
-                    'inventory_id' => 2,
-                ]);
+        if (!isset($element)) {
+            toastError("Not an element name or code" , $row['product']);
+            return null;
+        }
 
-
-
+        return Item::create([
+            'name' => $element->name,
+            'quantity' => $row['quantity'],
+            'description' => $row['description'] ?? 'no description',
+            'unit' => $row['unit'] ?? 'kg',
+            'price' => $row['cost'],
+            'expire_at' => $row['expire_at'] ?? null,
+            'bill_code' => 0,
+            'element_id' => $element->id,
+            'type' => 'material',
+            'user_id' => $this->userId,
+            'inventory_id' => 1,
+        ]);
     }
     public function onError(\Throwable $e)
     {

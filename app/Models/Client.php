@@ -10,6 +10,8 @@ class Client extends Model
 {
     use HasFactory ,softDeletes ;
 
+    public static $types = ['موزع','فرن','مصنع'];
+    public static $payments = ['cash','credit'];
     protected $fillable = [
         'name',
         'phone',
