@@ -12,8 +12,9 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithUpserts;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
-class VendorsImporter implements ToModel ,WithValidation ,WithUpserts
+class VendorsImporter implements ToModel ,WithUpserts
 {
+    use Importable ;
     public function uniqueBy()
     {
         return 'phone';
@@ -37,25 +38,25 @@ class VendorsImporter implements ToModel ,WithValidation ,WithUpserts
         ]);
     }
 
-    public function rules(): array
-    {
-        return [
-            'name' => [
-                'required',
-                'string',
-            ],
-            'phone' => ['required','unique:vendors'],
-            'email' => ['nullable','email'],
-            'address' => ['required','string'],
-        ];
-    }
-
-
-    public function customValidationMessages()
-    {
-        return [
-            'phone.unique' => 'Correo ya esta en uso.',
-        ];
-    }
+//    public function rules(): array
+//    {
+//        return [
+//            'name' => [
+//                'required',
+//                'string',
+//            ],
+//            'phone' => ['required','unique:vendors'],
+//            'email' => ['nullable','email'],
+//            'address' => ['required','string'],
+//        ];
+//    }
+//
+//
+//    public function customValidationMessages()
+//    {
+//        return [
+//            'phone.unique' => 'Correo ya esta en uso.',
+//        ];
+//    }
 
 }

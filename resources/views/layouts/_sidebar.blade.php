@@ -191,7 +191,7 @@
                             <li class="nav-item">
                                 <a class="nav-link  " href="{{route('inventory.products')}}">
                                     <p>
-                                        Products
+                                        Final Products
                                     </p>
                                 </a>
                             </li>

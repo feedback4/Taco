@@ -18,6 +18,7 @@ use Maatwebsite\Excel\Concerns\WithValidation;
 
 class ClientsImporter implements ToModel ,WithHeadingRow ,WithBatchInserts ,WithCustomChunkSize ,WithValidation ,SkipsOnError
 {
+    use Importable ;
    // use SkipsFailures ;
     private $statuses;
     private $companies;
@@ -31,20 +32,20 @@ class ClientsImporter implements ToModel ,WithHeadingRow ,WithBatchInserts ,With
     public function model(array $row)
     {
 
-        $company = $this->companies->where('name',$row['company_name'])->first() ?? Company::create(['name' => $row['company_name']]);
+        $company = $this->companies->where('name',trim($row['company_name']))->first() ?? Company::create(['name' => trim($row['company_name'])]);
         // dd($company);
-        $status = $this->statuses->where('name',$row['status'])->first();
+        $status = $this->statuses->where('name',trim($row['status']))->first();
         //  dd($status->id);
         return new Client([
-            'name' => $row['name'],
-            'phone' =>$row['phone'],
-            'type' =>$row['type'],
+            'name' => trim($row['name']),
+            'phone' => trim($row['phone']),
+            'type' => trim($row['type']),
             'status_id' => $status->id,
-            'company_id' => $company->id,
-            'location' =>$row['location'],
-            'vat' =>$row['vat'],
-            'code' => $row['code'],
-            'payment' =>$row['payment'],
+            'company_id' =>$company->id,
+            'location' => trim($row['location']),
+            'vat' => trim($row['vat']),
+            'code' => trim($row['code']),
+            'payment' => trim($row['payment']),
         ]);
 
 
@@ -52,7 +53,6 @@ class ClientsImporter implements ToModel ,WithHeadingRow ,WithBatchInserts ,With
     public function onError(\Throwable $e)
     {
         // Handle the exception how you'd like.
-        dd($e);
           toastr()->error('something went wrong please try again later','oops');
         throw($e);
     }

@@ -17,7 +17,7 @@
             <hr>
             <div class="form-group mb-4" style="max-width: 500px; margin: 0 auto;">
                 <div class="custom-file text-left">
-                    <input type="file" name="clients" class="custom-file-input" id="customFile">
+                    <input type="file" name="clients" class="custom-file-input" id="clients">
                     <label class="custom-file-label" for="customFile">Choose file</label>
                 </div>
                 @error('clients')
@@ -38,7 +38,7 @@
             <hr>
             <div class="form-group mb-4" style="max-width: 500px; margin: 0 auto;">
                 <div class="custom-file text-left">
-                    <input type="file" name="companies" class="custom-file-input" id="customFile">
+                    <input type="file" name="companies" class="custom-file-input" id="companies">
                     <label class="custom-file-label" for="customFile">Choose file</label>
                 </div>
             </div>
@@ -57,7 +57,7 @@
             <hr>
             <div class="form-group mb-4" style="max-width: 500px; margin: 0 auto;">
                 <div class="custom-file text-left">
-                    <input type="file" name="vendors" class="custom-file-input" id="customFile">
+                    <input type="file" name="vendors" class="custom-file-input" id="vendors">
                     <label class="custom-file-label" for="customFile">Choose file</label>
                 </div>
                 @error('vendors')
@@ -79,7 +79,7 @@
             <hr>
             <div class="form-group mb-4" style="max-width: 500px; margin: 0 auto;">
                 <div class="custom-file text-left">
-                    <input type="file" name="elements" class="custom-file-input" id="customFile">
+                    <input type="file" name="elements" class="custom-file-input" id="elements">
                     <label class="custom-file-label" for="customFile">Choose file</label>
                 </div>
                 @error('elements')
@@ -100,7 +100,7 @@
             <hr>
             <div class="form-group mb-4" style="max-width: 500px; margin: 0 auto;">
                 <div class="custom-file text-left">
-                    <input type="file" name="items" class="custom-file-input" id="customFile">
+                    <input type="file" name="items" class="custom-file-input" id="items">
                     <label class="custom-file-label" for="customFile">Choose file</label>
                 </div>
             </div>
@@ -119,7 +119,7 @@
             <hr>
             <div class="form-group mb-4" style="max-width: 500px; margin: 0 auto;">
                 <div class="custom-file text-left">
-                    <input type="file" name="products" class="custom-file-input" id="customFile">
+                    <input type="file" name="products" class="custom-file-input" id="products">
                     <label class="custom-file-label" for="customFile">Choose file</label>
                 </div>
                 @error('products')
