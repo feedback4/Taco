@@ -37,7 +37,7 @@ class VendorsImporter implements ToModel , WithHeadingRow,SkipsOnError
             'name'       => $row['name'],
             'phone'      => $row['phone'],
             'email'      => $row['email'],
-            'address'    => $row['address'] ?? '',
+            'address'    => $row['address'] ?? 'no address',
             'active'     => true,
             'vat'        => $row['vat'] == 'Y'
         ]);

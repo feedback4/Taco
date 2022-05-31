@@ -19,21 +19,28 @@ class CompaniesImporter implements ToModel ,WithHeadingRow ,WithBatchInserts ,Wi
     use Importable,SkipsErrors ;
     public function model(array $row)
     {
+        if ( !isset($row['name'])  ) {
+            toastWarning('name can\'t be blank');
+            return null;
+        }
+        if ( !isset($row['state'])  ) {
+            toastWarning('state can\'t be blank');
+            return null;
+        }
+
         if ( Company::where('name',$row['name'])->first()  ) {
             toastWarning('this name has been used before',$row['name']);
             return null;
         }
        //   dd($row);
-        if (isset($row['name'])){
+
             return new Company([
                 'name' => $row['name'],
-                'address' =>$row['address'],
+                'address' =>$row['address'] ?? 'no address',
                 'state' => $row['state'],
                 'active'     => true,
             ]);
-        }else{
-            return null ;
-        }
+
 
 
 
