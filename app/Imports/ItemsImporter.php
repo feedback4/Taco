@@ -57,7 +57,7 @@ class ItemsImporter implements ToModel ,WithHeadingRow ,SkipsOnError
                 $element = $this->elements->where('code' ,  trim($row['element_code']) )->first();
 
         if (!isset($element)) {
-            toastError("Not an element name or code" , $row['element_code']);
+            toastError("Not an element name or code" , $row['product']);
             return null;
         }
 
