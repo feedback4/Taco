@@ -40,9 +40,6 @@ Route::group(['middleware'=>['auth','active']],function (){
         Route::resource('employees',\App\Http\Controllers\Hr\EmployeesController::class);
     });
 
-
-
-
     Route::group(['prefix'=>'crm', 'as' => 'crm.',],function (){
         Route::resource('clients',\App\Http\Controllers\Crm\ClientsController::class);
         Route::resource('companies',\App\Http\Controllers\Crm\CompaniesController::class);
@@ -62,6 +59,7 @@ Route::group(['middleware'=>['auth','active']],function (){
         Route::resource('bills',\App\Http\Controllers\Purchases\BillsController::class);
         Route::resource('payments',\App\Http\Controllers\Purchases\PaymentController::class);
         Route::resource('vendors',\App\Http\Controllers\Purchases\VendorController::class);
+        Route::resource('returns',\App\Http\Controllers\Purchases\ReturnsController::class);
     });
 
     Route::group(['prefix'=>'inventory', 'as' => 'inventory.',],function (){
@@ -69,14 +67,21 @@ Route::group(['middleware'=>['auth','active']],function (){
         Route::get('/pending',[\App\Http\Controllers\Inventory\InventoryController::class,'pending'])->name('pending');
         Route::post('/add',[\App\Http\Controllers\Inventory\InventoryController::class,'add'])->name('add');
 
+        Route::get('/production',[\App\Http\Controllers\Inventory\InventoryController::class,'production'])->name('production');
+        Route::get('/production/pending',[\App\Http\Controllers\Inventory\InventoryController::class,'productionPending'])->name('production.pending');
+        Route::post('/production/add',[\App\Http\Controllers\Inventory\InventoryController::class,'addProduction'])->name('production.add');
+
         Route::get('/products',[\App\Http\Controllers\Inventory\InventoryController::class,'products'])->name('products');
         Route::get('/products/pending',[\App\Http\Controllers\Inventory\InventoryController::class,'productsPending'])->name('products.pending');
         Route::post('/products/add',[\App\Http\Controllers\Inventory\InventoryController::class,'addProducts'])->name('products.add');
 
-
-
         Route::get('/{id}',[\App\Http\Controllers\Inventory\InventoryController::class,'show'])->name('show');
         Route::get('/{id}/insert',[\App\Http\Controllers\Inventory\InventoryController::class,'insert'])->name('insert');
+
+        Route::get('transfer',[\App\Http\Controllers\Inventory\InventoryController::class,'transfer'])->name('transfer');
+      //  Route::resource('transfer-orders',\App\Http\Controllers\Inventory\TransferOrdersController::class);
+
+       // Route::get('transferorders',[\App\Http\Controllers\Inventory\TransferOrdersController::class,'index'])->name('transferorders.index');
     });
 
     Route::group(['prefix'=>'production', 'as' => 'production.',],function (){
@@ -98,6 +103,14 @@ Route::group(['middleware'=>['auth','active']],function (){
 
         Route::resource('invoices',\App\Http\Controllers\Sales\InvoicesController::class);
         Route::resource('revenues',\App\Http\Controllers\Sales\RevenuesController::class);
+
+        Route::resource('returns',\App\Http\Controllers\Sales\ReturnsController::class);
+    });
+
+    Route::group(['prefix'=>'banking', 'as' => 'banking.',],function (){
+        Route::resource('accounts',\App\Http\Controllers\Banking\AccountsController::class);
+        Route::resource('transactions',\App\Http\Controllers\Banking\TransactionsController::class);
+        Route::resource('transfers',\App\Http\Controllers\Banking\TransfersController::class);
     });
 
     Route::group(['prefix'=>'reports', 'as' => 'reports.',],function (){
@@ -114,6 +127,9 @@ Route::group(['middleware'=>['auth','active']],function (){
         Route::post('/elements',[\App\Http\Controllers\ImportController::class,'elements'])->name('elements');
         Route::post('/items',[\App\Http\Controllers\ImportController::class,'items'])->name('items');
         Route::post('/products',[\App\Http\Controllers\ImportController::class,'products'])->name('products');
+
+        Route::post('/bills',[\App\Http\Controllers\ImportController::class,'bills'])->name('bills');
+        Route::post('/production-orders',[\App\Http\Controllers\ImportController::class,'production-orders'])->name('production-orders');
     });
 
     Route::group(['prefix'=>'template', 'as' => 'template.',],function (){
@@ -124,6 +140,9 @@ Route::group(['middleware'=>['auth','active']],function (){
         Route::get('/elements',[\App\Http\Controllers\TemplatesController::class,'elements'])->name('elements');
         Route::get('/items',[\App\Http\Controllers\TemplatesController::class,'items'])->name('items');
         Route::get('/products',[\App\Http\Controllers\TemplatesController::class,'products'])->name('products');
+
+        Route::get('/bills',[\App\Http\Controllers\TemplatesController::class,'bills'])->name('bills');
+        Route::get('/production-orders',[\App\Http\Controllers\TemplatesController::class,'production-orders'])->name('production-orders');
     });
 
 

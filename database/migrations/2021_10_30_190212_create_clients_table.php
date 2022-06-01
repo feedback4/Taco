@@ -26,6 +26,7 @@ class CreateClientsTable extends Migration
             $table->string('payment');
             $table->bigInteger('balance')->nullable();
             $table->boolean('vat')->default(true);
+            $table->string('due_to_days')->nullable()->default(14);
             $table->dateTime('last_action_at')->nullable();
             $table->timestamps();
             $table->softDeletes();

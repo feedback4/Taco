@@ -255,13 +255,12 @@ class BillForm extends Component
                 $item->delete();
             }
 
-
             $this->emit('alert',
                 ['type' => 'info', 'message' => 'Bill Updated Successfully!']);
             $bill =   $this->bill ;
+           
         } else {
             $bill = Bill::create($data);
-
 
             $this->emit('alert',
                 ['type' => 'success', 'message' => 'Bill Created Successfully!']);

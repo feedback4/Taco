@@ -74,8 +74,6 @@ class FinalProductsImporter implements  ToModel ,WithHeadingRow ,SkipsOnError
             'user_id' => $this->userId,
             'inventory_id' => 2,
         ]);
-
-
     }
 
     public function onError(\Throwable $e)

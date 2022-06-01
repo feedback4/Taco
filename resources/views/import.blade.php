@@ -132,6 +132,49 @@
     </div>
 </div>
 
+<div class="row  d-flex justify-content-between ">
+    <div class="card  flex-md-fill m-1 ">
+        <h3 class="card-header">Bills</h3>
+        <form action="{{ route('import.bills') }}" method="POST" enctype="multipart/form-data" class="card-body">
+            @csrf
+            <a class="btn btn-dark" href="{{ route('template.bills') }}">Download Template</a>
+            <hr>
+            <div class="form-group mb-4" style="max-width: 500px; margin: 0 auto;">
+                <div class="custom-file text-left">
+                    <input type="file" name="bills" class="custom-file-input" id="elements">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                @error('bills')
+                <small class="text-danger">{{$message}}</small>
+                @enderror
+            </div>
+
+            <button class="btn btn-primary">Import data</button>
+            {{--            <a class="btn btn-success" href="{{ route('import') }}">Export data</a>--}}
+        </form>
+    </div>
+
+    <div class="card flex-md-fill m-1">
+        <h3 class="card-header">Production Orders</h3>
+        <form action="{{ route('import.production-orders') }}" method="POST" enctype="multipart/form-data" class="card-body">
+            @csrf
+            <a class="btn btn-dark" href="{{ route('template.production-orders') }}">Download Template</a>
+            <hr>
+            <div class="form-group mb-4" style="max-width: 500px; margin: 0 auto;">
+                <div class="custom-file text-left">
+                    <input type="file" name="production-orders" class="custom-file-input" id="items">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+            </div>
+            @error('production-orders')
+            <small class="text-danger">{{$message}}</small>
+            @enderror
+            <button class="btn btn-primary">Import data</button>
+            {{--            <a class="btn btn-success" href="{{ route('import') }}">Export data</a>--}}
+        </form>
+    </div>
+
+</div>
 
 @endsection
 

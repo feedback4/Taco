@@ -48,7 +48,6 @@ class CompaniesImporter implements ToModel ,WithHeadingRow ,WithBatchInserts ,Wi
     public function onError(\Throwable $e)
     {
         // Handle the exception how you'd like.
-
         toastError('something went wrong please try again later','oops');
         throw($e);
     }

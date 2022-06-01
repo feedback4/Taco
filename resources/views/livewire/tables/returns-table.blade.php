@@ -5,8 +5,11 @@
         </div>
         <div class="col-xs-2">
             <select wire:model="orderBy" class="form-control-sm">
-                <option value="paid_at">Paid At</option>
-                <option>Amount</option>
+                <option value="number">Invoice Number</option>
+                <option>Total</option>
+                <option>Status</option>
+                <option>billed_at</option>
+                <option>due_at</option>
             </select>
         </div>
         <div class="col-xs-2">
@@ -30,26 +33,29 @@
             <thead>
             <tr>
                 <th>Number</th>
-                <th>Vendor</th>
+                <th>Client</th>
                 <th>Amount</th>
-                <th>Paid At</th>
-                <th>Actions</th>
-
+                <th>Status</th>
+                <th>Invoiced_at</th>
+                <th>due_at</th>
+                <th>notes</th>
             </tr>
             </thead>
             <tbody>
-            @forelse($payments as $payment)
+            @forelse($returns as $return)
                 <tr>
-                    <td><a href="{{route('purchases.bills.show',$payment->bill->id)}}">{{$payment->bill?->code}}</a></td>
-                    <td>{{$payment->vendor?->name ?? 'no data'}}</td>
-                    <td>{{$payment->amount}} EGP</td>
-                    <td>{{$payment->paid ?? ''}}</td>
-
+                    <td><a href="{{route('sales.returned.show',$return->id)}}">{{$return->number ?? 'no data'}}</a> </td>
+                    <td>{{$return->client->name}}</td>
+                    <td>{{$return->total}} {{setting('currency')}}</td>
+                    <td>{{$return->status->name}}</td>
+                    <td>{{$return->returned}}</td>
+                    <td>{{$return->due}}</td>
+                    <td>{{$return->notes ?? 'no notes'}}</td>
                     <td>
                         <div class="d-flex justify-content-between">
-                            <a href="{{ route('purchases.payments.edit',$payment->id) }}"
+                            <a href="{{ route('sales.invoices.edit',$invoice->id) }}"
                                class="btn btn-secondary">edit</a>
-                            <form action="{{route('purchases.payments.destroy',$payment->id) }}" method="POST">
+                            <form action="{{route('sales.invoices.destroy',$invoice->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <input type="submit" class="btn btn-danger" value="delete">
@@ -59,14 +65,14 @@
                 </tr>
             @empty
                 <tr>
-                    <td>No Payments yet</td>
+                    <td>No Returns yet</td>
                 </tr>
             @endforelse
             </tbody>
         </table>
     </div>
     <div class="d-flex justify-content-center">
-        {{ $payments->links() }}
+        {{ $returns->links() }}
     </div>
 </div>
 

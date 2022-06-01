@@ -65,9 +65,12 @@ class ElementsImporter implements ToModel ,WithHeadingRow ,WithBatchInserts ,Wit
             toastWarning('this code has been used before',$row['code']);
             return null;
         }
-
-        $category = $this->categories->where('name',trim($row['category']))->first() ?? Category::create(['name' => trim( $row['category']) ,'type'=>'element']);
-
+        // ?? Category::create(['name' => trim( $row['category']) ,'type'=>'element'])
+        $category = $this->categories->where('name',trim($row['category']))->first() ;
+        if ( !$category  ) {
+            toastWarning('Category not found',$row['category']);
+            return null;
+        }
         return new Element([
             'name'              =>  trim($row["name"]),
             'code'             =>  trim($row["code"]),
