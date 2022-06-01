@@ -81,4 +81,25 @@ class TemplatesController extends Controller
             return back();
         }
     }
+
+    public function bills ()
+    {
+        $file = public_path() . "/storage/templates/bills.xlsx";
+        if (file_exists($file)) {
+            return \Response::download($file, 'bills.xlsx');
+        } else {
+            toastError('File not found.');
+            return back();
+        }
+    }
+    public function productionOrders ()
+    {
+        $file = public_path() . "/storage/templates/production-orders.xlsx";
+        if (file_exists($file)) {
+            return \Response::download($file, 'production orders.xlsx');
+        } else {
+            toastError('File not found.');
+            return back();
+        }
+    }
 }

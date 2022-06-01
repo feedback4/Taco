@@ -46,6 +46,7 @@ class ConstansSeeder extends Seeder
             'inventory',
             'production',
             'sales',
+            'banking',
             'reports',
             'setting'
         ];
@@ -131,12 +132,12 @@ class ConstansSeeder extends Seeder
                 'OK-214' => 'Grinding Powder',
             ];
 
-        foreach ($elements as $k => $elem) {
-            Element::factory()->create([
-                'name' => $elem,
-                'code' =>  $k,
-            ]);
-        }
+//        foreach ($elements as $k => $elem) {
+//            Element::factory()->create([
+//                'name' => $elem,
+//                'code' =>  $k,
+//            ]);
+//        }
 
 //        Lead,Contacted,Sample Requested,Sample Submitted,Order,Manufacturing,Rejected,Done,InActive
 //
@@ -186,6 +187,11 @@ class ConstansSeeder extends Seeder
             'location' => 'factory',
         ]);
         Inventory::factory()->create([
+            'name' => 'production',
+            'type' => 'mix',
+            'location' => 'factory',
+        ]);
+        Inventory::factory()->create([
             'name' => 'final product',
             'type' => 'products',
             'location' => 'factory',
@@ -213,7 +219,6 @@ class ConstansSeeder extends Seeder
             'avg_salary' => 2000,
             'element_last_price' => 0,
             'product_last_price' => 0,
-
         ];
         foreach ($settings as $key => $val) {
             Setting::factory()->create([
@@ -221,7 +226,6 @@ class ConstansSeeder extends Seeder
                 'value' => $val,
             ]);
         }
-
 
       //  User::factory(1000)->create();
      //   Formula::factory(10000)->create();

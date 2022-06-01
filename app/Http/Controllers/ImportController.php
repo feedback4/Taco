@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ProductsInventoryExporter;
+use App\Imports\BillsImporter;
 use App\Imports\ClientsImporter;
 use App\Imports\CompaniesImporter;
 use App\Imports\ElementsImporter;
 use App\Imports\FinalProductsImporter;
 use App\Imports\ItemsImporter;
+use App\Imports\ProductionOrdersImporter;
 use App\Imports\VendorsImporter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -138,6 +140,39 @@ class ImportController extends Controller
 
         toastSuccess('check Final Product inventory','products imported');
 
+        return back();
+    }
+
+    public function bills(Request $request)
+    {
+        $this->validate($request ,[
+            'bills'          => 'required|mimes:xlsx',
+        ]);
+        // dd( $request->file('vendors'));
+
+        $importer = new BillsImporter()  ;
+        $importer->import($request->file('bills'));
+        //  Excel::import(new ItemsImporter(), $request->file('items')->store('temp'));
+        if (! $importer->errors()->isEmpty()){
+            dd($importer->errors());
+        }
+        toastSuccess('bills imported');
+        return back();
+    }
+    public function productionOrders(Request $request)
+    {
+        $this->validate($request ,[
+            'production-orders'          => 'required|mimes:xlsx',
+        ]);
+        // dd( $request->file('vendors'));
+
+        $importer = new ProductionOrdersImporter()  ;
+        $importer->import($request->file('items'));
+        //  Excel::import(new ItemsImporter(), $request->file('items')->store('temp'));
+        if (! $importer->errors()->isEmpty()){
+            dd($importer->errors());
+        }
+        toastSuccess('Production Orders imported');
         return back();
     }
 

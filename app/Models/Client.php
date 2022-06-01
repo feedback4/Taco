@@ -23,6 +23,7 @@ class Client extends Model
         'balance',
         'vat',
         'code',
+        'due_to_days'
     ];
 
 

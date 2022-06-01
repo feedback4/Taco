@@ -166,6 +166,13 @@
                                 </a>
                             </li>
 
+                            <li class="nav-item">
+                                <button class="nav-link  text-left " disabled href="{{--{{route('purchases.returns.index')}}--}}">
+                                    <p>
+                                        Returns
+                                    </p>
+                                </button>
+                            </li>
                         </ul>
                     </li>
                 @endcan
@@ -189,9 +196,23 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link  " href="{{route('inventory.production')}}">
+                                    <p>
+                                        @lang('Production')
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link  " href="{{route('inventory.products')}}">
                                     <p>
                                         Final Products
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link  " href="{{route('inventory.transfer')}}">
+                                    <p>
+                                        Transfer
                                     </p>
                                 </a>
                             </li>
@@ -258,8 +279,51 @@
                                     </p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <button class="nav-link  text-left " disabled href=" {{route('sales.returns.index')}}">
+                                    <p>
+                                        Returns
+                                    </p>
+                                </button>
+                            </li>
                         </ul>
                     </li>
+                @endcan
+
+                @can('safe')
+
+                    <li class="nav-item">
+                        <a class="nav-link  " href="">
+                            <i class='bx bxs-bank bx-xs '></i>
+                            <p>
+                                Banking
+                                <i class='bx bxs-left-arrow right'></i>
+                            </p>
+
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <button class="nav-link  text-left" disabled href="{{route('banking.accounts.index')}}">
+                                    <p>
+                                        Accounts
+                                    </p>
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link  text-left" disabled href="{{route('banking.transactions.index')}}">
+                                    <p>
+                                        Transactions
+                                    </p>
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link  text-left" disabled href="{{route('banking.transfers.index')}}">
+                                    <p>
+                                        Transfers
+                                    </p>
+                                </button>
+                            </li>
+                        </ul>
                 @endcan
                 <li class="nav-header text-muted ">Controls</li>
                 @can('reports')

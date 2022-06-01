@@ -14,13 +14,20 @@ class InventoryController extends Controller
 {
     public function __construct()
     {
+
         $this->middleware('permission:inventory');
     }
 
     public function index()
     {
-  $inventory = Inventory::first();
+        $inventory = Inventory::first();
         return view('inventory.index',compact('inventory'));
+    }
+    public function transfer()
+    {
+        $inventories = Inventory::select('id','name','type')->get();
+        dd($inventories);
+        return view('inventory.transfer',compact('inventories'));
     }
     public function show($id)
     {
@@ -57,6 +64,40 @@ class InventoryController extends Controller
        toastSuccess('Items added to Inventory successfully');
        return redirect()->route('inventory.index');
     }
+
+    public function production ()
+    {
+        $inventory = Inventory::where('name','production')->first();
+        return view('inventory.production',compact('inventory'));
+    }
+    public function productionPending()
+    {
+        $inventory = Inventory::where('name','production')->first();
+        $pendingItems = Item::where('type','product')->doesnthave('inventory')->get();
+
+        return view('inventory.production-pending',compact('pendingItems'));
+    }
+
+    public function addProduction(Request $request)
+    {
+
+        $this->validate($request,[
+            'items' => 'array'
+        ]);
+        if (!$request->items){
+            toastError('Pleas Select some items to move');
+            return back();
+        }
+
+        foreach ($request->items as $id){
+            $item = Item::find($id) ;
+            $item->inventory_id = 2;
+            $item->update();
+        }
+        toastSuccess('Items added to Inventory successfully');
+        return redirect()->route('inventory.products');
+    }
+
     public function products()
     {
         $inventory = Inventory::where('type','products')->first();
