@@ -75,13 +75,17 @@ Route::group(['middleware'=>['auth','active']],function (){
         Route::get('/products/pending',[\App\Http\Controllers\Inventory\InventoryController::class,'productsPending'])->name('products.pending');
         Route::post('/products/add',[\App\Http\Controllers\Inventory\InventoryController::class,'addProducts'])->name('products.add');
 
+        Route::get('transfer-orders',[\App\Http\Controllers\Inventory\TransferOrdersController::class,'index'])->name('transfer-orders.index');
+        Route::get('transfer-orders/create',[\App\Http\Controllers\Inventory\TransferOrdersController::class,'create'])->name('transfer-orders.create');
+
         Route::get('/{id}',[\App\Http\Controllers\Inventory\InventoryController::class,'show'])->name('show');
         Route::get('/{id}/insert',[\App\Http\Controllers\Inventory\InventoryController::class,'insert'])->name('insert');
 
-        Route::get('transfer',[\App\Http\Controllers\Inventory\InventoryController::class,'transfer'])->name('transfer');
+
+
       //  Route::resource('transfer-orders',\App\Http\Controllers\Inventory\TransferOrdersController::class);
 
-       // Route::get('transferorders',[\App\Http\Controllers\Inventory\TransferOrdersController::class,'index'])->name('transferorders.index');
+
     });
 
     Route::group(['prefix'=>'production', 'as' => 'production.',],function (){

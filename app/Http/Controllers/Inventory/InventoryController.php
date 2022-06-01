@@ -12,23 +12,23 @@ use Illuminate\Http\Request;
 
 class InventoryController extends Controller
 {
-    public function __construct()
-    {
-
-        $this->middleware('permission:inventory');
-    }
+//    public function __construct()
+//    {
+//        dd(333);
+//        $this->middleware('permission:inventory');
+//    }
 
     public function index()
     {
         $inventory = Inventory::first();
         return view('inventory.index',compact('inventory'));
     }
-    public function transfer()
-    {
-        $inventories = Inventory::select('id','name','type')->get();
-        dd($inventories);
-        return view('inventory.transfer',compact('inventories'));
-    }
+//    public function transfer()
+//    {
+//        $inventories = Inventory::select('id','name','type')->get();
+//        dd($inventories);
+//        return view('inventory.transfer',compact('inventories'));
+//    }
     public function show($id)
     {
        $inventory = Inventory::findOrFail($id);

@@ -198,10 +198,11 @@
                             <li class="nav-item">
                                 <a class="nav-link  " href="{{route('inventory.production')}}">
                                     <p>
-                                        @lang('Production')
+                                        Production
                                     </p>
                                 </a>
                             </li>
+
                             <li class="nav-item">
                                 <a class="nav-link  " href="{{route('inventory.products')}}">
                                     <p>
@@ -209,10 +210,11 @@
                                     </p>
                                 </a>
                             </li>
+
                             <li class="nav-item">
-                                <a class="nav-link  " href="{{route('inventory.transfer')}}">
+                                <a class="nav-link  " href="{{route('inventory.transfer-orders.index')}}">
                                     <p>
-                                        Transfer
+                                        @lang('transfer')
                                     </p>
                                 </a>
                             </li>

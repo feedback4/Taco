@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Inventory;
 
 use App\Http\Controllers\Controller;
+use App\Models\Item;
 use App\Models\TransferOrder;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -21,7 +22,7 @@ class TransferOrdersController extends Controller
     public function index()
     {
     $transfers = TransferOrder::get();
-    return view('inventory.transfers.index');
+    return view('inventory.transfers.index',compact('transfers'));
     }
 
     /**
@@ -31,7 +32,8 @@ class TransferOrdersController extends Controller
      */
     public function create()
     {
-        //
+      //  $items = Item::where('inventory_id' , '!=', 2)->get();
+        return view('inventory.transfers.create');
     }
 
     /**
